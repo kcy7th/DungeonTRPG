@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,9 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Item\**" />
+    <Compile Remove="Shop\**" />
+    <EmbeddedResource Remove="Item\**" />
+    <EmbeddedResource Remove="Shop\**" />
+    <None Remove="Item\**" />
+    <None Remove="Shop\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Manager\" />
-    <Folder Include="Item\" />
-    <Folder Include="Shop\" />
     <Folder Include="Scenes\" />
     <Folder Include="Utility\" />
   </ItemGroup>
