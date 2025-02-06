@@ -7,4 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Manager\" />
+    <Folder Include="Item\" />
+    <Folder Include="Shop\" />
+    <Folder Include="Scenes\" />
+    <Folder Include="Utility\" />
+  </ItemGroup>
+
 </Project>
