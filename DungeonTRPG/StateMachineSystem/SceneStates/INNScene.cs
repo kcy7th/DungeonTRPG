@@ -29,7 +29,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            Console.WriteLine("INN");
+            Console.WriteLine("여관");
             Console.WriteLine("");
             ViewSelect();
             input = Console.ReadLine();

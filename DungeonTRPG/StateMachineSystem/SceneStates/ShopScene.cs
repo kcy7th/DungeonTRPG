@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class DungeonScene : SceneState
+    internal class ShopScene : SceneState
     {
         string input = "";
-        internal DungeonScene(StateMachine stateMachine) : base(stateMachine)
+        internal ShopScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -27,7 +27,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            Console.WriteLine("던전 입구");
+            Console.WriteLine("상점");
             Console.WriteLine("");
             ViewSelect();
             input = Console.ReadLine();

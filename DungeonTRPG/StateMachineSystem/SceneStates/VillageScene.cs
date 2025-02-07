@@ -11,6 +11,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         string input = "";
         DungeonScene dungeonScene;
         INNScene innScene;
+        ShopScene shopScene;
+
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -29,7 +31,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            Console.WriteLine("Village");
+            Console.WriteLine("마을");
             Console.WriteLine("");
             ViewSelect();
             input = Console.ReadLine();  
@@ -48,6 +50,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     stateMachine.ChangeState(dungeonScene);
                     break;
                 case "2":
+                    if (shopScene == null)
+                    {
+                        shopScene = new ShopScene(stateMachine);
+                    }
+                    stateMachine.ChangeState(shopScene);
                     break;
                 case "3":
                     if (innScene == null)
