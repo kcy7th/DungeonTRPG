@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.Entity.Utility
+namespace DungeonTRPG.EntitySystem.Utility.Enums
 {
-    internal class EntityStat
+    public enum Job
     {
+        None,
+        Warrior
     }
 }
