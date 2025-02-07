@@ -32,7 +32,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("마을");
+            Console.ResetColor();
             Console.WriteLine("");
 
             // 선택창 보기
@@ -104,11 +106,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         // 선택창 보기 함수
         private void ViewSelect()
         {
-            Console.WriteLine("1. 던전 입구");
-            Console.WriteLine("2. 상점");
-            Console.WriteLine("3. 여관");
-            Console.WriteLine("4. 인벤토리");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("=================================================");
+            Console.WriteLine("||            이동할 곳을 선택해 주세요        ||");
+            Console.WriteLine("|| 1. 던전 입구, 2. 상점, 3. 여관, 4. 인벤토리 ||");
+            Console.WriteLine("=================================================");
             Console.WriteLine("");
+            Console.ResetColor();
         }
     }
 }
