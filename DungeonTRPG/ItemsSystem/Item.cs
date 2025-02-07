@@ -20,10 +20,9 @@ namespace DungeonTRPG.Items
         }
 
         public string GetName() => name;
-
         public string GetDescription() => description;
 
-        // 아이템 사용 가능 여부 확인
+        // 해당 직업이 아이템을 사용할 수 있는지 확인
         public bool CanUse(Job job) => allowedJobs.Contains(job);
 
         // 아이템 복제

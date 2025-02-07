@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
 
@@ -8,18 +7,22 @@ namespace DungeonTRPG.ShopSystem
 {
     internal class Shop
     {
-        private List<Item> availableItems = new List<Item>();  // 판매 아이템 목록
+        private List<Item> availableItems = new List<Item>(); // 판매 아이템 목록
 
-        // 상점에 아이템 추가
         public void AddItemToShop(Item item)
         {
             availableItems.Add(item);
         }
 
-        // 아이템 구매 (인벤에 추가, 상점에서 제거)
+        // 아이템 구매 (ActiveItem은 가방에 추가, EquipItem은 인벤토리에 추가)
         public bool BuyItem(Item item, Inventory playerInventory)
         {
-            if (playerInventory.AddItem(item))
+            if (item is ActiveItem activeItem && playerInventory.AddItemToBag(activeItem))
+            {
+                availableItems.Remove(item);
+                return true;
+            }
+            else if (item is EquipItem equipItem && playerInventory.EquipItem(equipItem))
             {
                 availableItems.Remove(item);
                 return true;
@@ -27,7 +30,7 @@ namespace DungeonTRPG.ShopSystem
             return false;
         }
 
-        // 아이템 목록 반환
+        // 판매 아이템 목록 반환
         public List<Item> GetItems()
         {
             return availableItems;
