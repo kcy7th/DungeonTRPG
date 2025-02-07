@@ -30,6 +30,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             base.Update();
 
             Console.WriteLine("Village");
+            Console.WriteLine("");
+            ViewSelect();
             input = Console.ReadLine();  
             SelectScene(input);
         }
@@ -38,14 +40,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             switch (input)
             {
-                case "던전":
+                case "1":
                     if (dungeonScene == null)
                     {
                         dungeonScene = new DungeonScene(stateMachine);
                     }
                     stateMachine.ChangeState(dungeonScene);
                     break;
-                case "여관":
+                case "2":
+                    break;
+                case "3":
                     if (innScene == null)
                     {
                         innScene = new INNScene(stateMachine);
@@ -56,6 +60,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
+        }
+
+        private void ViewSelect()
+        {
+            Console.WriteLine("1. 던전 입구");
+            Console.WriteLine("2. 상점");
+            Console.WriteLine("3. 여관");
         }
     }
 }

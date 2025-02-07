@@ -28,6 +28,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             base.Update();
 
             Console.WriteLine("Dungeon");
+            Console.WriteLine("");
+            ViewSelect();
             input = Console.ReadLine();
             SelectScene(input);
         }
@@ -36,7 +38,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             switch (input)
             {
-                case "마을":
+                case "1":
                     stateMachine.GoPreviousState();
                     stateMachine.PreviousDataClear();
                     break;
@@ -44,6 +46,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     break;
             }
         }
-
+        private void ViewSelect()
+        {
+            Console.WriteLine("1. 마을");
+        }
     }
 }
