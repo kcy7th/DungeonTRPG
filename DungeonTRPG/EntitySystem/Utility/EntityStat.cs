@@ -11,7 +11,7 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class EntityStat
     {
-        private int Level { get; }
+        private int Lv { get; }
         private int Exp { get; }
         private int Hp { get; }
         private int MaxHp { get; }
@@ -23,7 +23,7 @@ namespace DungeonTRPG.Entity.Utility
 
         public EntityStat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
         {
-            Level = level;
+            Lv = level;
             Exp = exp;
             Hp = maxHp;
             MaxHp = maxHp;

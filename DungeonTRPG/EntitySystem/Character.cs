@@ -18,5 +18,31 @@ namespace DungeonTRPG.Entity
             Name = name;
             Gold = gold;
         }
+
+        public void Attack()
+        {
+
+        }
+        
+        public void Defend()
+        {
+
+        }
+
+        public void skill()
+        {
+
+        }
+
+        public void UseItem()
+        {
+
+        }
+
+        public void Run()
+        {
+
+        }
+
     }
 }
