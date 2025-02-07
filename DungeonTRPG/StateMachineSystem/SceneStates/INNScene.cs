@@ -14,6 +14,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         Stopwatch stopwatch = new Stopwatch();
 
+        int restCount = 0;
+
         internal INNScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -41,11 +43,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             // 선택창 보기 
             ViewSelect();
 
+            Console.WriteLine("");
+            if (restCount > 0)
+            {
+                Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
+            }
+
             // 입력
             input = Console.ReadLine();
 
             // 씬 선택 
-            SelectScene(input);
+            SelectScene(input);           
         }
 
         // 씬 선택 함수 
@@ -93,6 +101,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             // HP MP 회복 로직 추가 필요
             Console.WriteLine("HP와 MP가 5 회복되었습니다.");
+            restCount++;
 
             stopwatch.Stop();
         }
