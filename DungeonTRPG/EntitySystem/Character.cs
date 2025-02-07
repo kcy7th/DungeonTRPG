@@ -7,39 +7,46 @@ namespace DungeonTRPG.Entity
 
     internal abstract class Character
     {
-        public EntityStat stat;
+        public Stat stat;
         public State state;
         //public Skill skill;
         public string Name { get; }
         public int Gold { get; set; }
 
-        public Character(string name, int gold)
+        public Character(string name, int gold, Stat stat, State state)
         {
+            this.stat = stat;
+            this.state = state;
             Name = name;
             Gold = gold;
         }
 
+        // 공격
         public void Attack()
         {
 
         }
-        
-        public void Defend()
+
+        // 피격
+        public void Damaged()
         {
 
         }
 
+        // 죽음
+        public void Die()
+        {
+
+        }
+
+        // 스킬
         public void skill()
         {
 
         }
 
-        public void UseItem()
-        {
-
-        }
-
-        public void Run()
+        // 상태이상
+        public void Debuff()
         {
 
         }

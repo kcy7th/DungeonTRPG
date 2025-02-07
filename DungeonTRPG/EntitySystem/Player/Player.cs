@@ -1,24 +1,32 @@
 ﻿using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Utility.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.Entity.Player
 {
-    internal class Player
+    internal class Player : Character
     {
-        public EntityStat Entitystat;
         public Job job;
 
+        public Player(string name, int gold, Stat stat, State state, Job job) : base(name, gold, stat, state)
+        {
+            this.job = job;
+        }
+
+        // 방어
         public void Defend()
         {
 
         }
 
+        // 아이템 사용
         public void UseItem()
+        {
+
+        }
+
+        // 도망
+        public void Run()
         {
 
         }
