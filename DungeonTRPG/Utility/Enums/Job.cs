@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.EntitySystem.Utility.Enums
+namespace DungeonTRPG.Utility.Enums
 {
-    public enum EquipSlot
+    public enum Job
     {
-
+        None,
+        Warrior
     }
 }
