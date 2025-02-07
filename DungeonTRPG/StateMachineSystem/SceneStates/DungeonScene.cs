@@ -48,7 +48,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             switch (input)
             {
                 // 마을로 돌아가기 
-                case "1":
+                case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
 
@@ -68,7 +68,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("================================");
             Console.WriteLine("||  이동할 곳을 선택해 주세요 ||");
-            Console.WriteLine("||           1. 마을          ||");
+            Console.WriteLine("||           0. 마을          ||");
             Console.WriteLine("================================");
             Console.WriteLine("");
             Console.ResetColor();

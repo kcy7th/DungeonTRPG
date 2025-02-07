@@ -22,6 +22,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         public override void Enter()
         {
+            // 휴식 데이터 초기화
+            restCount = 0;
             base.Enter();
         }
 
@@ -43,10 +45,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             // 선택창 보기 
             ViewSelect();
 
-            Console.WriteLine("");
             if (restCount > 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
+                Console.WriteLine("");
+                Console.ResetColor();              
             }
 
             // 입력
@@ -67,7 +71,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     stateMachine.GoPreviousState();
 
                     // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
+                    stateMachine.PreviousDataClear();                   
                     break;
                 case "1":
                     // 휴식 취하기
@@ -85,9 +89,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("=====================================");
-            Console.WriteLine("||    이동할 곳을 선택해 주세요    ||");
+            Console.WriteLine("||       행동을 선택해 주세요      ||");
             Console.WriteLine("||   1. 휴식   0.마을로 돌아가기   ||");
-            Console.WriteLine("====================================");
+            Console.WriteLine("=====================================");
             Console.WriteLine("");
             Console.ResetColor();
         }
@@ -97,10 +101,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             // 5초마다 회복
             stopwatch.Restart();
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
 
-            // HP MP 회복 로직 추가 필요
-            Console.WriteLine("HP와 MP가 5 회복되었습니다.");
+            // HP MP 회복 로직 추가 필요            
             restCount++;
 
             stopwatch.Stop();
