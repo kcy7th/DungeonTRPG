@@ -1,6 +1,5 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.EntitySystem.Utility;
-using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Entity
 {
@@ -11,7 +10,7 @@ namespace DungeonTRPG.Entity
         public State state;
         //public Skill skill;
         public string Name { get; }
-        public int Gold { get; set; }
+        public int Gold { get; }
 
         public Character(string name, int gold)
         {
@@ -19,30 +18,40 @@ namespace DungeonTRPG.Entity
             Gold = gold;
         }
 
+        // 공격
         public void Attack()
         {
 
         }
-        
-        public void Defend()
+
+        // 피격
+        public void Damaged()
         {
 
         }
-
+        
+        // 스킬
         public void skill()
         {
 
         }
 
-        public void UseItem()
-        {
-
-        }
-
+        // 도망
         public void Run()
         {
 
         }
 
+        // 골드 관리
+        public void ManageGold()
+        {
+
+        }
+
+        // 상태이상
+        public void Debuff()
+        {
+
+        }
     }
 }

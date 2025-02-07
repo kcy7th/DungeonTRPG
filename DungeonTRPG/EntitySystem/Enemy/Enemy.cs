@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.Entity.Enemy
 {
-    internal class Enemy : Character
+    internal class Enemy
     {
+        public void DropItem()
+        {
+
+        }
     }
 }
