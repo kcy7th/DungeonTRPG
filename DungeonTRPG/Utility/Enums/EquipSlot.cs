@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.Utility.Enums
 {
-    public enum Job
+    public enum EquipSlot
     {
-        None,
-        Warrior,
-        Mage,
-        Archer
+        HELMET,
+        CHESTPLATE,
+        LEGGINGS,
+        BOOTS,
+        WEAPON,
+        ACCESSORY
     }
 }
