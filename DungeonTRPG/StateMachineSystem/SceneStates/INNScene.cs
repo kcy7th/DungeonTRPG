@@ -31,25 +31,38 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             Console.WriteLine("여관");
             Console.WriteLine("");
+
+            // 선택창 보기 
             ViewSelect(); 
+
+            // 입력
             input = Console.ReadLine();
+
+            // 씬 선택 
             SelectScene(input);
         }
 
+        // 씬 선택 함수 
         private void SelectScene(string input)
         {
             switch (input)
             {
+                // 마을으로 돌아가기
                 case "1":
+                    // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
+
+                    // 이전 데이터 지우기 
                     stateMachine.PreviousDataClear();
                     break;
+                // 다른 입력
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
         }
 
+        // 선택창 보기 함수 
         private void ViewSelect()
         {
             Console.WriteLine("1. 마을");
