@@ -11,14 +11,14 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class EntityStat
     {
-        private int Lv { get; }
-        private int Exp { get; }
-        private int Hp { get; }
-        private int MaxHp { get; }
-        private int Mp { get; }
-        private int MaxMp { get; }
-        private int Atk { get; }
-        private int Def { get; }
+        public int Lv { get; }
+        public int Exp { get; }
+        public int Hp { get; }
+        public int MaxHp { get; }
+        public int Mp { get; }
+        public int MaxMp { get; }
+        public int Atk { get; }
+        public int Def { get; }
 
 
         public EntityStat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)

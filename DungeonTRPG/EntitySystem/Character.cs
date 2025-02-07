@@ -7,11 +7,11 @@ namespace DungeonTRPG.Entity
 
     internal abstract class Character
     {
-        private EntityStat stat;
-        private State state;
-        //private Skill skill;
-        private string Name { get; }
-        private int Gold { get; set; }
+        public EntityStat stat;
+        public State state;
+        //public Skill skill;
+        public string Name { get; }
+        public int Gold { get; set; }
 
         public Character(string name, int gold)
         {

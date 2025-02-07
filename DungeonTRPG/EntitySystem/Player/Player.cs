@@ -9,6 +9,6 @@ namespace DungeonTRPG.Entity.Player
 {
     internal class Player
     {
-        private Job job;
+        public Job job;
     }
 }
