@@ -9,6 +9,8 @@ namespace DungeonTRPG.Utility.Enums
     public enum Job
     {
         None,
-        Warrior
+        Warrior,
+        Mage,
+        Archer
     }
 }

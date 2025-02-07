@@ -1,6 +1,7 @@
 ﻿using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Player;
 using DungeonTRPG.Interface;
+using DungeonTRPG.StateMachineSystem.SceneStates;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace DungeonTRPG.StateMachineSystem
     internal class StateMachine
     {
         private IState currentState;
-        private Stack<IState> preStates;
+        private Stack<IState> preStates = new Stack<IState>();
 
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }
@@ -20,9 +21,19 @@ namespace DungeonTRPG.StateMachineSystem
         internal int currentFloor { get; set; }
         internal bool isGameOver { get; } = false;
 
+        internal DungeonScene DungeonScene { get; }
+        internal INNScene InnScene { get; }
+        internal ShopScene ShopScene { get; }
+        internal InventoryScene InventoryScene { get; }
+
         internal StateMachine(Player player)
         {
             Player = player;
+
+            DungeonScene = new DungeonScene(this);
+            InnScene = new INNScene(this);
+            ShopScene = new ShopScene(this);
+            InventoryScene = new InventoryScene(this);
         }
 
         internal void ChangeState(IState state)

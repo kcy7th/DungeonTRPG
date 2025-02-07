@@ -1,4 +1,5 @@
-﻿using DungeonTRPG.Utility.Enums;
+﻿using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,17 @@ namespace DungeonTRPG.Entity.Player
 {
     internal class Player
     {
+        public EntityStat Entitystat;
         public Job job;
+
+        public void Defend()
+        {
+
+        }
+
+        public void UseItem()
+        {
+
+        }
     }
 }
