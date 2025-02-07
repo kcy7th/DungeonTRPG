@@ -26,7 +26,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         public override void Update()
         {
-            base.Update();         
+            base.Update();
 
             // 던전 루프  
             DungeonRoop();
@@ -34,43 +34,35 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         // 던전 루프 함수 
         private void DungeonRoop()
-        {           
-            // 루프 불
-            bool isRoop = true;
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("던전");
+            Console.WriteLine("");
+            ViewSelect();
+            input = Console.ReadLine();
 
-            // 메인 루프
-            while (isRoop)
+            switch (input)
             {
-                Console.Clear();
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("던전");
-                Console.WriteLine("");
-                ViewSelect();
-                input = Console.ReadLine();
+                case "1":
+                    IntoDungeon();
+                    input = Console.ReadLine();
+                    break;
+                case "2":
+                    // 인벤토리로 가기 
+                    stateMachine.ChangeState(stateMachine.InventoryScene);
+                    break;
+                case "0":
+                    // 이전 상태로 돌아가기 
+                    stateMachine.GoPreviousState();
 
-                switch (input)
-                {
-                    case "1":
-                        IntoDungeon();
-                        input = Console.ReadLine();
-                        break;
-                    case "2":
-                        // 인벤토리로 가기 
-                        stateMachine.ChangeState(stateMachine.InventoryScene);
-                        isRoop = false;
-                        break;
-                    case "0":
-                        // 이전 상태로 돌아가기 
-                        stateMachine.GoPreviousState();
-
-                        // 이전 데이터 지우기 
-                        stateMachine.PreviousDataClear();
-                        isRoop = false;
-                        break;
-                    default:
-                        break;
-                }
+                    // 이전 데이터 지우기 
+                    stateMachine.PreviousDataClear();
+                    break;
+                default:
+                    break;
             }
+
         }
 
         // 던전 내 선택지 보기 함수
