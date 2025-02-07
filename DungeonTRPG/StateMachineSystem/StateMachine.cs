@@ -25,6 +25,9 @@ namespace DungeonTRPG.StateMachineSystem
         internal INNScene InnScene { get; }
         internal ShopScene ShopScene { get; }
         internal InventoryScene InventoryScene { get; }
+        internal StateScene StateScene { get; }
+
+
 
         internal StateMachine(Player player)
         {
@@ -34,6 +37,7 @@ namespace DungeonTRPG.StateMachineSystem
             InnScene = new INNScene(this);
             ShopScene = new ShopScene(this);
             InventoryScene = new InventoryScene(this);
+            StateScene = new StateScene(this);
         }
 
         internal void ChangeState(IState state)

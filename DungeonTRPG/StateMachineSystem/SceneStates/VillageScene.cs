@@ -70,7 +70,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 // 상태 보기
                 case "5":
                     // 상태 인벤토리로 변경
-                    //stateMachine.ChangeState(stateMachine.StateScene);
+                    stateMachine.ChangeState(stateMachine.StateScene);
                     break;
                 // 게임 종료
                 case "0":
