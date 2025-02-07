@@ -1,4 +1,7 @@
 ﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Player;
+using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.Interface;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -8,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.EntitySystem.ActiveEffect
 {
-    internal class RecklessCharge
+    internal class RecklessCharge: IEffect
     {
 
         private int amount;

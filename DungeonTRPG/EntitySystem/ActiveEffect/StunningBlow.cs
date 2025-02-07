@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.EntitySystem.ActiveEffect
 {
-    internal class StunningBlow
+    internal class StunningBlow: IEffect
     {
         private int amount;
 
