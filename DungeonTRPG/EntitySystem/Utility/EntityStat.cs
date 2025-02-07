@@ -1,4 +1,13 @@
-﻿namespace DungeonTRPG.Entity.Utility
+﻿using DungeonTRPG.Utility.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection.Emit;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace DungeonTRPG.Entity.Utility
 {
     internal class EntityStat
     {
@@ -12,7 +21,7 @@
         public int Def { get; }
 
 
-        private EntityStat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
+        public EntityStat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
         {
             Lv = level;
             Exp = exp;
