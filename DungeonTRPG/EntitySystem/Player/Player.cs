@@ -22,6 +22,8 @@ namespace DungeonTRPG.Entity.Player
         // 아이템 사용
         public void UseItem()
         {
+            string ItemNum = Console.ReadLine();
+            //ItemNum = int.TryParse(ItemNum, out itemNum)
 
         }
 
