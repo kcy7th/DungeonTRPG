@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.Ability
 {
-    internal class HpRecovery : IAbility
+    internal class HpRecovery
     {
         public void Invoke(Character character)
         {
