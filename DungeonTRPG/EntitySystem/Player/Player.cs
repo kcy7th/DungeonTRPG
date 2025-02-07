@@ -1,5 +1,5 @@
 ﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.Utility.Enums;
+using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DungeonTRPG.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         public override void Invoke(Character character)
         {
-            Character.Health+=Amount;
+            //Character.Health+=Amount;
         }
     }
 }

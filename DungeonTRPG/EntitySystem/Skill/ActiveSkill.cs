@@ -32,13 +32,15 @@ namespace DungeonTRPG.EntitySystem.Skill
             
             //if (Character.Stat.mp >= Resource) //캐릭터의 마나가 소모값보다 크거나 같다면
             //{
-                Character.Stat.mp-=Resource; //캐릭터의 마나를 소모값만큼 감소
-                //이후 스킬 시전
-                foreach (var effect in ActiveEffects)
-                {
-                    effect.Invoke(character);
-                }
-                //이후 스킬 성공 메서드 출력
+            
+            //Character.Stat.mp-=Resource; //캐릭터의 마나를 소모값만큼 감소
+            
+            //이후 스킬 시전
+            foreach (var effect in ActiveEffects)
+            {
+                effect.Invoke(character);
+            }
+            //이후 스킬 성공 메서드 출력
             //}
             //else
             //{
