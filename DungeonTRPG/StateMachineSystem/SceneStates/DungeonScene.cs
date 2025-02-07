@@ -8,7 +8,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
     internal class DungeonScene : SceneState
     {
-        string input = "";
+        private string input = "";
+
         internal DungeonScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -25,54 +26,73 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         public override void Update()
         {
-            base.Update();
+            base.Update();         
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("던전 입구");
-            Console.ResetColor();
-            Console.WriteLine("");
-
-            // 선택창 보기 
-            ViewSelect();
-
-            // 입력
-            input = Console.ReadLine();
-
-            // 씬 선택
-            SelectScene(input);
+            // 던전 루프  
+            DungeonRoop();
         }
 
-        // 씬 선택 함수 
-        private void SelectScene(string input)
-        {
-            switch (input)
-            {
-                // 마을로 돌아가기 
-                case "0":
-                    // 이전 상태로 돌아가기 
-                    stateMachine.GoPreviousState();
+        // 던전 루프 함수 
+        private void DungeonRoop()
+        {           
+            // 루프 불
+            bool isRoop = true;
 
-                    // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
-                    break;
-                // 다른 입력
-                default:
-                    Console.WriteLine("잘못된 입력입니다.");
-                    break;
+            // 메인 루프
+            while (isRoop)
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("던전");
+                Console.WriteLine("");
+                ViewSelect();
+                input = Console.ReadLine();
+
+                switch (input)
+                {
+                    case "1":
+                        IntoDungeon();
+                        input = Console.ReadLine();
+                        break;
+                    case "2":
+                        // 인벤토리로 가기 
+                        stateMachine.ChangeState(stateMachine.InventoryScene);
+                        isRoop = false;
+                        break;
+                    case "0":
+                        // 이전 상태로 돌아가기 
+                        stateMachine.GoPreviousState();
+
+                        // 이전 데이터 지우기 
+                        stateMachine.PreviousDataClear();
+                        isRoop = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
-        // 선택창 보기 함수 
+        // 던전 내 선택지 보기 함수
         private void ViewSelect()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("================================");
-            Console.WriteLine("||  이동할 곳을 선택해 주세요 ||");
-            Console.WriteLine("||           0. 마을          ||");
-            Console.WriteLine("================================");
+            Console.WriteLine("=============================================");
+            Console.WriteLine("||            행동을 선택해 주세요         ||");
+            Console.WriteLine("||      1. 탐험 2. 인벤토리 0. 나가기      ||");
+            Console.WriteLine("==============================================");
             Console.WriteLine("");
-            Console.ResetColor();
         }
 
+        private void IntoDungeon()
+        {
+            Console.Clear();
+            Console.WriteLine("던전");
+            Console.WriteLine("");
+            Console.WriteLine("=================================================================================");
+            Console.WriteLine("||                               행동을 선택해 주세요                          ||");
+            Console.WriteLine("||      1. 몬스터 조우 2. 휴식 공간 3. 비밀 상점 4. 의문의 상자 0. 나가기      ||");
+            Console.WriteLine("=================================================================================");
+            Console.WriteLine("");
+        }
     }
 }

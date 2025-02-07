@@ -89,7 +89,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("===========================================================================");
             Console.WriteLine("||                         이동할 곳을 선택해 주세요                     ||");
-            Console.WriteLine("|| 1. 던전 입구  2. 상점  3. 여관  4. 인벤토리 5. 상태 보기 0. 게임 종료 ||");
+            Console.WriteLine("||    1. 던전  2. 상점  3. 여관  4. 인벤토리 5. 상태 보기 0. 게임 종료   ||");
             Console.WriteLine("===========================================================================");
             Console.WriteLine("");
             Console.ResetColor();
