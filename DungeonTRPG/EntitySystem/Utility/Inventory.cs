@@ -7,14 +7,65 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class Inventory
     {
-        private List<Item> items = new List<Item>();  // 아이템 목록
-        private int maxSlots = 10;  // 기본 인벤 슬롯 수
+        private List<Bag> bags = new List<Bag>(); // 가방 리스트
+        private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 
-        
-        // 아이템 추가
-        public bool AddItem(Item item)
+        public Inventory()
         {
-            // 슬롯 남아있을 경우
+            bags.Add(new Bag(10)); // 기본 가방 추가
+        }
+
+        // 가방에 ActiveItem 추가
+        public bool AddItemToBag(ActiveItem item)
+        {
+            foreach (var bag in bags)
+            {
+                if (bag.AddItem(item))
+                    return true;
+            }
+            return false;
+        }
+
+        // 가방 슬롯 구매
+        public void AddBag(Bag newBag)
+        {
+            bags.Add(newBag);
+        }
+
+        public List<Bag> GetBags() => bags;
+
+        // 장착
+        public bool EquipItem(EquipItem item)
+        {
+            equippedItems[item.Slot] = item;
+            return true;
+        }
+
+        // 해제
+        public bool UnequipItem(EquipSlot slot)
+        {
+            return equippedItems.Remove(slot);
+        }
+
+        // 장착된 아이템 확인
+        public EquipItem? GetEquippedItem(EquipSlot slot)
+        {
+            return equippedItems.ContainsKey(slot) ? equippedItems[slot] : null;
+        }
+    }
+
+    internal class Bag
+    {
+        private List<ActiveItem> items = new List<ActiveItem>();
+        private int maxSlots;
+
+        public Bag(int maxSlots = 10)
+        {
+            this.maxSlots = maxSlots;
+        }
+
+        public bool AddItem(ActiveItem item)
+        {
             if (items.Count < maxSlots)
             {
                 items.Add(item);
@@ -23,27 +74,18 @@ namespace DungeonTRPG.Entity.Utility
             return false;
         }
 
-        // 슬롯 확장
+        public bool RemoveItem(ActiveItem item)
+        {
+            return items.Remove(item);
+        }
+
+        public List<ActiveItem> GetItems() => items;
+
+        public int GetMaxSlots() => maxSlots;
+
         public void ExpandSlots(int additionalSlots)
         {
             maxSlots += additionalSlots;
-        }
-
-        // 보유 아이템 리스트
-        public List<Item> GetItems() => items;
-
-        private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>();
-
-        // 아이템 장착, 교체
-        public bool EquipItem(EquipSlot slot, EquipItem item)
-        {
-            equippedItems[slot] = item;
-            return true;
-        }
-
-        public EquipItem? GetEquippedItem(EquipSlot slot)
-        {
-            return equippedItems.ContainsKey(slot) ? equippedItems[slot] : null;
         }
     }
 }

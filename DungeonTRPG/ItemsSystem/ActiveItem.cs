@@ -11,7 +11,7 @@ namespace DungeonTRPG.Items
         {
         }
 
-        // 아이템 복제
+        // 아이템 복제 (가방 내 아이템 관리용)
         public override Item Clone()
         {
             return new ActiveItem(name, description, new List<Job>(AllowedJobs));
