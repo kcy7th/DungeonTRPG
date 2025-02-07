@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachine.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
     internal class SceneState : IState
     {

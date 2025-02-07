@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachine
+namespace DungeonTRPG.StateMachineSystem
 {
     internal class StateMachine
     {
@@ -18,6 +18,7 @@ namespace DungeonTRPG.StateMachine
         internal Enemy Enemy { get; set; }
         internal int ExploredCount { get; set; }
         internal int currentFloor { get; set; }
+        internal bool isGameOver { get; } = false;
 
         internal StateMachine(Player player)
         {
@@ -55,7 +56,7 @@ namespace DungeonTRPG.StateMachine
 
         public void Update()
         {
-            currentState.Update();
+            currentState?.Update();
         }
     }
 }
