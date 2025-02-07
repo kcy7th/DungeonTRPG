@@ -27,6 +27,7 @@ namespace DungeonTRPG.Item
             return description;
         }
 
+        // 아이템 복사 메서드
         public abstract Item Clone();
     }
 }

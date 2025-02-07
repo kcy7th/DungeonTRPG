@@ -14,7 +14,7 @@ namespace DungeonTRPG.Item
 
         public override Item Clone()
         {
-            throw new NotImplementedException();
+            return new ActiveItem(name, description);
         }
     }
 }
