@@ -16,21 +16,28 @@ namespace DungeonTRPG.Entity.Player
         // 방어
         public void Defend()
         {
-
+            isDefense = true;
         }
 
         // 아이템 사용
         public void UseItem()
         {
-            string ItemNum = Console.ReadLine();
-            //ItemNum = int.TryParse(ItemNum, out itemNum)
+            Console.WriteLine("사용할 아이템의 번호를 입력해주세요");
+            string itemNum = Console.ReadLine();
+            int choice = int.Parse(itemNum);
 
-        }
-
-        // 도망
-        public void Run()
-        {
-
+            switch (choice)
+            {
+                case 0:
+                    // 아이템 1
+                    break;
+                case 1:
+                    // 아이템 2
+                    break;
+                // ...
+                default:
+                    break;
+            }
         }
     }
 }

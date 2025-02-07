@@ -1,6 +1,7 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Utility.Enums;
+using System.Security.Cryptography.X509Certificates;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace DungeonTRPG.Entity
@@ -14,7 +15,9 @@ namespace DungeonTRPG.Entity
         public string Name { get; }
         public int Gold { get; set; }
 
-        int finalDamage;
+        public int finalDamage;
+        public bool isDefense = false;
+        public event Action PlayerDie;
 
         public Character(string name, int gold, Stat stat, State state)
         {
@@ -27,7 +30,12 @@ namespace DungeonTRPG.Entity
         // 공격
         public void Attack(Character attacker)
         {
-            Console.WriteLine($"{attacker.Name} 공격!");
+            if (isDefense == true)
+            {
+                finalDamage = finalDamage / 2;
+            }
+
+            Console.WriteLine($"{ attacker.Name } 공격!");
             Console.WriteLine($"{ attacker.Name }이(가) { this.Name }에게 { finalDamage }의 피해를 입혔습니다!.");
         }
 
@@ -39,28 +47,29 @@ namespace DungeonTRPG.Entity
 
             this.stat.CurMp = Math.Max(this.stat.CurHp, 0); // 체력이 음수가 되지 않도록 설정
 
-            if (this.stat.CurHp <= 0)
+            if (this.stat.CurHp <= 0) // this가 플레이어일 경우만 추가하는 방법?
             {
-                Die();
+                // OnPlayerDie?.Invoke();
             }
+
+            else if (this.stat.CurHp <= 0)
+            {
+
+            }
+
             else
             {
-                // 살았을 경우 행동
+                
             }
-        }
-
-        // 죽음 (호출한 캐릭터가 플레이어인지 적인지 파악 필요)
-        public void Die()
-        {
-            // 플레이어가 죽었을 경우
-
-            // 적이 죽었을 경우
         }
 
         // 스킬
         public void skill(Character attacker)
         {
-            Console.WriteLine($"{attacker.Name} 스킬 사용!");
+            // 스킬 로직
+
+
+            Console.WriteLine($"{ attacker.Name } 스킬 사용!");
             Console.WriteLine($"{ attacker.Name }이(가) { this.Name }에게 스킬로 { finalDamage }의 피해를 입혔습니다!.");
         }
 
@@ -69,6 +78,5 @@ namespace DungeonTRPG.Entity
         {
 
         }
-
     }
 }
