@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.Interface
 {
-    //아이템 효과가 상속할 효과 인터페이스
-    internal interface IActiveEffect
+    //스킬 효과가 상속할 스킬 인터페이스
+    internal interface IEffect
     {
-
         void Invoke(Character character);
     }
 }
