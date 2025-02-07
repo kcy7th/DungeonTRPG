@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class DungeonScene : SceneState
+    internal class InventoryScene : SceneState
     {
         string input = "";
-        internal DungeonScene(StateMachine stateMachine) : base(stateMachine)
+
+        internal InventoryScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -27,7 +28,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            Console.WriteLine("던전 입구");
+            Console.WriteLine("인벤토리");
             Console.WriteLine("");
             ViewSelect();
             input = Console.ReadLine();
@@ -47,11 +48,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     break;
             }
         }
+
         private void ViewSelect()
         {
-            Console.WriteLine("1. 마을");
+            Console.WriteLine("1. 돌아가기");
             Console.WriteLine("");
         }
-
     }
 }

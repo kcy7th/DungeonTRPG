@@ -43,12 +43,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     stateMachine.PreviousDataClear();
                     break;
                 default:
+                    Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
         }
         private void ViewSelect()
         {
             Console.WriteLine("1. 마을");
+            Console.WriteLine("");
         }
     }
 }

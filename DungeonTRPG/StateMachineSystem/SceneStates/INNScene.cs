@@ -31,7 +31,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             Console.WriteLine("여관");
             Console.WriteLine("");
-            ViewSelect();
+            ViewSelect(); 
             input = Console.ReadLine();
             SelectScene(input);
         }
@@ -45,6 +45,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     stateMachine.PreviousDataClear();
                     break;
                 default:
+                    Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
         }
@@ -52,6 +53,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         private void ViewSelect()
         {
             Console.WriteLine("1. 마을");
+            Console.WriteLine("");
         }
     }
 }

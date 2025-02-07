@@ -12,6 +12,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         DungeonScene dungeonScene;
         INNScene innScene;
         ShopScene shopScene;
+        InventoryScene inventoryScene;
 
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
@@ -63,6 +64,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     }
                     stateMachine.ChangeState(innScene);
                     break;
+                case "4":
+                    if (inventoryScene == null)
+                    {
+                        inventoryScene = new InventoryScene(stateMachine);
+                    }
+                    stateMachine.ChangeState(inventoryScene);
+                    break;
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
@@ -74,6 +82,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("1. 던전 입구");
             Console.WriteLine("2. 상점");
             Console.WriteLine("3. 여관");
+            Console.WriteLine("4. 인벤토리");
+            Console.WriteLine("");
         }
     }
 }
