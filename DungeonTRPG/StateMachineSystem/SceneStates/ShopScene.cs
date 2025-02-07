@@ -92,7 +92,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             // 상점 아이템 보기
             foreach (Item item in items) 
             {
-                Console.WriteLine(item.GetName());
+                Console.WriteLine($"{item.GetName()} : {item.GetDescription()}");
             }
         }
     }
