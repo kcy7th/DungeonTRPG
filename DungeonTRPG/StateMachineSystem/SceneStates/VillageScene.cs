@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachine.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
     internal class VillageScene : SceneState
     {
@@ -25,6 +25,9 @@ namespace DungeonTRPG.StateMachine.SceneStates
         public override void Update()
         {
             base.Update();
+
+            Console.WriteLine("Village");
+            Console.ReadKey();
         }
     }
 }
