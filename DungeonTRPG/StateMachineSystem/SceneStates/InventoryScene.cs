@@ -36,6 +36,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             // 선택창 보기 
             ViewSelect();
 
+            // 인벤토리 보기
+            ViewInventory();
+
             // 입력
             input = Console.ReadLine();
 
@@ -73,6 +76,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("================================");
             Console.WriteLine("");
             Console.ResetColor();
+        }
+        
+        // 인벤토리 보기 함수 
+        private void ViewInventory()
+        {
+
         }
     }
 }

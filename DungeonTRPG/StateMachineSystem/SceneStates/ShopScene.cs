@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DungeonTRPG.Items;
+using DungeonTRPG.ShopSystem;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +11,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
     internal class ShopScene : SceneState
     {
         string input = "";
+
+        // 상점 생성
+        Shop shop = new Shop();
+
         internal ShopScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -34,6 +40,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             
             // 선택창 보기 
             ViewSelect();
+
+            // 상점 아이템 보기
+            ViewShopItems();
 
             // 입력
             input = Console.ReadLine();
@@ -72,6 +81,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("================================");
             Console.WriteLine("");
             Console.ResetColor();
+        }
+
+        // 상점 아이템 보기 함수 
+        private void ViewShopItems()
+        {
+            // 상점 아이템 불러오기 
+            List<Item> items = shop.GetItems();
+
+            // 상점 아이템 보기
+            foreach (Item item in items) 
+            {
+                Console.WriteLine(item.GetName());
+            }
         }
     }
 }
