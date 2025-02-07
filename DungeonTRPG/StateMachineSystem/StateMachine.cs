@@ -12,7 +12,7 @@ namespace DungeonTRPG.StateMachineSystem
     internal class StateMachine
     {
         private IState currentState;
-        private Stack<IState> preStates;
+        private Stack<IState> preStates = new Stack<IState>();
 
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }
