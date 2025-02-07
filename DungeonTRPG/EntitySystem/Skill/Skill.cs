@@ -1,5 +1,6 @@
 ﻿using DungeonTRPG.Entity;
 using DungeonTRPG.Interface;
+using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,19 +10,38 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.EntitySystem.Skill
 {
-    internal abstract class EffectSystem : ISkill
+    internal class Skill
     {
-        protected string name { get; }
-        protected string description { get; }
-        public  EffectSystem(string name, string description)
+        public string name { get; }
+        public string description { get; }
+        public UseableIn useablein { get; }
+        public List<IEffect> effects = new List<IEffect>();
+
+        public Skill(string name, string description, UseableIn useablein)
         {
+            this.useablein = useablein;
             this.name = name;
             this.description = description;
         }
-
-        public virtual void UseSkill(Character character)
+        public void AddEffect(IEffect effect)
         {
-            Debug.Print("스킬 시전이 할당되지 않았음");
+            effects.Add(effect);
+        }
+
+        public Skill(string name, string description, UseableIn useablein, List<IEffect> effects)
+        {
+            this.name = name;
+            this.description = description;
+            this.useablein = useablein;
+            this.effects = effects;
+            this.useablein = useablein;
+        }
+        public void UseSkill(Character character)
+        {
+            foreach (var skill in effects)
+            {
+                skill.UseEffect(character);
+            }
         }
     }
 }
