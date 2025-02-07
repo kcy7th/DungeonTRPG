@@ -74,7 +74,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     break;
                 // 게임 종료
                 case "0":
-                    //stateMachine.isGameOver = true;
+                    stateMachine.isGameOver = true;
                     break;
                 // 다른 입력
                 default:

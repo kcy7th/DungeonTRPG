@@ -84,12 +84,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("================================");
             Console.WriteLine($"||   이름 :  ||");
             Console.WriteLine($"||   직업 :  {stateMachine.Player.job} ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Entitystat?.Lv} ||");
-            Console.WriteLine($"||   경험치 : {stateMachine.Player.Entitystat?.Exp} ||");
-            Console.WriteLine($"||   공격력 : {stateMachine.Player.Entitystat?.Atk} ||");
-            Console.WriteLine($"||   방어력 : {stateMachine.Player.Entitystat?.Def} ||");
-            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Entitystat?.Mp} / {stateMachine.Player.Entitystat?.MaxHp} ||");
-            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Entitystat?.Mp} / {stateMachine.Player.Entitystat?.MaxMp} ||");
+            Console.WriteLine($"||   레벨 :  {stateMachine.Player.stat.Lv} ||");
+            Console.WriteLine($"||   경험치 : {stateMachine.Player.stat.Exp} ||");
+            Console.WriteLine($"||   공격력 : {stateMachine.Player.stat.Atk} ||");
+            Console.WriteLine($"||   방어력 : {stateMachine.Player.stat.Def} ||");
+            Console.WriteLine($"||   현재 HP : {stateMachine.Player.stat.CurMp} / {stateMachine.Player.stat.MaxHp} ||");
+            Console.WriteLine($"||   현재 MP : {stateMachine.Player.stat.CurMp} / {stateMachine.Player.stat.MaxMp} ||");
             Console.WriteLine("================================");
             Console.WriteLine("");
             Console.ResetColor();

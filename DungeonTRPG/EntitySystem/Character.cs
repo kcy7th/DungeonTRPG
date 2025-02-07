@@ -19,7 +19,7 @@ namespace DungeonTRPG.Entity
         public bool isDefense = false;
         public event Action PlayerDie;
 
-        public Character(string name, int gold, Stat stat, State state)
+        public Character(string name, int gold, Stat stat)
         {
             this.stat = stat;
             this.state = state;

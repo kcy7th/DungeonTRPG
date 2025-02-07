@@ -19,7 +19,7 @@ namespace DungeonTRPG.StateMachineSystem
         internal Enemy Enemy { get; set; }
         internal int ExploredCount { get; set; }
         internal int currentFloor { get; set; }
-        internal bool isGameOver { get; } = false;
+        internal bool isGameOver { get; set; } = false;
 
         internal DungeonScene DungeonScene { get; }
         internal INNScene InnScene { get; }

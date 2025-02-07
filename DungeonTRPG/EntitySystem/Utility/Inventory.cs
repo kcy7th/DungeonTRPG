@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DungeonTRPG.Items;
+using DungeonTRPG.Utility.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,6 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class Inventory
     {
-<<<<<<< HEAD
         private List<Bag> bags = new List<Bag>(); // 가방 리스트
         private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 

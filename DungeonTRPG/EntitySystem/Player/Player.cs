@@ -8,7 +8,7 @@ namespace DungeonTRPG.Entity.Player
     {
         public Job job;
 
-        public Player(string name, int gold, Stat stat, State state, Job job) : base(name, gold, stat, state)
+        public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
             this.job = job;
         }

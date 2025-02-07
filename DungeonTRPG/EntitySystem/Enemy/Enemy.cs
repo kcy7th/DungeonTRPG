@@ -5,7 +5,7 @@ namespace DungeonTRPG.Entity.Enemy
 {
     internal class Enemy : Character
     {
-        public Enemy(string name, int gold, Stat stat, State state) : base(name, gold, stat, state)
+        public Enemy(string name, int gold, Stat stat) : base(name, gold, stat)
         {
             
         }
