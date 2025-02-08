@@ -45,8 +45,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             switch (input)
             {
                 case "1":
-                    IntoDungeon();
-                    input = Console.ReadLine();
+                    AdventureDungeon(RandomInt());
                     break;
                 case "2":
                     // 인벤토리로 가기 
@@ -75,16 +74,35 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("");
         }
 
-        private void IntoDungeon()
+        private int RandomInt()
         {
-            Console.Clear();
-            Console.WriteLine("던전");
-            Console.WriteLine("");
-            Console.WriteLine("=================================================================================");
-            Console.WriteLine("||                               행동을 선택해 주세요                          ||");
-            Console.WriteLine("||      1. 몬스터 조우 2. 휴식 공간 3. 비밀 상점 4. 의문의 상자 0. 나가기      ||");
-            Console.WriteLine("=================================================================================");
-            Console.WriteLine("");
+            Random random = new Random();
+            int randInt = random.Next(1, 5);
+
+            return randInt;
+        }
+
+        private void AdventureDungeon(int randInt)
+        {
+            switch (randInt)
+            {
+                // 몬스터 조우 
+                case 1:
+                    break;
+                // 휴식 공간
+                case 2:
+                    // 상태 휴식 공간으로 변경
+                    stateMachine.ChangeState(stateMachine.RestRoom);
+                    break;
+                // 비밀 상점
+                case 3:
+                    break;
+                // 의문의 상자
+                case 4:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
