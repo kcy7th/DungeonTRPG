@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class RestRoom : SceneState
+    internal class RestRoomScene : SceneState
     {
         string input = "";
 
         int restCount = 0;
 
-        internal RestRoom(StateMachine stateMachine) : base(stateMachine)
+        internal RestRoomScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 

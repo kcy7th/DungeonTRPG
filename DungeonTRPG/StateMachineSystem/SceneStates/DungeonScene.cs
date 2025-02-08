@@ -92,7 +92,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 // 휴식 공간
                 case 2:
                     // 상태 휴식 공간으로 변경
-                    stateMachine.ChangeState(stateMachine.RestRoom);
+                    stateMachine.ChangeState(stateMachine.RestRoomScene);
                     break;
                 // 비밀 상점
                 case 3:
