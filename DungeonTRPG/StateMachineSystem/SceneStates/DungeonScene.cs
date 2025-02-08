@@ -96,6 +96,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     break;
                 // 비밀 상점
                 case 3:
+                    // 상태 비밀 상점으로 변경
+                    stateMachine.ChangeState(stateMachine.SecretShopScene);
                     break;
                 // 의문의 상자
                 case 4:

@@ -1,26 +1,26 @@
-﻿using System;
+﻿using DungeonTRPG.Items;
+using DungeonTRPG.ShopSystem;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class RestRoomScene : SceneState
+    internal class SecretShopScene : SceneState
     {
         string input = "";
 
-        int restCount = 0;
+        // 상점 생성
+        Shop shop = new Shop();
 
-        internal RestRoomScene(StateMachine stateMachine) : base(stateMachine)
+        internal SecretShopScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
-            // 휴식 데이터 초기화
-            restCount = 0;
             base.Enter();
         }
 
@@ -33,26 +33,20 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("휴식 공간");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("비밀 상점");
             Console.ResetColor();
             Console.WriteLine("");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("휴식 공간을 찾았습니다.");
+            Console.WriteLine("비밀 상점을 찾았습니다");
+            Console.WriteLine("");
             Console.ResetColor();
-
-
 
             // 선택창 보기 
             ViewSelect();
 
-            if (restCount > 0)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
-                Console.WriteLine("");
-                Console.ResetColor();
-            }
+            // 상점 아이템 보기
+            ViewSecretShopItems();
 
             // 입력
             input = Console.ReadLine();
@@ -66,7 +60,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             switch (input)
             {
-                // 이전으로 돌아가기
+                // 던전으로 돌아가기 
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
@@ -74,16 +68,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     // 이전 데이터 지우기 
                     stateMachine.PreviousDataClear();
                     break;
+                // 구매하기  
                 case "1":
-                    // 휴식 취하기
-                    restCount++;
-                    stateMachine.InnScene.GetSomeRest();
+                    // 구매하기 로직 추가 
                     break;
-                case "2":
-                    // 인벤토리 보기
-                    stateMachine.ChangeState(stateMachine.InventoryScene);
-                    break;
-                // 다른 입력
+                // 다른 입력 
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
@@ -94,12 +83,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         private void ViewSelect()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("=================================================");
-            Console.WriteLine("||              행동을 선택해 주세요           ||");
-            Console.WriteLine("||       1. 휴식 2. 인벤토리 0.던전 돌아가기   ||");
-            Console.WriteLine("=================================================");
+            Console.WriteLine("===================================================");
+            Console.WriteLine("||                행동을 선택해 주세요           ||");
+            Console.WriteLine("||      1. 아이템 구매하기 0. 던전 돌아가기      ||");
+            Console.WriteLine("===================================================");
             Console.WriteLine("");
             Console.ResetColor();
+        }
+
+        // 비밀 상점 아이템 보기 함수 
+        private void ViewSecretShopItems()
+        {
+            // 비밀 상점 아이템 보기 추가
+            
         }
     }
 }
