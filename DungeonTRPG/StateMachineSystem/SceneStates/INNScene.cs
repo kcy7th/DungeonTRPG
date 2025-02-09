@@ -36,6 +36,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            // 여관
+            INNRoop();
+        }
+
+        // 여관 함수 
+        private void INNRoop()
+        {
+
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("여관");
             Console.ResetColor();
@@ -50,14 +58,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
                 Console.WriteLine("");
-                Console.ResetColor();              
+                Console.ResetColor();
             }
 
             // 입력
             input = Console.ReadLine();
 
             // 씬 선택 
-            SelectScene(input);           
+            SelectScene(input);
         }
 
         // 씬 선택 함수 

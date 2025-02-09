@@ -28,10 +28,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            // 인벤토리
+            InventoryRoop();
+        }
+
+        // 인벤토리 함수 
+        private void InventoryRoop()
+        {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("인벤토리");
             Console.ResetColor();
-            Console.WriteLine("");         
+            Console.WriteLine("");
 
             // 선택창 보기 
             ViewSelect();

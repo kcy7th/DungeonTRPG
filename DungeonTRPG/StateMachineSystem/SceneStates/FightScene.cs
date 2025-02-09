@@ -29,10 +29,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            // 전투 
+            FightRoop();
+        }
+
+        // 전투 함수
+        private void FightRoop()
+        {
             Console.ForegroundColor = ConsoleColor.Magenta;
-            Console.WriteLine("몬스터를 만났다");
+            Console.WriteLine("몬스터와 조우");
             Console.ResetColor();
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("몬스터와 만났습니다.");
+            Console.WriteLine("");
+            Console.ResetColor();
 
 
             // 선택창 보기 

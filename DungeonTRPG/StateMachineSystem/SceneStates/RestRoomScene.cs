@@ -33,6 +33,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            // 휴식 공간
+            RestRoomRoop();
+        }
+
+        // 휴식 공간 함수
+        private void RestRoomRoop()
+        {
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("휴식 공간");
             Console.ResetColor();

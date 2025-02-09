@@ -33,6 +33,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
+            // 비밀 상점 
+            SecretShopRoop();
+        }
+
+        // 비밀 상점 함수 
+        private void SecretShopRoop()
+        {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("비밀 상점");
             Console.ResetColor();
@@ -42,21 +49,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("");
             Console.ResetColor();
 
-            // 선택창 보기 
+            // 행동 선택창 보기 
             ViewSelect();
 
-            // 상점 아이템 보기
+            // 비밀 상점 아이템 보기
             ViewSecretShopItems();
 
             // 입력
             input = Console.ReadLine();
 
-            // 씬 선택 
-            SelectScene(input);
+            // 행동 선택 
+            SelectAction(input);
         }
 
-        // 씬 선택 함수 
-        private void SelectScene(string input)
+        // 행동 선택 함수 
+        private void SelectAction(string input)
         {
             switch (input)
             {
@@ -79,7 +86,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             }
         }
 
-        // 선택창 보기 함수 
+        // 행동 선택창 보기 함수 
         private void ViewSelect()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;

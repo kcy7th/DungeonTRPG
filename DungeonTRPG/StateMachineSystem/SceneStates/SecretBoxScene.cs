@@ -1,5 +1,4 @@
-﻿using DungeonTRPG.Items;
-using DungeonTRPG.ShopSystem;
+﻿using DungeonTRPG.ShopSystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class ShopScene : SceneState
+    internal class SecretBoxScene : SceneState
     {
         string input = "";
 
         // 상점 생성
         Shop shop = new Shop();
 
-        internal ShopScene(StateMachine stateMachine) : base(stateMachine)
+        internal SecretBoxScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -33,43 +32,48 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             base.Update();
 
-            // 상점
-            ShopRoop();
+            // 의문의 상자
+            SecretBoxRoop();
         }
 
-        // 상점 함수 
-        private void ShopRoop()
+        // 의문의 상자 함수 
+        private void SecretBoxRoop()
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("상점");
+            Console.WriteLine("의문의 상자");
             Console.ResetColor();
             Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("의문의 상자를 찾았습니다");
+            Console.WriteLine("");
+            Console.ResetColor();
 
             // 선택창 보기 
             ViewSelect();
 
-            // 상점 아이템 보기
-            ViewShopItems();
-
             // 입력
             input = Console.ReadLine();
 
-            // 씬 선택 
-            SelectScene(input);
+            // 행동 선택 
+            SelectAction(input);
         }
 
-        // 씬 선택 함수 
-        private void SelectScene(string input)
+        // 행동 선택 함수 
+        private void SelectAction(string input)
         {
             switch (input)
             {
-                // 마을로 돌아가기 
+                // 던전으로 돌아가기 
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
 
                     // 이전 데이터 지우기 
                     stateMachine.PreviousDataClear();
+                    break;
+                // 의문의 상자 열어보기
+                case "1":
+                    OpenSecretBox();
                     break;
                 // 다른 입력 
                 default:
@@ -82,25 +86,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         private void ViewSelect()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("================================");
-            Console.WriteLine("||  이동할 곳을 선택해 주세요 ||");
-            Console.WriteLine("||           0. 마을          ||");
-            Console.WriteLine("================================");
+            Console.WriteLine("============================================");
+            Console.WriteLine("||         행동을 선택해 주세요           ||");
+            Console.WriteLine("||      1. 열어보기 0. 던전 돌아가기      ||");
+            Console.WriteLine("============================================");
             Console.WriteLine("");
             Console.ResetColor();
         }
 
-        // 상점 아이템 보기 함수 
-        private void ViewShopItems()
+        // 의문의 상자 열기 함수 
+        private void OpenSecretBox()
         {
-            // 상점 아이템 불러오기 
-            List<Item> items = shop.GetItems();
+            // 의문의 상자 열기 함수 로직 추가
 
-            // 상점 아이템 보기
-            foreach (Item item in items) 
-            {
-                Console.WriteLine($"{item.GetName()} : {item.GetDescription()}");
-            }
         }
     }
 }

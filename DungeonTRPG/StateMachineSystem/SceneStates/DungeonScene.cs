@@ -103,6 +103,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     break;
                 // 의문의 상자
                 case 4:
+                    // 상태 의문의 상자로 변경
+                    stateMachine.ChangeState(stateMachine.SecretBoxScene);
                     break;
                 default:
                     break;
