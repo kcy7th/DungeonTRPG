@@ -10,7 +10,7 @@
         public int MaxMp { get; private set; }
         public int Atk { get; private set; }
         public int Def { get; private set; }
-                
+
         public event Action? CharacterDie; // 죽음 이벤트
 
         public Stat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
@@ -44,11 +44,20 @@
             }
         }
 
-        public void SetHp(int amount) // amount = 해당 상황의 체력
+        // 체력 관리
+        public void SetHp(int value)
         {
-            if (amount > MaxHp) Hp = MaxHp;
-            else if (amount < 0) Hp = 0;
-            else Hp = amount;
+            if (Hp < 0) Hp = 0;
+            if (value > MaxHp) Hp = MaxHp;
+            Hp = value;
+        }
+
+        // 마나 관리
+        public void SetMp(int amount)
+        {
+            Mp += amount;
+            if (Mp < 0) Mp = 0;
+            if (Mp > MaxHp) Mp = MaxMp;
         }
     }
 }

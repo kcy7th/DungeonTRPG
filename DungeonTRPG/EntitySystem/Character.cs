@@ -13,12 +13,23 @@ namespace DungeonTRPG.Entity
         public string Name { get; private set; }
         public int Gold { get; private set; }
         public Stat Stat { get; private set; }
-                       
+               
         public Character(string name, int gold, Stat stat)
         {            
             Name = name;
             Gold = gold;
             Stat = stat;
         }
+
+        public void Die()
+        {
+            
+        }
+
+        //// 상태이상
+        //public void Debuff()
+        //{
+
+        //}
     }
 }

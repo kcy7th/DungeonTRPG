@@ -9,7 +9,7 @@ namespace DungeonTRPG.Entity.Player
         public Job job;
 
         public event Action? PlayerDefend; // 방어 이벤트
-        public event Action? PlayerRun; // 도망 이벤트
+        //public event Action? PlayerRun; // 도망 이벤트
 
         public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
@@ -18,14 +18,15 @@ namespace DungeonTRPG.Entity.Player
 
         // 방어
         public void Defend()
-        {
-            PlayerDefend?.Invoke(); 
+        { 
+            bool isdefend = false;
+            if (isdefend == true) PlayerDefend?.Invoke();  
         }
 
-        // 도망
-        public void Run()
-        {
-            PlayerRun?.Invoke();
-        }
+        //// 도망
+        //public void Run()
+        //{
+        //    PlayerRun?.Invoke();
+        //}
     }
 }
