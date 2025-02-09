@@ -5,8 +5,11 @@ using DungeonTRPG.Utility.Enums;
 namespace DungeonTRPG.Entity.Player
 {
     internal class Player : Character
-    {
+    {        
         public Job job;
+
+        public event Action? PlayerDefend; // 방어 이벤트
+        public event Action? PlayerRun; // 도망 이벤트
 
         public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
@@ -16,28 +19,13 @@ namespace DungeonTRPG.Entity.Player
         // 방어
         public void Defend()
         {
-            isDefense = true;
+            PlayerDefend?.Invoke(); 
         }
 
-        // 아이템 사용
-        public void UseItem()
+        // 도망
+        public void Run()
         {
-            Console.WriteLine("사용할 아이템의 번호를 입력해주세요");
-            string itemNum = Console.ReadLine();
-            int choice = int.Parse(itemNum);
-
-            switch (choice)
-            {
-                case 0:
-                    // 아이템 1
-                    break;
-                case 1:
-                    // 아이템 2
-                    break;
-                // ...
-                default:
-                    break;
-            }
+            PlayerRun?.Invoke();
         }
     }
 }
