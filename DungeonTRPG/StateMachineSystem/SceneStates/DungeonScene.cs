@@ -88,6 +88,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             {
                 // 몬스터 조우 
                 case 1:
+                    // 상태 전투 씬으로 변경
+                    stateMachine.ChangeState(stateMachine.FightScene);
                     break;
                 // 휴식 공간
                 case 2:

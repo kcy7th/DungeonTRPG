@@ -28,6 +28,7 @@ namespace DungeonTRPG.StateMachineSystem
         internal StateScene StateScene { get; }
         internal RestRoomScene RestRoomScene { get; }
         internal SecretShopScene SecretShopScene { get; }
+        internal FightScene FightScene { get; }
 
 
 
@@ -42,6 +43,7 @@ namespace DungeonTRPG.StateMachineSystem
             StateScene = new StateScene(this);
             RestRoomScene = new RestRoomScene(this);
             SecretShopScene = new SecretShopScene(this);
+            FightScene = new FightScene(this);
         }
 
         internal void ChangeState(IState state)
