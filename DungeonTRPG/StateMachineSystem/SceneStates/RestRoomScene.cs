@@ -86,10 +86,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     restCount++;
                     stateMachine.InnScene.GetSomeRest();
                     break;
-                case "2":
-                    // 인벤토리 보기
-                    stateMachine.ChangeState(stateMachine.InventoryScene);
-                    break;
                 // 다른 입력
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
@@ -101,10 +97,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         private void ViewSelect()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("=================================================");
-            Console.WriteLine("||              행동을 선택해 주세요           ||");
-            Console.WriteLine("||       1. 휴식 2. 인벤토리 0.던전 돌아가기   ||");
-            Console.WriteLine("=================================================");
+            Console.WriteLine("=================================");
+            Console.WriteLine("||     행동을 선택해 주세요    ||");
+            Console.WriteLine("||   1. 휴식 0.던전 돌아가기   ||");
+            Console.WriteLine("=================================");
             Console.WriteLine("");
             Console.ResetColor();
         }
