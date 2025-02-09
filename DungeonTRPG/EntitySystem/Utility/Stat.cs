@@ -1,4 +1,6 @@
-﻿namespace DungeonTRPG.Entity.Utility
+﻿using DungeonTRPG.EntitySystem.Utility;
+
+namespace DungeonTRPG.Entity.Utility
 {
     internal class Stat
     {
@@ -12,6 +14,7 @@
         public int Def { get; private set; }
 
         public event Action? CharacterDie; // 죽음 이벤트
+        public event Action? CharacterDebuff; // 상태이상 이벤트
 
         public Stat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
         {
@@ -25,16 +28,8 @@
             Def = def;
         }
 
-        // 공격
-        public int Attack()
-        {
-            int damage = Atk;
-            if (damage < 0) damage = 0;
-            return damage;
-        }
-
-        // 피격
-        public void Damaged(int damage)
+        // 데미지 관리
+        public void SetDamage(int damage)
         {
             Hp -= damage;
             if (Hp <= 0)
@@ -48,16 +43,22 @@
         public void SetHp(int value)
         {
             if (Hp < 0) Hp = 0;
-            if (value > MaxHp) Hp = MaxHp;
-            Hp = value;
+            else if (Hp > MaxHp) Hp = MaxHp;
+            else Hp = value;
         }
 
         // 마나 관리
-        public void SetMp(int amount)
+        public void SetMp(int value)
         {
-            Mp += amount;
             if (Mp < 0) Mp = 0;
-            if (Mp > MaxHp) Mp = MaxMp;
+            else if (Mp > MaxMp) Mp = MaxMp;
+            else Mp = value;
+        }
+
+        // 상태이상
+        public void Debuff()
+        {
+            CharacterDebuff?.Invoke();
         }
     }
 }
