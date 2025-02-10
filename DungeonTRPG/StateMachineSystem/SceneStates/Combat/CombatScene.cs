@@ -1,28 +1,28 @@
 ﻿using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class CombatScene : SceneState
     {
-        protected Enemy enemy;
+        protected List<Enemy> enemys;
+        protected Inventory inventory;
+        protected List<Item> items;
+        protected int enemyTurnCount;
 
-        public CombatScene(StateMachine stateMachine) : base(stateMachine)
+        public CombatScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine)
         {
-
+            this.enemys = enemys;
+            inventory = stateMachine.Player.Inventory;
+            items = inventory.GetItems();
         }
 
         public override void Enter()
         {
             base.Enter();
 
-            enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 1, 1));
+            enemyTurnCount = 0;
         }
 
         public override void Update()
@@ -37,27 +37,70 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{enemy.Name}이(가) 등장 하였다!");
-
-            EnemyStat();
+            EnemyStats();
         }
 
         protected override void Control()
         {
             Thread.Sleep(1000);
-            stateMachine.ChangeState(stateMachine.PlayerTurnScene);
+            stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
         }
 
-        protected void EnemyStat()
+        protected void EnemyStats()
         {
             Console.ResetColor();
-            Console.WriteLine(
-                $"\n" +
-                $"{enemy.Name} ( Lv.{enemy.Stat.Lv} ) \n" +
-                $"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \n" +
-                $"공격력 \t: {enemy.Stat.Atk} \n" +
-                $"방어력 \t: {enemy.Stat.Def} \n");
+            EnemyNumbers();
+            Console.WriteLine();
+            EnemyNames();
+            EnemyHps();
+            EnemyAtks();
+            EnemyDefs();
+            Console.WriteLine();
+        }
+
+        protected void EnemyNumbers()
+        {
+            Console.WriteLine();
+            for (int i = 0; i < enemys.Count; i++)
+            {
+                Console.Write($"\t {i+1}번 \t\t");
+            }
+        }
+
+        protected void EnemyNames()
+        {
+            Console.WriteLine();
+            foreach (Enemy enemy in enemys)
+            {
+                Console.Write($"{enemy.Name} ( Lv.{enemy.Stat.Lv} ) \t");
+            }
+        }
+
+        protected void EnemyHps()
+        {
+            Console.WriteLine();
+            foreach (Enemy enemy in enemys)
+            {
+                Console.Write($"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \t");
+            }
+        }
+
+        protected void EnemyAtks()
+        {
+            Console.WriteLine();
+            foreach (Enemy enemy in enemys)
+            {
+                Console.Write($"공격력 \t: {enemy.Stat.Atk} \t\t");
+            }
+        }
+
+        protected void EnemyDefs()
+        {
+            Console.WriteLine();
+            foreach (Enemy enemy in enemys)
+            {
+                Console.Write($"방어력 \t: {enemy.Stat.Def} \t\t");
+            }
         }
     }
 }

@@ -1,25 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DungeonTRPG.Entity.Enemy;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
-    internal class EnemyTurnScene : SceneState
+    internal class EnemyTurnScene : CombatScene
     {
-        public EnemyTurnScene(StateMachine stateMachine) : base(stateMachine)
+        public EnemyTurnScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
-        }
-
-        protected override void Control()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void View()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        protected override void Control()
+        {
+            
         }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class DungeonScene : SceneState
     {
@@ -107,7 +101,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                 // 몬스터 조우 
                 case 1:
                     // 상태 전투 씬으로 변경
-                    stateMachine.ChangeState(stateMachine.CombatScene);
+                    stateMachine.ChangeState(stateMachine.EnemyFindScene);
                     break;
                 // 휴식 공간
                 case 2:
