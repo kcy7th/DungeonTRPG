@@ -55,10 +55,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             if (restCount > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
-                Console.WriteLine("");
-                Console.ResetColor();
+                stateMachine.InnScene.ViewHpMp();
             }
 
             // 입력

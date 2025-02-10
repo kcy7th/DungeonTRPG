@@ -55,10 +55,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             if (restCount > 0)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine($"HP MP가 {restCount} 회복되었습니다.");
-                Console.WriteLine("");
-                Console.ResetColor();
+                ViewHpMp();
             }
 
             // 입력
@@ -79,7 +76,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     stateMachine.GoPreviousState();
 
                     // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();                   
+                    stateMachine.PreviousDataClear();
                     break;
                 case "1":
                     // 휴식 취하기
@@ -113,8 +110,35 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
             // HP MP 회복 로직 추가 필요            
             restCount++;
+            stateMachine.Player.Heal(restCount * 10);
+            stateMachine.Player.RecoverMana(restCount * 5);
 
             stopwatch.Stop();
+        }
+
+        public void ViewHpMp()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            if (stateMachine.Player.Stat.Hp == stateMachine.Player.Stat.MaxHp)
+            {
+                Console.WriteLine("HP가 모두 회복되었습니다.");
+            }
+            else
+            {
+                Console.WriteLine($"HP가 {restCount * 10} 회복되었습니다.");
+            }
+            if (stateMachine.Player.Stat.Mp == stateMachine.Player.Stat.MaxMp)
+            {
+                Console.WriteLine("MP가 모두 회복되었습니다.");
+            }
+            else
+            {
+                Console.WriteLine($"MP가 {restCount * 5} 회복되었습니다.");
+            }
+            Console.WriteLine("");
+            Console.WriteLine($"현재 HP는 {stateMachine.Player.Stat.Hp}입니다.");
+            Console.WriteLine($"현재 MP는 {stateMachine.Player.Stat.Mp}입니다.");
+            Console.ResetColor();
         }
     }
 }

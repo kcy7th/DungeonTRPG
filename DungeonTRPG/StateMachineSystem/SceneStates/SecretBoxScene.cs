@@ -9,7 +9,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
     internal class SecretBoxScene : SceneState
     {
-        // To Do List
         // 던전 클리어 후 모든 변수 초기화 필요 
 
         string input = "";
