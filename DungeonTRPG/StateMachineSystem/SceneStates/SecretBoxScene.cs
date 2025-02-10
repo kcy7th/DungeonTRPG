@@ -159,8 +159,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     Console.WriteLine($"{gold} Gold를 획득했습니다.");
                     break;
                 // 포션 획득
-                case 3:
+                case 3:                   
                     randInt = random.Next(1, 3);
+                    // 포션 생성 로직 추가 
                     switch (randInt)
                     {
                         case 1:
@@ -173,6 +174,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 // 장비 획득
                 case 4:
                     Console.WriteLine("상자에는 장비가 들어있었다.");
+                    randInt = random.Next(1, 3);
+                    // 장비 생성 로직 추가 
+                    switch (randInt)
+                    {
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                    }
                     break;
                 // 몬스터와 조우
                 case 5:
