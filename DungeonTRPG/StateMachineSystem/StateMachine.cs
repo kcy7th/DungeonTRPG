@@ -1,5 +1,6 @@
 ﻿using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Player;
+using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Interface;
 using DungeonTRPG.StateMachineSystem.SceneStates;
 using System;
@@ -30,12 +31,12 @@ namespace DungeonTRPG.StateMachineSystem
         internal SecretShopScene SecretShopScene { get; }
         internal FightScene FightScene { get; }
         internal SecretBoxScene SecretBoxScene { get; }
-
-
+        public Inventory PlayerInventory { get; internal set; }
 
         internal StateMachine(Player player)
         {
             Player = player;
+            PlayerInventory = new Inventory();
 
             DungeonScene = new DungeonScene(this);
             InnScene = new INNScene(this);
