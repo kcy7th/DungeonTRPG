@@ -1,14 +1,8 @@
-﻿using DungeonTRPG.Items;
-using DungeonTRPG.ShopSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DungeonTRPG.ShopSystem;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
-    internal class SecretShopScene : SceneState
+    internal class SecretShopScene : DungeonScene
     {
         // 상점 생성
         Shop shop = new Shop();

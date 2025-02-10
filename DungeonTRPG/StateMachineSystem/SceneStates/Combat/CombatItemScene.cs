@@ -2,27 +2,17 @@
 using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
-    internal class ItemUseScene : SceneState
+    internal class CombatItemScene : CombatScene
     {
-        private Inventory inventory;
-        private List<Item> items;
-        internal ItemUseScene(StateMachine stateMachine) : base(stateMachine)
+        public CombatItemScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
             base.Enter();
-
-            inventory = stateMachine.Player.Inventory;
-            items = inventory.GetItems();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
         }
 
         public override void Update()
@@ -30,9 +20,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             base.Update();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
         protected override void View()
         {
-            // 장착 아이템 출력
+            EnemyStat();
+
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
@@ -66,7 +62,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
                 else if (0 < num && num <= items.Count - inventory.boundaryIndex)
                 {
                     ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
-                    if (UseableIn.OnlyCombat == item.UseableIn) SendMessage("전투 중에만 사용할 수 있습니다.");
+                    if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
                     else inventory.ItemUse(num + (inventory.boundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
                 }
                 else SendMessage("잘못된 입력입니다.");

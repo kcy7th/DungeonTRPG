@@ -1,21 +1,19 @@
 ﻿using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class CombatScene : SceneState
     {
         protected Enemy enemy;
+        protected Inventory inventory;
+        protected List<Item> items;
 
         public CombatScene(StateMachine stateMachine) : base(stateMachine)
         {
-
+            inventory = stateMachine.Player.Inventory;
+            items = inventory.GetItems();
         }
 
         public override void Enter()

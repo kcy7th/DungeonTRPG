@@ -1,6 +1,4 @@
-﻿using DungeonTRPG.EntitySystem.Utility;
-
-namespace DungeonTRPG.Entity.Utility
+﻿namespace DungeonTRPG.Entity.Utility
 {
     internal class Stat
     {
