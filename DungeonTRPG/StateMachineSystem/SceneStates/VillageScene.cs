@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DungeonTRPG.Manager;
+using DungeonTRPG.Manager.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -71,6 +73,22 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 case "5":
                     // 상태 인벤토리로 변경
                     stateMachine.ChangeState(stateMachine.StateScene);
+                    break;
+                // 저장
+                case "6":
+                    // 저장
+                    GameManager.Instance.DataManager.Save();
+                    break;
+                // 불러오기
+                case "7":
+                    // 불러오기
+                    GameManager.Instance.DataManager.Load();
+                    break;
+                // 불러오기 확인
+                case "8":
+                    // 불러오기 확인
+                    Console.WriteLine(GameManager.Instance.DataManager.GameData.ItemDB.Items[1000].AllowedJobs[0]);
+                    Console.ReadKey();
                     break;
                 // 게임 종료
                 case "0":
