@@ -6,6 +6,7 @@ namespace DungeonTRPG.Entity.Utility
     {
         public int Lv { get; private set; }
         public int Exp { get; private set; }
+        public int Gold { get; private set; }
         public int Hp { get; private set; }
         public int MaxHp { get; private set; }
         public int Mp { get; private set; }
@@ -14,7 +15,6 @@ namespace DungeonTRPG.Entity.Utility
         public int Def { get; private set; }
 
         public event Action? CharacterDie; // 죽음 이벤트
-        public event Action? CharacterDebuff; // 상태이상 이벤트
 
         public Stat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
         {
@@ -26,6 +26,24 @@ namespace DungeonTRPG.Entity.Utility
             MaxMp = maxMp;
             Atk = atk;
             Def = def;
+        }
+
+        // 경험치 관리
+        public void SetExp(int value)
+        {
+            Exp = value;
+            while (Exp >= 100) // 한번에 여러번 레벨업 할 경우를 생각하여 반복문
+            {
+                Exp -= 100; // 100이 넘는 경험치를 얻을 경우 남은 경험치 유지
+                Lv++;
+                Hp = MaxHp;
+            }
+        }
+
+        // 골드 관리
+        public void SetGold(int value)
+        {
+            Gold = value;
         }
 
         // 데미지 관리
@@ -42,23 +60,17 @@ namespace DungeonTRPG.Entity.Utility
         // 체력 관리
         public void SetHp(int value)
         {
-            if (Hp < 0) Hp = 0;
-            else if (Hp > MaxHp) Hp = MaxHp;
+            if (value < 0) Hp = 0;
+            else if (value > MaxHp) Hp = MaxHp;
             else Hp = value;
         }
 
         // 마나 관리
         public void SetMp(int value)
         {
-            if (Mp < 0) Mp = 0;
-            else if (Mp > MaxMp) Mp = MaxMp;
+            if (value < 0) Mp = 0;
+            else if (value > MaxMp) Mp = MaxMp;
             else Mp = value;
-        }
-
-        // 상태이상
-        public void Debuff()
-        {
-            CharacterDebuff?.Invoke();
         }
     }
 }
