@@ -37,16 +37,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
 
-            bool hasEquip = false;
+            bool hasFind = false;
             for (int i = inventory.boundaryIndex; i < items.Count; i++)
             {
                 if (items[i] is ActiveItem)
                 {
                     Console.WriteLine($"- {i - (inventory.boundaryIndex - 1)} {items[i].GetName()} | {items[i].GetDescription()}");
-                    hasEquip = true;
+                    hasFind = true;
                 }
             }
-            if (!hasEquip) Console.WriteLine("보유하신 소비 아이템이 없습니다. \n");
+            if (!hasFind) Console.WriteLine("보유하신 소비 아이템이 없습니다. \n");
 
             Console.WriteLine();
 

@@ -5,17 +5,19 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class Inventory
     {
+        internal Character Character { get; }
+
         private List<Item> items = new List<Item>();
         private int maxSlots;
         public int boundaryIndex { get; private set; } = 0;
 
         private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 
-        public event Action<EquipItem> OnItemEquip;
-        public event Action<EquipItem> OnItemUnEquip;
 
-        public Inventory(int maxSlots = 10)
+        public Inventory(Character character, int maxSlots = 10)
         {
+            Character = character;
+
             this.maxSlots = maxSlots;
 
             // null 값 할당 (오류 방지)
@@ -72,7 +74,7 @@ namespace DungeonTRPG.Entity.Utility
             if (equippedItems[item.Slot] != null)
             {
                 equippedItems[item.Slot].IsEquipped = false;
-                OnItemUnEquip?.Invoke(equippedItems[item.Slot]);
+                Character.OnItemUnEquipped(item);
             }
 
             if(equippedItems[item.Slot] == item)
@@ -84,15 +86,9 @@ namespace DungeonTRPG.Entity.Utility
             {
                 equippedItems[item.Slot] = item;
                 equippedItems[item.Slot].IsEquipped = true;
-                OnItemEquip?.Invoke(item);
+                Character.OnItemEquipped(item);
             }
             return true;
-        }
-
-        // 해제
-        public bool UnequipItem(EquipSlot slot)
-        {
-            return equippedItems.Remove(slot);
         }
 
         // 장착된 아이템 확인

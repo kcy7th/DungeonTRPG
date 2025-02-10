@@ -1,19 +1,21 @@
-﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
-{
-    internal class EnemyTurnScene : SceneState
-    {
-        public EnemyTurnScene(StateMachine stateMachine) : base(stateMachine)
-        {
-        }
+﻿using DungeonTRPG.Entity.Enemy;
 
-        protected override void Control()
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
+{
+    internal class EnemyTurnScene : CombatScene
+    {
+        public EnemyTurnScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
-            throw new NotImplementedException();
         }
 
         protected override void View()
         {
-            throw new NotImplementedException();
+            
+        }
+
+        protected override void Control()
+        {
+            
         }
     }
 }

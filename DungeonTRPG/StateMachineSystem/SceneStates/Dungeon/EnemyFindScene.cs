@@ -1,4 +1,9 @@
-﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿using DungeonTRPG.Entity.Enemy;
+using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.Manager.Data;
+using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
+
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class EnemyFindScene : DungeonScene
     {
@@ -64,7 +69,13 @@
                     break;
                 case "1":
                     // 싸운다
-                    stateMachine.ChangeState(stateMachine.CombatScene);
+                    List<Enemy> enemys = new List<Enemy>();
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Enemy enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 1, 1));
+                        enemys.Add(enemy);
+                    }
+                    stateMachine.ChangeState(new CombatScene(stateMachine, enemys));
                     break;
                 // 다른 입력
                 default:
