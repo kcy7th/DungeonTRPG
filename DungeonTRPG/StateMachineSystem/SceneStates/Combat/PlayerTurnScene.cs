@@ -1,11 +1,4 @@
-﻿using DungeonTRPG.Entity.Enemy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class PlayerTurnScene : CombatScene
     {
@@ -49,9 +42,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 case "1":
 
                     break;
-                // 인벤토리 열어보기
-                case "2":
-                    stateMachine.ChangeState(stateMachine.ItemUseScene);
+                // 아이템 열기
+                case "3":
+                    stateMachine.ChangeState(stateMachine.CombatItemScene);
                     break;
                 case "0":
                     // 이전 상태로 돌아가기 
