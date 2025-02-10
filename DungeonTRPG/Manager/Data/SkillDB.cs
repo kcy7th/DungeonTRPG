@@ -1,16 +1,8 @@
-using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
 using DungeonTRPG.EntitySystem.ActiveEffect;
-using DungeonTRPG.EntitySystem.Skill;
+using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Interface;
-using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.Manager.Data
 {

@@ -1,10 +1,6 @@
 ﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
-using DungeonTRPG.StateMachineSystem;
-using DungeonTRPG.Utility.Enums;
-using System.Security.Cryptography.X509Certificates;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DungeonTRPG.Entity
 {
@@ -15,6 +11,7 @@ namespace DungeonTRPG.Entity
         public int Gold { get; protected set; }
         public Stat Stat { get; protected set; }
         public Inventory Inventory { get; protected set; }
+        public HashSet<Skill> skills { get; protected set; } = new HashSet<Skill>();
 
         public Character(string name, int gold, Stat stat)
         {            
@@ -73,6 +70,11 @@ namespace DungeonTRPG.Entity
         public void RecoverMana(int amount)
         {
             Stat.SetMp(Stat.Mp + amount);
+        }
+
+        public void LearnSkill(Skill skill)
+        {
+            skills.Add(skill);
         }
     }
 }

@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
-    internal class EnemyFindScene : SceneState
+    internal class EnemyFindScene : DungeonScene
     {
         internal EnemyFindScene(StateMachine stateMachine) : base(stateMachine)
         {

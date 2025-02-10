@@ -1,6 +1,4 @@
 ﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.Utility;
-using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Entity.Enemy
 {

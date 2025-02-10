@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DungeonTRPG.ItemsSystem;
-using DungeonTRPG.Utility.Enums;
+﻿using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Items
 {
