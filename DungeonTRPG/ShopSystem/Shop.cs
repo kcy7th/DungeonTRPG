@@ -17,7 +17,7 @@ namespace DungeonTRPG.ShopSystem
         // 아이템 구매 (ActiveItem은 가방에 추가, EquipItem은 인벤토리에 추가)
         public bool BuyItem(Item item, Inventory playerInventory)
         {
-            if (item is ActiveItem activeItem && playerInventory.AddItemToBag(activeItem))
+            if (item is ActiveItem activeItem && playerInventory.AddItem(activeItem))
             {
                 availableItems.Remove(item);
                 return true;

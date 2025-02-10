@@ -10,6 +10,7 @@ namespace DungeonTRPG.Items
         public ExtraStat ExtraStat { get; }
 
         public EquipSlot Slot { get; } // 장착 슬롯 정보 추가
+        public bool IsEquipped { get; internal set;}
 
         public EquipItem(string name, string description, List<Job> allowedJobs, ExtraStat extraStat, EquipSlot slot)
             : base(name, description, allowedJobs)
@@ -22,6 +23,12 @@ namespace DungeonTRPG.Items
         public override Item Clone()
         {
             return new EquipItem(name, description, new List<Job>(AllowedJobs), ExtraStat, Slot);
+        }
+
+        public override int CompareTo(Item? other)
+        {
+            if (other is EquipItem) return 0;
+            else return -1;
         }
     }
 }

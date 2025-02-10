@@ -5,13 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class SecretBoxScene : SceneState
     {
         // 던전 클리어 후 모든 변수 초기화 필요 
-
-        string input = "";
 
         bool isBoxOpen = false;
         int boxOpenCount = 0;
@@ -35,55 +33,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public override void Update()
         {
             base.Update();
-
-            // 의문의 상자
-            SecretBoxRoop();
-        }
-
-        // 의문의 상자 함수 
-        private void SecretBoxRoop()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("의문의 상자");
-            Console.ResetColor();
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("의문의 상자를 찾았습니다");
-            Console.WriteLine("");
-            Console.ResetColor();
-
-            // 선택창 보기 
-            ViewSelect();
-
-            if (isBoxOpen && boxOpenCount == 0)
-            {
-                OpenSecretBox(CalProbability());
-                boxOpenCount++;
-            }
-            else if (isBoxOpen && boxOpenCount > 0)
-            {
-                Console.WriteLine("이미 상자를 열어보았습니다.");
-            }
-
-            // 입력
-            input = Console.ReadLine();
-
-            // 행동 선택 
-            SelectAction(input);
         }
 
         // 행동 선택 함수 
-        private void SelectAction(string input)
+        protected override void Control()
         {
+            string input = Console.ReadLine();
+
             switch (input)
             {
                 // 던전으로 돌아가기 
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
-
-                    // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
                     break;
                 // 의문의 상자 열어보기
                 case "1":
@@ -94,6 +56,25 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
+        }
+
+        protected override void View()
+        {
+            SecretBox();
+            ViewSelect();
+        }
+
+        // 의문의 상자 함수 
+        private void SecretBox()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("의문의 상자");
+            Console.ResetColor();
+            Console.WriteLine("");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("의문의 상자를 찾았습니다");
+            Console.WriteLine("");
+            Console.ResetColor();
         }
 
         // 선택창 보기 함수 
@@ -158,7 +139,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     Console.WriteLine($"{gold} Gold를 획득했습니다.");
                     break;
                 // 포션 획득
-                case 3:                   
+                case 3:
                     randInt = random.Next(1, 3);
                     // 포션 생성 로직 추가 
                     switch (randInt)

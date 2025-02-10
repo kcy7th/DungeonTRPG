@@ -5,7 +5,7 @@ using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Items
 {
-    public abstract class Item
+    public abstract class Item : IComparable<Item>
     {
         protected string name;
         protected string description;
@@ -28,5 +28,7 @@ namespace DungeonTRPG.Items
 
         // 아이템 복제
         public abstract Item Clone();
+
+        public abstract int CompareTo(Item? other);
     }
 }

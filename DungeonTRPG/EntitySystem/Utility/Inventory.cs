@@ -1,4 +1,5 @@
-﻿using DungeonTRPG.Items;
+﻿using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,18 @@ namespace DungeonTRPG.Entity.Utility
 {
     internal class Inventory
     {
-        private List<Bag> bags = new List<Bag>(); // 가방 리스트
+        private List<Item> items = new List<Item>();
+        private int maxSlots;
+        public int boundaryIndex { get; private set; } = 0;
+
         private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 
-        public Inventory()
+        public event Action<EquipItem> OnItemEquip;
+        public event Action<EquipItem> OnItemUnEquip;
+
+        public Inventory(int maxSlots = 10)
         {
-            bags.Add(new Bag(10)); // 기본 가방 추가
+            this.maxSlots = maxSlots;
 
             // null 값 할당 (오류 방지)
             foreach (EquipSlot slot in Enum.GetValues(typeof(EquipSlot)))
@@ -24,29 +31,67 @@ namespace DungeonTRPG.Entity.Utility
             }
         }
 
-        // 가방에 ActiveItem 추가
-        public bool AddItemToBag(ActiveItem item)
+        public bool AddItem(Item item)
         {
-            foreach (var bag in bags)
+            if (items.Count < maxSlots)
             {
-                if (bag.AddItem(item))
-                    return true;
+                if (item is EquipItem) boundaryIndex++;
+                items.Add(item);
+                items.Sort();
+                return true;
             }
             return false;
         }
 
-        // 가방 슬롯 구매
-        public void AddBag(Bag newBag)
+        public void ItemUse(int index)
         {
-            bags.Add(newBag);
+            if (items[index] is ActiveItem)
+            {
+                ((ActiveItem)items[index]).ItemUse();
+                RemoveItem(index);
+            }
+            else
+            {
+                Console.WriteLine("사용 아이템이 아닙니다.");
+            }
         }
 
-        public List<Bag> GetBags() => bags;
+        public void RemoveItem(int index)
+        {
+            if (index >= items.Count) return;
+            items.RemoveAt(index);
+        }
+
+        public List<Item> GetItems() => items;
+
+        public int GetMaxSlots() => maxSlots;
+
+        // 가방 슬롯 구매
+        public void ExpandSlots(int additionalSlots)
+        {
+            maxSlots += additionalSlots;
+        }
 
         // 장착
         public bool EquipItem(EquipItem item)
         {
-            equippedItems[item.Slot] = item;
+            if (equippedItems[item.Slot] != null)
+            {
+                equippedItems[item.Slot].IsEquipped = false;
+                OnItemUnEquip?.Invoke(equippedItems[item.Slot]);
+            }
+
+            if(equippedItems[item.Slot] == item)
+            {
+                equippedItems[item.Slot].IsEquipped = false;
+                equippedItems[item.Slot] = null;
+            }
+            else
+            {
+                equippedItems[item.Slot] = item;
+                equippedItems[item.Slot].IsEquipped = true;
+                OnItemEquip?.Invoke(item);
+            }
             return true;
         }
 
@@ -60,41 +105,6 @@ namespace DungeonTRPG.Entity.Utility
         public EquipItem? GetEquippedItem(EquipSlot slot)
         {
             return equippedItems.ContainsKey(slot) ? equippedItems[slot] : null;
-        }
-    }
-
-    internal class Bag
-    {
-        private List<ActiveItem> items = new List<ActiveItem>();
-        private int maxSlots;
-
-        public Bag(int maxSlots = 10)
-        {
-            this.maxSlots = maxSlots;
-        }
-
-        public bool AddItem(ActiveItem item)
-        {
-            if (items.Count < maxSlots)
-            {
-                items.Add(item);
-                return true;
-            }
-            return false;
-        }
-
-        public bool RemoveItem(ActiveItem item)
-        {
-            return items.Remove(item);
-        }
-
-        public List<ActiveItem> GetItems() => items;
-
-        public int GetMaxSlots() => maxSlots;
-
-        public void ExpandSlots(int additionalSlots)
-        {
-            maxSlots += additionalSlots;
         }
     }
 }

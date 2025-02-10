@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 {
     internal class VillageScene : SceneState
     {
-        string input = "";
-
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -19,6 +17,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public override void Enter()
         {
             base.Enter();
+
+            stateMachine.PreStateDataClear();
         }
 
         public override void Exit()
@@ -29,25 +29,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public override void Update()
         {
             base.Update();
-
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("마을");
-            Console.ResetColor();
-            Console.WriteLine("");
-
-            // 선택창 보기
-            ViewSelect();
-
-            // 입력 
-            input = Console.ReadLine();  
-
-            // 씬 선택
-            SelectScene(input);
         }
 
         // 씬 선택 함수
-        private void SelectScene(string input)
+        protected override void Control()
         {
+            string input = Console.ReadLine();
+
             switch (input)
             {
                 // 던전 입구 
@@ -84,12 +72,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     // 불러오기
                     GameManager.Instance.DataManager.Load();
                     break;
-                // 불러오기 확인
-                case "8":
-                    // 불러오기 확인
-                    Console.WriteLine(GameManager.Instance.DataManager.GameData.ItemDB.Items[1000].AllowedJobs[0]);
-                    Console.ReadKey();
-                    break;
                 // 게임 종료
                 case "0":
                     stateMachine.isGameOver = true;
@@ -102,8 +84,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         }
 
         // 선택창 보기 함수
-        private void ViewSelect()
+        protected override void View()
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("마을");
+            Console.ResetColor();
+            Console.WriteLine("");
+
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("===========================================================================");
             Console.WriteLine("||                         이동할 곳을 선택해 주세요                     ||");

@@ -22,7 +22,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         public void UseEffect(Character caster, Character target)
         {
-            target.Stat.SetDamage(amount);
+            target.Stat.TakeDamage(amount);
         }
     }
 }

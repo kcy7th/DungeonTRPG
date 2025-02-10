@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class DungeonScene : SceneState
     {
-        private string input = "";
-
         internal DungeonScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -27,20 +25,22 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public override void Update()
         {
             base.Update();
-
-            // 던전 루프  
-            DungeonRoop();
         }
 
-        // 던전 루프 함수 
-        private void DungeonRoop()
+        protected override void View()
         {
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("던전");
             Console.WriteLine("");
+
             ViewSelect();
-            input = Console.ReadLine();
+        }
+
+        // 던전 루프 함수 
+        protected override void Control()
+        {
+            string input = Console.ReadLine();
 
             switch (input)
             {
@@ -48,16 +48,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                     AdventureDungeon(RandomInt());
                     break;
                 // 인벤토리 열어보기
-                case "2":                   
+                case "2":
                     stateMachine.ChangeState(stateMachine.InventoryScene);
                     break;
-                // 마을로 돌아가기
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
-
-                    // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
                     break;
                 default:
                     break;
@@ -86,12 +82,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 randInt = 1;
             }
             // 50~69 휴식 공간
-            else if (randInt<70)
+            else if (randInt < 70)
             {
                 randInt = 2;
             }
             // 70~79 비밀 상점
-            else if(randInt<80)
+            else if (randInt < 80)
             {
                 randInt = 3;
             }
@@ -111,7 +107,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 // 몬스터 조우 
                 case 1:
                     // 상태 전투 씬으로 변경
-                    stateMachine.ChangeState(stateMachine.FightScene);
+                    stateMachine.ChangeState(stateMachine.CombatScene);
                     break;
                 // 휴식 공간
                 case 2:

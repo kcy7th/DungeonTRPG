@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 {
     internal class ShopScene : SceneState
     {
-        string input = "";
-
         // 상점 생성
         Shop shop = new Shop();
 
@@ -32,50 +30,36 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public override void Update()
         {
             base.Update();
-
-            // 상점
-            ShopRoop();
-        }
-
-        // 상점 함수 
-        private void ShopRoop()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("상점");
-            Console.ResetColor();
-            Console.WriteLine("");
-
-            // 선택창 보기 
-            ViewSelect();
-
-            // 상점 아이템 보기
-            ViewShopItems();
-
-            // 입력
-            input = Console.ReadLine();
-
-            // 씬 선택 
-            SelectScene(input);
         }
 
         // 씬 선택 함수 
-        private void SelectScene(string input)
+        protected override void Control()
         {
+            string input = Console.ReadLine();
+
             switch (input)
             {
                 // 마을로 돌아가기 
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
-
-                    // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
                     break;
                 // 다른 입력 
                 default:
                     Console.WriteLine("잘못된 입력입니다.");
                     break;
             }
+        }
+
+        protected override void View()
+        {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.WriteLine("상점");
+            Console.ResetColor();
+            Console.WriteLine("");
+
+            ViewShopItems();
+            ViewSelect();
         }
 
         // 선택창 보기 함수 
@@ -97,7 +81,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             List<Item> items = shop.GetItems();
 
             // 상점 아이템 보기
-            foreach (Item item in items) 
+            foreach (Item item in items)
             {
                 Console.WriteLine($"{item.GetName()} : {item.GetDescription()}");
             }

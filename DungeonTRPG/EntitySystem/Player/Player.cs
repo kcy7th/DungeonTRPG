@@ -15,13 +15,13 @@ namespace DungeonTRPG.Entity.Player
         // 경험치 획득
         public void GetExp(int dropExp)
         {
-            Stat.SetExp(Stat.Exp + dropExp);
+            Stat.AddExp(dropExp);
         }
 
         // 골드 획득
         public void GetGold(int dropGold)
         {
-            Stat.SetGold(Stat.Gold + dropGold);
+            Gold += dropGold;
         }
     }
 }

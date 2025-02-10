@@ -9,12 +9,14 @@ namespace DungeonTRPG.Manager.Data
 {
     internal class GameData
     {
-        [JsonProperty] public ItemDB ItemDB { get; private set; }
+        [JsonProperty] public ActiveItemDB ActiveItemDB { get; private set; }
+        [JsonProperty] public EquipItemDB EquipItemDB { get; private set; }
         [JsonProperty] public SkillDB SkillDB { get; private set; }
 
         public GameData()
         {
-            ItemDB = new ItemDB();
+            ActiveItemDB = new ActiveItemDB();
+            EquipItemDB = new EquipItemDB();
             SkillDB = new SkillDB();
         }
     }

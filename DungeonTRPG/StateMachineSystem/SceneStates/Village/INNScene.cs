@@ -6,12 +6,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 {
     internal class INNScene : SceneState
     {
-        string input = "";
-
         public Stopwatch stopwatch = new Stopwatch();
 
         int restCount = 0;
@@ -37,18 +35,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             base.Update();
 
             // 여관
-            INNRoop();
+            View();
         }
 
         // 여관 함수 
-        private void INNRoop()
+        protected override void View()
         {
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("여관");
             Console.ResetColor();
             Console.WriteLine("");
-
 
             // 선택창 보기 
             ViewSelect();
@@ -57,26 +54,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             {
                 ViewHpMp();
             }
-
-            // 입력
-            input = Console.ReadLine();
-
-            // 씬 선택 
-            SelectScene(input);
         }
 
         // 씬 선택 함수 
-        private void SelectScene(string input)
+        protected override void Control()
         {
+            string input = Console.ReadLine();
+
             switch (input)
             {
                 // 마을으로 돌아가기
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
-
-                    // 이전 데이터 지우기 
-                    stateMachine.PreviousDataClear();
                     break;
                 case "1":
                     // 휴식 취하기

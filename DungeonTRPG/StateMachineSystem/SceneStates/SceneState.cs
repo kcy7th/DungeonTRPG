@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
-    internal class SceneState : IState
+    internal abstract class SceneState : IState
     {
         protected StateMachine stateMachine;
 
@@ -29,6 +29,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         public virtual void Update()
         {
             Console.Clear();
+
+            View();
+
+            Control();
         }
+
+        public void SendMessage(string message)
+        {
+            Console.Clear();
+            Console.WriteLine(message);
+            Thread.Sleep(1000);
+            Console.Clear();
+        }
+
+        protected abstract void View();
+        protected abstract void Control();
     }
 }

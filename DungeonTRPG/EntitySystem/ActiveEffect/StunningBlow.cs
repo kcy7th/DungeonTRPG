@@ -24,7 +24,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             Random roll = new Random();
             int chance = (int)(roll.Next(1, 10) + player.Stat.Atk * amount);
             // enemy에게 player의 힘*0.75만큼의 피해를 주고
-            enemy.Stat.SetDamage((int)(player.Stat.Atk * 0.75));
+            enemy.Stat.TakeDamage((int)(player.Stat.Atk * 0.75));
 
             //if (chance > 5)
             //{
