@@ -1,9 +1,12 @@
 ﻿namespace DungeonTRPG.EntitySystem.Utility
 {
-    public enum State
+    internal class State
     {
-        Addiction, // 중독: 도트 데미지
-        Sleep, // 수면: 턴 패스
-        Confusion, // 혼란: 공격 시 미스
+        public List<State> states = new List<State>();
+
+        public State(List<State> states)
+        {
+            this.states = states;
+        }
     }
 }
