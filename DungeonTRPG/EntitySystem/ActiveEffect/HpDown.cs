@@ -22,19 +22,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         public void UseEffect(Character caster, Character target)
         {
-            //if (target.stat.Hp-amount<0) //타겟의 체력과 amount의 차가 0일 경우
-            //{
-            //    //체력을 0으로 조정
-            //    target.stat.Hp = 0;
-            //    //이후 값 설정하거나 호출 (isDead, isAlive, battleEnd() 등...)
-            //}
-            //else
-            //{
-            //    target.stat.Hp -= amount;
-            //}
-
-            //// 만약 DamageHp같은 게 있다면 위 식 대신 이걸 쓰기
-            //target.Stat.DamageHp(amount);
+            target.Stat.SetDamage(amount);
         }
     }
 }

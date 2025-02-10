@@ -24,18 +24,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         public void UseEffect(Character character, Character placeholder)
         {
-            //// 예외처리가 포함된, amount만큼 체력 회복시키기
-            //if (character.stat.Hp+=amount > character.stat.MaxHp)
-            //{
-            //    character.stat.Hp = character.stat.MaxHp;
-            //}
-            //else
-            //{
-            //    character.stat.Hp += amount;
-            //}
-
-            //// 만약 AddHp같은 게 있다면 위 식 대신 이걸 쓰기
-            //character.Stat.AddHp(amount);
+            character.Stat.SetHp(amount+character.Stat.Hp); //현재 체력+회복량만큼의 체력으로 조정
         }
     }
 }
