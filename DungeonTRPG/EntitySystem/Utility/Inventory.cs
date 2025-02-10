@@ -61,32 +61,6 @@ namespace DungeonTRPG.Entity.Utility
         {
             return equippedItems.ContainsKey(slot) ? equippedItems[slot] : null;
         }
-
-        // 장비 종류 별 아이템 필터링 -- 여기부터 추가로 한 건데, 여기서 구현하는 게 맞나 싶어서요
-        public List<EquipItem> GetItemsByEquipSlot(EquipSlot slot)
-        {
-            List<EquipItem> filteredItems = new List<EquipItem>();
-            foreach (var bag in bags)
-            {
-                filteredItems.AddRange(
-                    bag.GetItems().OfType<EquipItem>().Where(item => item.Slot == slot)
-                );
-            }
-            return filteredItems;
-        }
-
-        // 직업 별 아이템 필터링
-        public List<Item> GetItemsByJob(Job job)
-        {
-            List<Item> filteredItems = new List<Item>();
-            foreach (var bag in bags)
-            {
-                filteredItems.AddRange(
-                    bag.GetItems().Where(item => item.AllowedJobs.Contains(job))
-                );
-            }
-            return filteredItems;
-        }
     }
 
     internal class Bag
