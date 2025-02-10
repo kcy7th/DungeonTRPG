@@ -84,7 +84,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine("================================");
             Console.WriteLine($"||   이름 :  ||");
             Console.WriteLine($"||   직업 :  {stateMachine.Player.job} ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat} ||");
+            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv} ||");
             Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp} ||");
             Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk} ||");
             Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def} ||");
