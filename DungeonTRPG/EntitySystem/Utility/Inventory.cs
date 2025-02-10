@@ -16,6 +16,12 @@ namespace DungeonTRPG.Entity.Utility
         public Inventory()
         {
             bags.Add(new Bag(10)); // 기본 가방 추가
+
+            // null 값 할당 (오류 방지)
+            foreach (EquipSlot slot in Enum.GetValues(typeof(EquipSlot)))
+            {
+                equippedItems[slot] = null;
+            }
         }
 
         // 가방에 ActiveItem 추가
