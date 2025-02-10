@@ -41,17 +41,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             Console.ResetColor();
 
             List<Item> items = stateMachine.Player.Inventory.GetItems();
-            bool hasEquip = false;
+            bool hasFind = false;
             for (int i = 0; i < items.Count; i++)
             {
                 if (items[i] is EquipItem)
                 {
                     string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
                     Console.WriteLine($"- {i + 1}{equipment} {items[i].GetName()} | {items[i].GetDescription()}");
-                    hasEquip = true;
+                    hasFind = true;
                 }
             }
-            if (!hasEquip) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
+            if (!hasFind) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 
             Console.WriteLine();
 

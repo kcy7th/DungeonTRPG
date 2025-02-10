@@ -13,6 +13,9 @@ namespace DungeonTRPG.StateMachineSystem
         private IState currentState;
         private Stack<IState> preStates = new Stack<IState>();
 
+        internal CombatScene preCombatScene;
+        internal List<Enemy> enemys = new List<Enemy>();
+
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }
         internal int ExploredCount { get; set; }
@@ -30,10 +33,6 @@ namespace DungeonTRPG.StateMachineSystem
         internal SecretShopScene SecretShopScene { get; }
         internal SecretBoxScene SecretBoxScene { get; }
         internal EnemyFindScene EnemyFindScene { get; }
-        internal CombatScene CombatScene { get; }
-        internal PlayerTurnScene PlayerTurnScene { get; }
-        internal EnemyTurnScene EnemyTurnScene { get; }
-        internal CombatItemScene CombatItemScene { get; }
 
 
         internal StateMachine(Player player)
@@ -51,10 +50,6 @@ namespace DungeonTRPG.StateMachineSystem
             EnemyFindScene = new EnemyFindScene(this);
             SecretBoxScene = new SecretBoxScene(this);
             ItemUseScene = new ItemUseScene(this);
-            CombatScene = new CombatScene(this);
-            PlayerTurnScene = new PlayerTurnScene(this);
-            EnemyTurnScene = new EnemyTurnScene(this);
-            CombatItemScene = new CombatItemScene(this);
         }
 
         internal void ChangeState(IState state)

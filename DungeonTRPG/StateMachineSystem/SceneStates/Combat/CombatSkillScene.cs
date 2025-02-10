@@ -1,13 +1,21 @@
 ﻿using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
-    internal class CombatItemScene : CombatScene
+    internal class CombatSkillScene : CombatScene
     {
-        public CombatItemScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public int selectSkill;
+
+        public CombatSkillScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
         }
 
@@ -31,19 +39,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             EnemyStats();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[소비 아이템]");
+            Console.WriteLine("\n[스킬]");
             Console.ResetColor();
 
             bool hasFind = false;
-            for (int i = inventory.boundaryIndex; i < items.Count; i++)
+            List<Skill> skills = inventory.Character.Skills;
+            for (int i = 0; i < skills.Count; i++)
             {
-                if (items[i] is ActiveItem)
-                {
-                    Console.WriteLine($"- {i - (inventory.boundaryIndex - 1)} {items[i].GetName()} | {items[i].GetDescription()}");
-                    hasFind = true;
-                }
+                Console.WriteLine($"- {i+1} {skills[i].name} | {skills[i].description}");
+                hasFind = true;
             }
-            if (!hasFind) Console.WriteLine("보유하신 소비 아이템이 없습니다. \n");
+            if (!hasFind) Console.WriteLine("보유하신 스킬이 없습니다. \n");
 
             Console.WriteLine();
 
@@ -60,11 +66,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             if (int.TryParse(input, out var num))
             {
                 if (num == 0) stateMachine.GoPreviousState();
-                else if (0 < num && num <= items.Count - inventory.boundaryIndex)
+                else if (0 < num && num <= inventory.Character.Skills.Count)
                 {
-                    ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
-                    if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
-                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
+                    stateMachine.preCombatScene = this;
+                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
                 }
                 else SendMessage("잘못된 입력입니다.");
             }

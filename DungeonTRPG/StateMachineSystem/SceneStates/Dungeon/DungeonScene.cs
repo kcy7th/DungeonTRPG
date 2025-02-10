@@ -101,7 +101,7 @@
                 // 몬스터 조우 
                 case 1:
                     // 상태 전투 씬으로 변경
-                    stateMachine.ChangeState(stateMachine.CombatScene);
+                    stateMachine.ChangeState(stateMachine.EnemyFindScene);
                     break;
                 // 휴식 공간
                 case 2:
