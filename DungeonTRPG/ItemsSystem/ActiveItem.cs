@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using DungeonTRPG.Entity;
+using DungeonTRPG.Interface;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Items
@@ -7,6 +9,14 @@ namespace DungeonTRPG.Items
     internal class ActiveItem : Item
     {
         public UseableIn UseableIn { get; }
+        public List<IEffect> effects = new List<IEffect>();
+
+        public ActiveItem(string name, string description, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn)
+            : base(name, description, allowedJobs)
+        {
+            UseableIn = useableIn;
+            this.effects = effects;
+        }
 
         public ActiveItem(string name, string description, List<Job> allowedJobs, UseableIn useableIn)
             : base(name, description, allowedJobs)
@@ -17,7 +27,7 @@ namespace DungeonTRPG.Items
         // 아이템 복제 (가방 내 아이템 관리용)
         public override Item Clone()
         {
-            return new ActiveItem(name, description, new List<Job>(AllowedJobs), UseableIn);
+            return new ActiveItem(name, description, new List<Job>(AllowedJobs), effects, UseableIn);
         }
 
         public override int CompareTo(Item? other)
@@ -26,9 +36,17 @@ namespace DungeonTRPG.Items
             else return 1;
         }
 
-        public void ItemUse()
+        public void ItemUse(Character player, Character target)
         {
+            foreach(var effect in effects)
+            {
+                effect.UseEffect(player, target);
+            }
+        }
 
+        public void AddEffect(IEffect effect)
+        {
+            effects.Add(effect);
         }
     }
 }

@@ -77,7 +77,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             {
                 if (num == 0) stateMachine.GoPreviousState();
 
-                if (0 < num && num < inventory.boundaryIndex)
+                if (0 < num && num <= inventory.boundaryIndex)
                 {
                     inventory.EquipItem(inventory.GetItems()[num - 1] as EquipItem);
                 }

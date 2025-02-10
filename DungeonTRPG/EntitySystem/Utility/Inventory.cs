@@ -43,11 +43,11 @@ namespace DungeonTRPG.Entity.Utility
             return false;
         }
 
-        public void ItemUse(int index)
+        public void ItemUse(int index, Character player, Character target)
         {
             if (items[index] is ActiveItem)
             {
-                ((ActiveItem)items[index]).ItemUse();
+                ((ActiveItem)items[index]).ItemUse(player, target);
                 RemoveItem(index);
             }
             else
