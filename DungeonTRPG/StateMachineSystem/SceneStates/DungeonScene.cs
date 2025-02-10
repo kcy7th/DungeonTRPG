@@ -47,10 +47,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
                 case "1":
                     AdventureDungeon(RandomInt());
                     break;
-                case "2":
-                    // 인벤토리로 가기 
+                // 인벤토리 열어보기
+                case "2":                   
                     stateMachine.ChangeState(stateMachine.InventoryScene);
                     break;
+                // 마을로 돌아가기
                 case "0":
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
