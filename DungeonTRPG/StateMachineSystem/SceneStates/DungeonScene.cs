@@ -77,7 +77,28 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         private int RandomInt()
         {
             Random random = new Random();
-            int randInt = random.Next(1, 5);
+            int randInt = random.Next(0, 101);
+
+            // 0~49 몬스터 조우
+            if (randInt < 50)
+            {
+                randInt = 1;
+            }
+            // 50~69 휴식 공간
+            else if (randInt<70)
+            {
+                randInt = 2;
+            }
+            // 70~79 비밀 상점
+            else if(randInt<80)
+            {
+                randInt = 3;
+            }
+            // 80~100 의문의 상자
+            else
+            {
+                randInt = 4;
+            }
 
             return randInt;
         }
