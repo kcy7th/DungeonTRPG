@@ -11,9 +11,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
     internal class HpDownWithATK: IEffect
     {
         int amount;
-        int modifier;
+        float modifier;
         int TotalDamage;
-        public HpDownWithATK(int amount, int modifier)
+        public HpDownWithATK(int amount, float modifier)
         {
             this.amount = amount;
             this.modifier = modifier;
@@ -23,7 +23,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         //범용적으로 활용 가능(amount=0, modifier=1.5 / amount=10, modifier=0.5...)
         public void UseEffect(Character caster, Character target)
         {
-            TotalDamage = amount + (caster.Stat.Atk*modifier);
+            TotalDamage = (int)(amount + (caster.Stat.Atk*modifier));
             target.Stat.SetDamage(amount);
         }
     }

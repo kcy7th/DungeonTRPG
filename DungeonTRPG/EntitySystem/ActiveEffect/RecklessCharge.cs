@@ -24,7 +24,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         public void UseEffect(Character player, Character enemy)
         {
             player.Stat.SetDamage(2);
-            enemy.Stat.SetDamage((int)(amount + player.Stat.Atk * 0.2));
+            enemy.Stat.SetDamage((int)(amount + player.Stat.Atk * 1));
         }
     }
 }
