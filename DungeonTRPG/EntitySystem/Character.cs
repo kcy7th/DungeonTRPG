@@ -22,11 +22,11 @@ namespace DungeonTRPG.Entity
         }
 
         // 공격
-        public int Attack()
+        public void Attack(Character target)
         {
             int damage = Stat.Atk;
             if (damage < 0) damage = 0;
-            return damage;
+            target.Damaged(damage);
         }
 
         // 피격

@@ -1,5 +1,4 @@
 ﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Entity.Player
@@ -8,24 +7,21 @@ namespace DungeonTRPG.Entity.Player
     {
         public Job job;
 
-        public event Action? PlayerDefend; // 방어 이벤트
-        public event Action? PlayerRun; // 도망 이벤트
-
         public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
             this.job = job;
         }
 
-        // 방어
-        public void Defend()
-        { 
-
+        // 경험치 획득
+        public void GetExp(int dropExp)
+        {
+            Stat.SetExp(Stat.Exp + dropExp);
         }
 
-        // 도망
-        public void Run()
+        // 골드 획득
+        public void GetGold(int dropGold)
         {
-
+            Stat.SetGold(Stat.Gold + dropGold);
         }
     }
 }
