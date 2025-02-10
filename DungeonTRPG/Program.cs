@@ -12,7 +12,7 @@ namespace DungeonTRPG
     {
         static void Main(string[] args)
         {
-            Player player = new Player("Player", 1500, new Stat(1, 1, 1, 1, 1, 1, 1, 1), Job.Warrior);
+            Player player = new Player("Player", 1500, new Stat(1, 1, 1, 1, 1, 1), Job.Warrior);
             EquipItem item1 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(2001);
             EquipItem item2 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(4000);
             EquipItem item3 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(7000);

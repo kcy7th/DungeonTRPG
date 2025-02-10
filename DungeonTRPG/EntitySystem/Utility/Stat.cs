@@ -15,13 +15,13 @@ namespace DungeonTRPG.Entity.Utility
 
         public event Action? CharacterDie; // 죽음 이벤트
 
-        public Stat(int level, int exp, int hp, int maxHp, int mp, int maxMp, int atk, int def)
+        public Stat(int level, int exp, int maxHp, int maxMp, int atk, int def)
         {
             Lv = level;
             Exp = exp;
-            Hp = hp;
+            Hp = maxHp;
             MaxHp = maxHp;
-            Mp = mp;
+            Mp = maxMp;
             MaxMp = maxMp;
             Atk = atk;
             Def = def;

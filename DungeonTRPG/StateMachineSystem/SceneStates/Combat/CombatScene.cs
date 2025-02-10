@@ -22,7 +22,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.Enter();
 
-            enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 10, 10, 1, 1));
+            enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 1, 1));
         }
 
         public override void Update()
