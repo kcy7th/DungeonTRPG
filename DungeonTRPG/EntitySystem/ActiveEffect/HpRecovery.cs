@@ -18,7 +18,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         public void UseEffect(Character character, Character placeholder)
         {
-            character.Stat.SetHp(amount+character.Stat.Hp); //현재 체력+회복량만큼의 체력으로 조정
+            character.Heal(amount); //현재 체력+회복량만큼의 체력으로 조정
         }
     }
 }

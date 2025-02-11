@@ -1,24 +1,30 @@
-﻿using DungeonTRPG.Interface;
+﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Player;
+using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.Interface;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {
     internal abstract class SceneState : IState
     {
         protected StateMachine stateMachine;
+        protected Player player;
+        protected Random Random { get; } = new Random();
 
         internal SceneState(StateMachine stateMachine)
         {
             this.stateMachine = stateMachine;
+            player = stateMachine.Player;
         }
 
         public virtual void Enter()
         {
-
+            player.OnHeal += Heal;
         }
 
         public virtual void Exit()
         {
-
+            player.OnHeal -= Heal;
         }
 
         public virtual void Update()
@@ -36,6 +42,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine(message);
             Thread.Sleep(1000);
             Console.Clear();
+        }
+
+        protected void Heal(Character target, int heal)
+        {
+            Console.Clear();
+
+            Console.WriteLine("\n" +
+                $"{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : {heal}]");
+
+            Thread.Sleep(1000);
         }
 
         protected abstract void View();

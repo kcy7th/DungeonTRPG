@@ -43,7 +43,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.ResetColor();
 
             bool hasFind = false;
-            List<Skill> skills = inventory.Character.Skills;
+            List<Skill> skills = player.Skills;
             for (int i = 0; i < skills.Count; i++)
             {
                 Console.WriteLine($"- {i+1} {skills[i].name} | {skills[i].description}");
@@ -66,7 +66,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             if (int.TryParse(input, out var num))
             {
                 if (num == 0) stateMachine.GoPreviousState();
-                else if (0 < num && num <= inventory.Character.Skills.Count)
+                else if (0 < num && num <= player.Skills.Count)
                 {
                     stateMachine.preCombatScene = this;
                     stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));

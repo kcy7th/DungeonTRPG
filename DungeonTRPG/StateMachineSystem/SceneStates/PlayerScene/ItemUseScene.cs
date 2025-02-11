@@ -1,13 +1,14 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
+namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
-    internal class EquipmentScene : SceneState
+    internal class ItemUseScene : SceneState
     {
-        private Inventory? inventory;
-
-        internal EquipmentScene(StateMachine stateMachine) : base(stateMachine)
+        private Inventory inventory;
+        private List<Item> items;
+        internal ItemUseScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -16,6 +17,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             base.Enter();
 
             inventory = stateMachine.Player.Inventory;
+            items = inventory.GetItems();
         }
 
         public override void Exit()
@@ -30,28 +32,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
 
         protected override void View()
         {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("인벤토리");
-            Console.ResetColor();
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
-
             // 장착 아이템 출력
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[장착 아이템]");
+            Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
 
-            List<Item> items = stateMachine.Player.Inventory.GetItems();
             bool hasFind = false;
-            for (int i = 0; i < items.Count; i++)
+            for (int i = inventory.boundaryIndex; i < items.Count; i++)
             {
-                if (items[i] is EquipItem)
+                if (items[i] is ActiveItem)
                 {
-                    string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
-                    Console.WriteLine($"- {i + 1}{equipment} {items[i].GetName()} | {items[i].GetDescription()}");
+                    Console.WriteLine($"- {i - (inventory.boundaryIndex - 1)} {items[i].GetName()} | {items[i].GetDescription()}");
                     hasFind = true;
                 }
             }
-            if (!hasFind) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
+            if (!hasFind) Console.WriteLine("보유하신 소비 아이템이 없습니다. \n");
 
             Console.WriteLine();
 
@@ -68,11 +63,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
             if (int.TryParse(input, out var num))
             {
                 if (num == 0) stateMachine.GoPreviousState();
-
-                if (0 < num && num <= inventory.boundaryIndex)
+                else if (0 < num && num <= items.Count - inventory.boundaryIndex)
                 {
-                    inventory.EquipItem(inventory.GetItems()[num - 1] as EquipItem);
+                    ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
+                    if (UseableIn.OnlyCombat == item.UseableIn) SendMessage("전투 중에만 사용할 수 있습니다.");
+                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
                 }
+                else SendMessage("잘못된 입력입니다.");
             }
             else SendMessage("잘못된 입력입니다.");
         }

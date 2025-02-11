@@ -27,11 +27,11 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
             this.description = description;
             this.effects = effects;
         }
-        public void UseSkill(Character character1, Character character2)
+        public void UseSkill(Character caster, Character target)
         {
             foreach (var skill in effects)
             {
-                skill.UseEffect(character1, character2);
+                skill.UseEffect(caster, target);
             }
         }
     }

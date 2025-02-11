@@ -31,7 +31,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             EnemyStats();
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("[소비 아이템]");
+            Console.WriteLine("\n[소비 아이템]");
             Console.ResetColor();
 
             bool hasFind = false;
@@ -64,7 +64,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 {
                     ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
                     if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
-                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
+                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), player, stateMachine.Enemy);
                 }
                 else SendMessage("잘못된 입력입니다.");
             }
