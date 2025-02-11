@@ -54,14 +54,14 @@
 
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("================================");
-            Console.WriteLine($"||   이름 :  {stateMachine.Player.Name} ||");
-            Console.WriteLine($"||   직업 :  {stateMachine.Player.Job} ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv} ||");
-            Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp} ||");
-            Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk} ||");
-            Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def} ||");
-            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Stat.Hp} / {stateMachine.Player.Stat.MaxHp} ||");
-            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Stat.Mp} / {stateMachine.Player.Stat.MaxMp} ||");
+            Console.WriteLine($"||   이름 :  {stateMachine.Player.Name}             ||");
+            Console.WriteLine($"||   직업 :  {stateMachine.Player.Job}        ||");
+            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv}             ||");
+            Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp}            ||");
+            Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk}            ||");
+            Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def}            ||");
+            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Stat.Hp} / {stateMachine.Player.Stat.MaxHp}   ||");
+            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Stat.Mp} / {stateMachine.Player.Stat.MaxMp}   ||");
             Console.WriteLine("================================");
             Console.WriteLine("");
             
@@ -70,7 +70,7 @@
             Console.WriteLine(player.Stat.Lv);
             Console.ResetColor();
 
-            Console.WriteLine($"{player.Name} ( {player.job} )");
+            Console.WriteLine($"{player.Name} ( {player.Job} )");
 
             Console.Write($"상 태 \t: ");
             Console.WriteLine(player.CharacterState.State);
