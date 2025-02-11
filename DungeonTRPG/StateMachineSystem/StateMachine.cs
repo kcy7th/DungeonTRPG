@@ -16,11 +16,12 @@ namespace DungeonTRPG.StateMachineSystem
         internal CombatScene preCombatScene;
         internal int enemyTurnCount = 0;
 
+        internal int exploredCount = 0;
+        internal int currentFloor = 1;
+        internal bool isGameOver = false;
+
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }
-        internal int ExploredCount { get; set; }
-        internal int currentFloor { get; set; }
-        internal bool isGameOver { get; set; } = false;
 
         internal VillageScene VillageScene { get; }
         internal DungeonScene DungeonScene { get; }

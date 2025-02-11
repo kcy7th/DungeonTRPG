@@ -43,41 +43,64 @@
         protected override void View()
         {
             ViewStat();
-            ViewSelect();
-        }
-
-        // 선택창 보기 함수 
-        private void ViewSelect()
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("================================");
-            Console.WriteLine("||  이동할 곳을 선택해 주세요 ||");
-            Console.WriteLine("||           0. 마을          ||");
-            Console.WriteLine("================================");
-            Console.WriteLine("");
-            Console.ResetColor();
         }
 
         private void ViewStat()
         {
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("상태 보기");
             Console.ResetColor();
-            Console.WriteLine("");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("================================");
-            Console.WriteLine($"||   이름 :  {stateMachine.Player.Name}||");
-            Console.WriteLine($"||   직업 :  {stateMachine.Player.job} ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv} ||");
-            Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp} ||");
-            Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk} ||");
-            Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def} ||");
-            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Stat.Hp} / {stateMachine.Player.Stat.MaxHp} ||");
-            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Stat.Mp} / {stateMachine.Player.Stat.MaxMp} ||");
-            Console.WriteLine("================================");
-            Console.WriteLine("");
+            Console.Write($"Lv. ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(player.Stat.Lv);
             Console.ResetColor();
+
+            Console.WriteLine($"{player.Name} ( {player.job} )");
+
+            Console.Write($"상 태 \t: ");
+            Console.WriteLine(player.CharacterState.State);
+
+            Console.Write($"체 력 \t: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(player.Stat.Hp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(player.Stat.MaxHp);
+            Console.ResetColor();
+
+            Console.Write($"마 나 \t: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(player.Stat.Mp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(player.Stat.MaxMp);
+            Console.ResetColor();
+
+            Console.Write($"공격력 \t: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(player.Stat.Atk);
+            Console.ResetColor();
+
+            Console.Write($"방어력 \t: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(player.Stat.Def);
+            Console.ResetColor();
+
+            Console.Write($"Gold \t: ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(player.Gold);
+            Console.ResetColor();
+            Console.WriteLine(" G");
+
+            Console.WriteLine();
+            Console.WriteLine($"0. 돌아가기");
+            Console.WriteLine();
+
+            InputField();
         }
 
     }

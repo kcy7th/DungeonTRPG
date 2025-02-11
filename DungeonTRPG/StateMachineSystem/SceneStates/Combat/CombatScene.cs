@@ -71,14 +71,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void PlayerStats()
         {
-            Console.WriteLine(
-                $"\n" +
-                $"{player.Name} ( Lv.{player.Stat.Lv} ) \n" +
-                $"상 태 \t: {player.CharacterState.State} \n" +
-                $"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp} \n" +
-                $"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp} \n" +
-                $"공격력 \t: {player.Stat.Atk} \n" +
-                $"방어력 \t: {player.Stat.Def}");
+            Console.WriteLine();
+            Console.WriteLine($"{player.Name} ( Lv.{player.Stat.Lv} )");
+            Console.WriteLine($"상 태 \t: {player.CharacterState.State}");
+            Console.WriteLine($"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp}");
+            Console.WriteLine($"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp}");
+            Console.WriteLine($"공격력 \t: {player.Stat.Atk}");
+            Console.WriteLine($"방어력 \t: {player.Stat.Def}");
         }
 
         protected void EnemyStats()

@@ -21,10 +21,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             player.Stat.SetExp(0);
 
-            Console.WriteLine(
-                $"Defeat \n" +
-                $"\n" +
-                $"Exp : {preExp} -> {player.Stat.Exp}");
+            Console.WriteLine("Defeat");
+            Console.WriteLine();
+            Console.WriteLine($"Exp : {preExp} -> {player.Stat.Exp}");
         }
 
         protected override void Control()

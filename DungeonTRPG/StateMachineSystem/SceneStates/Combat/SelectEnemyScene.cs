@@ -25,7 +25,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             base.View();
 
             Console.WriteLine("\n0. 돌아가기");
-            Console.Write("\n공격하고 싶은 적의 번호를 입력해주세요.\n>> ");
+            Console.WriteLine();
+            InputField("공격하고 싶은 적의 번호를 입력해주세요.");
         }
 
         protected override void Control()

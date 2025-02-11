@@ -21,11 +21,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             player.Stat.AddExp(CalculateExp());
 
-            Console.WriteLine(
-                $"Victory \n" +
-                $"\n" +
-                $"던전에서 몬스터 {enemys.Count}마리를 잡았습니다. \n" +
-                $"\n");
+            Console.WriteLine("Victory");
+            Console.WriteLine();
+            Console.WriteLine($"던전에서 몬스터 {enemys.Count}마리를 잡았습니다.");
+            Console.WriteLine();
             if (preLv < player.Stat.Lv) Console.WriteLine($"Lv.{preLv} -> {player.Stat.Lv}");
             Console.WriteLine($"Exp : {preExp} -> {player.Stat.Exp}");
         }
