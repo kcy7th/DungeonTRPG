@@ -334,6 +334,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void Sleep(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +
@@ -344,6 +346,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void Addiction(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +
@@ -354,6 +358,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void Confusion(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +

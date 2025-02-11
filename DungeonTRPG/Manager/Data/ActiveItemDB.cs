@@ -28,7 +28,7 @@ namespace DungeonTRPG.Manager.Data
             { 1017, new ActiveItem("고통의 물약 I", "적에게 던져 데미지를 입힌다.", new List <Job> { Job.Mage }, new List<IEffect>(){ new HpDamageATK(1.2f) }, UseableIn.OnlyCombat) },
             { 1018, new ActiveItem("고통의 물약 II", "적에게 던져 데미지를 입힌다.", new List <Job> { Job.Mage }, new List<IEffect>(){ new HpDamageATK(1.4f) }, UseableIn.OnlyCombat) },
             { 1019, new ActiveItem("고통의 물약 III", "적에게 던져 데미지를 입힌다.", new List <Job> { Job.Mage }, new List<IEffect>(){ new HpDamageATK(1.6f) }, UseableIn.OnlyCombat) },
-            { 1020, new ActiveItem("불화살", "적에게 쏴 데미지를 입힌다.", new List <Job> { Job.Archer }, new List<IEffect>(){ new HpDamageATK(1.0f) }, UseableIn.OnlyCombat) },
+            { 1020, new ActiveItem("불화살", "적에게 쏴 데미지를 입힌다.", new List <Job> { Job.Archer }, new List<IEffect>(){ new HpDamageATK(1.0f), new StateTarget(100, State.Addiction) }, UseableIn.OnlyCombat) },
             { 1021, new ActiveItem("폭팔형 화살", "적에게 쏴 데미지를 입힌다.", new List <Job> { Job.Archer }, new List<IEffect>(){ new HpDamageATK(2f) }, UseableIn.OnlyCombat) },
             { 1022, new ActiveItem("고대 화살", "적에게 쏴 데미지를 입힌다.", new List <Job> { Job.Archer }, new List<IEffect>(){ new HpDamageATK(1.0f) }, UseableIn.OnlyCombat) },
             { 1023, new ActiveItem("번개의 돌", "번개를 불러와 적에게 데미지를 입히고 일정 확률로 움직이지 못하게 한다.", new List <Job> { Job.None }, new List<IEffect>(){ new StunningBlow(30) }, UseableIn.OnlyCombat) },           

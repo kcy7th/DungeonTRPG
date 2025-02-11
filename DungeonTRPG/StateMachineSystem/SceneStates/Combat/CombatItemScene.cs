@@ -7,6 +7,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class CombatItemScene : CombatScene
     {
+        public int selectItem;
+
         public CombatItemScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
         }
@@ -65,7 +67,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 {
                     ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
                     if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
-                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), player, stateMachine.Enemy);
+                    else
+                    {
+                        selectItem = num + (inventory.boundaryIndex - 1);
+                        stateMachine.preCombatScene = this;
+                        stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                    }
                 }
                 else SendMessage("잘못된 입력입니다.");
             }

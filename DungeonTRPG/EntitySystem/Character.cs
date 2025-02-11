@@ -72,6 +72,13 @@ namespace DungeonTRPG.Entity
             return result;
         }
 
+        public int TrueDamaged(int damage)
+        {
+            int result = Stat.TakeTrueDamage(damage);
+            OnDamage?.Invoke(this, result);
+            return result;
+        }
+
         // 체력 회복
         public void Heal(int amount)
         {
