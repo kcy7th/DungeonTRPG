@@ -19,8 +19,13 @@ namespace DungeonTRPG.EntitySystem.Utility
             if (RemainingTurn > 0)
             {
                 RemainingTurn--;
-                State = State.None;
             }
+            else State = State.None;
+        }
+
+        public void SetRemainingTurn(int turn)
+        {
+            RemainingTurn = turn;
         }
     }
 }

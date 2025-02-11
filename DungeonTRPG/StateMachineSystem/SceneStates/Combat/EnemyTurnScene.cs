@@ -62,6 +62,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                             Sleep(enemy);
                             return false;
                         case State.Addiction:
+                            enemy.TrueDamaged(enemy.Stat.MaxHp / 10);
                             Addiction(enemy);
                             break;
                         case State.Confusion:

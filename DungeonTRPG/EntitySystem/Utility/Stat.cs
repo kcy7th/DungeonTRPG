@@ -68,6 +68,19 @@
             return caculate;
         }
 
+        public int TakeTrueDamage(int damage)
+        {
+            Hp -= damage;
+
+            if (Hp <= 0)
+            {
+                Hp = 0;
+                CharacterDie?.Invoke();
+            }
+
+            return Hp;
+        }
+
         internal void SetMaxHp(int value)
         {
             if (value <= 0) return;
@@ -85,7 +98,7 @@
         internal void SetMaxMp(int value)
         {
             if (value <= 0) return;
-            MaxHp = value;
+            MaxMp = value;
         }
 
         // 마나 관리

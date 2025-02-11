@@ -53,7 +53,7 @@
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
             Console.Write($"Lv. ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(player.Stat.Lv);
             Console.ResetColor();
 
@@ -63,32 +63,68 @@
             Console.WriteLine(player.CharacterState.State);
 
             Console.Write($"체 력 \t: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Write(player.Stat.Hp);
             Console.ResetColor();
             Console.Write($" / ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(player.Stat.MaxHp);
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(player.Stat.MaxHp);
             Console.ResetColor();
+            if(player.Inventory.GetTotalEquipHp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipHp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
 
             Console.Write($"마 나 \t: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Write(player.Stat.Mp);
             Console.ResetColor();
             Console.Write($" / ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(player.Stat.MaxMp);
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(player.Stat.MaxMp);
             Console.ResetColor();
+            if (player.Inventory.GetTotalEquipMp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipMp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
 
             Console.Write($"공격력 \t: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(player.Stat.Atk);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(player.Stat.Atk);
             Console.ResetColor();
+            if (player.Inventory.GetTotalEquipAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
 
             Console.Write($"방어력 \t: ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(player.Stat.Def);
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(player.Stat.Def);
             Console.ResetColor();
+            if (player.Inventory.GetTotalEquipDef() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipDef()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
 
             Console.Write($"Gold \t: ");
             Console.ForegroundColor = ConsoleColor.Yellow;

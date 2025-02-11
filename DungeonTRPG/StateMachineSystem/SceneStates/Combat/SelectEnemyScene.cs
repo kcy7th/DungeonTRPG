@@ -48,7 +48,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                             Skill skill = player.Skills[combatSkill.selectSkill];
                             skill.UseSkill(null, enemys[num - 1]);
                         }
-                        else if (stateMachine.preCombatScene is CombatItemScene) { }
+                        else if (stateMachine.preCombatScene is CombatItemScene)
+                        {
+                            CombatItemScene combatItem = stateMachine.preCombatScene as CombatItemScene;
+                            player.Inventory.ItemUse(combatItem.selectItem, player, enemys[num - 1]);
+                        }
 
                         stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
                     }
