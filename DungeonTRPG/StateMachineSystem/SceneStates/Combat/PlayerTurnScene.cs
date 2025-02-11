@@ -23,7 +23,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     Sleep(player);
                     stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
                     break;
-                case State.Addiction:
+                case State.Burn:
                     player.Damaged(player.Stat.MaxHp / 10);
                     Addiction(player);
                     break;
@@ -45,7 +45,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            base.View();
+            EnemyStats();
 
             Console.WriteLine();
             Console.WriteLine("1. 공격");
@@ -53,7 +53,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("3. 아이템");
             Console.WriteLine("4. 방어");
             Console.WriteLine();
+
             InputField();
+            var cursurPos = Console.GetCursorPosition();
+
+            PlayerStats();
+
+            Console.SetCursorPosition(cursurPos.Left, cursurPos.Top);
         }
 
         protected override void Control()

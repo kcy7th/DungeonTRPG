@@ -53,7 +53,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
 
-            InputField();
+            var cursurPos = InputField();
+
+            PlayerStats();
+
+            Console.SetCursorPosition(cursurPos.Left, cursurPos.Top);
         }
 
         protected override void Control()
@@ -69,9 +73,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
                     else
                     {
-                        selectItem = num + (inventory.boundaryIndex - 1);
-                        stateMachine.preCombatScene = this;
-                        stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                        if (item.useOnSelf)
+                        {
+                            inventory.ItemUse(num + (inventory.boundaryIndex - 1), player, null);
+                        }
+                        else
+                        {
+                            selectItem = num + (inventory.boundaryIndex - 1);
+                            stateMachine.preCombatScene = this;
+                            stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                        }
                     }
                 }
                 else SendMessage("잘못된 입력입니다.");

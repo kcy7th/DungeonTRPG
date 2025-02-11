@@ -22,11 +22,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            base.View();
+            EnemyStats();
 
             Console.WriteLine("\n0. 돌아가기");
             Console.WriteLine();
             InputField("공격하고 싶은 적의 번호를 입력해주세요.");
+
+            PlayerStats();
         }
 
         protected override void Control()
