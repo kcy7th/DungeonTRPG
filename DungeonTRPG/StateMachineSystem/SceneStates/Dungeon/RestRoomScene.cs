@@ -2,16 +2,12 @@
 {
     internal class RestRoomScene : DungeonScene
     {
-        int restCount = 0;
-
         internal RestRoomScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
-            // 휴식 데이터 초기화
-            restCount = 0;
             base.Enter();
         }
 
@@ -69,8 +65,11 @@
                     break;
                 case "1":
                     // 휴식 취하기
-                    restCount++;
-                    stateMachine.InnScene.GetSomeRest();
+                    stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp / 2);
+                    stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp / 2);
+
+                    // 이전 상태로 돌아가기 
+                    stateMachine.GoPreviousState();
                     break;
                 // 다른 입력
                 default:
