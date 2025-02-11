@@ -23,10 +23,12 @@ namespace DungeonTRPG.StateMachineSystem
         internal int currentFloor { get; set; }
         internal bool isGameOver { get; set; } = false;
 
+        internal VillageScene VillageScene { get; }
         internal DungeonScene DungeonScene { get; }
         internal INNScene InnScene { get; }
         internal ShopScene ShopScene { get; }
         internal InventoryScene InventoryScene { get; }
+        internal CreatePlayerScene CreatePlayerScene { get; }
         internal EquipmentScene EquipmentScene { get; }
         internal ItemUseScene ItemUseScene { get; }
         internal StateScene StateScene { get; }
@@ -40,10 +42,12 @@ namespace DungeonTRPG.StateMachineSystem
         {
             Player = player;
 
+            VillageScene = new VillageScene(this);
             DungeonScene = new DungeonScene(this);
             InnScene = new INNScene(this);
             ShopScene = new ShopScene(this);
             InventoryScene = new InventoryScene(this);
+            CreatePlayerScene = new CreatePlayerScene(this);
             EquipmentScene = new EquipmentScene(this);
             StateScene = new StateScene(this);
             RestRoomScene = new RestRoomScene(this);
