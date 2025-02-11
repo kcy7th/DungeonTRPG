@@ -1,0 +1,28 @@
+﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Interface;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DungeonTRPG.EntitySystem.ActiveEffect
+{
+    internal class HpDownSelf:IEffect
+    {
+        int amount;
+
+        public HpDownSelf(int amount)
+        {
+            this.amount = amount;
+        }
+
+        //Hp가 amount만큼 줄어드는 효과 클래스, 하지만 시전자의 체력을 깎는
+        //amount를 방어력만큼 설정해서 caster의 방어력만큼 target의 체력을 깎는 것도 생각해볼 수 있을 것 같습니다
+
+        public void UseEffect(Character caster, Character target)
+        {
+            caster.Damaged(amount);
+        }
+    }
+}

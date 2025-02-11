@@ -18,12 +18,12 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             this.amount = amount;
         }
 
-        public void UseEffect(Character player, Character enemy)
+        public void UseEffect(Character caster, Character enemy)
         {
             Random random= new Random();
-            int roll = (int)(random.Next(1, 10) +player.Stat.Atk*0.1);
+            int roll = (int)(random.Next(1, 10) + caster.Stat.Atk*0.1);
 
-            if (player.Stat.Lv<enemy.Stat.Lv) //플레이어 레벨이 적보다 낮다면
+            if (caster.Stat.Lv<enemy.Stat.Lv) //플레이어 레벨이 적보다 낮다면
             {
                 if (roll > 5) 
                 {
