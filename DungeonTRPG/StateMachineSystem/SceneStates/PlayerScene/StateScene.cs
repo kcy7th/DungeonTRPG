@@ -42,6 +42,11 @@
 
         protected override void View()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("상태 보기");
+            Console.ResetColor();
+            Console.WriteLine("내 정보를 표시합니다.");
+
             ViewStat();
             ViewSelect();
         }
@@ -49,34 +54,25 @@
         // 선택창 보기 함수 
         private void ViewSelect()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("================================");
-            Console.WriteLine("||  이동할 곳을 선택해 주세요 ||");
-            Console.WriteLine("||           0. 마을          ||");
-            Console.WriteLine("================================");
-            Console.WriteLine("");
-            Console.ResetColor();
+            Console.WriteLine(
+                            $"\n" +
+                            $"0. 마을로 돌아가기 \n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
         private void ViewStat()
-        {
-            Console.ForegroundColor = ConsoleColor.Gray;
-            Console.WriteLine("상태 보기");
-            Console.ResetColor();
-            Console.WriteLine("");
-
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("================================");
-            Console.WriteLine($"||   이름 :  {stateMachine.Player.Name}||");
-            Console.WriteLine($"||   직업 :  {stateMachine.Player.job} ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv} ||");
-            Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp} ||");
-            Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk} ||");
-            Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def} ||");
-            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Stat.Hp} / {stateMachine.Player.Stat.MaxHp} ||");
-            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Stat.Mp} / {stateMachine.Player.Stat.MaxMp} ||");
-            Console.WriteLine("================================");
-            Console.WriteLine("");
+        {           
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine(
+                $"\n" +
+                $"{player.Name} ( Lv.{player.Stat.Lv} ) \n" +
+                $"{player.job.ToString()} \n" +
+                $"상 태 \t: {player.CharacterState.State} \n" +
+                $"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp} \n" +
+                $"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp} \n" +
+                $"공격력 \t: {player.Stat.Atk} \n" +
+                $"방어력 \t: {player.Stat.Def} \n" +
+                $"Gold \t: {player.Gold}");
             Console.ResetColor();
         }
 

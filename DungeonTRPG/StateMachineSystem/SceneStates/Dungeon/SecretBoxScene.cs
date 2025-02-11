@@ -68,23 +68,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("의문의 상자");
             Console.ResetColor();
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("의문의 상자를 찾았습니다");
-            Console.WriteLine("");
-            Console.ResetColor();
         }
 
         // 선택창 보기 함수 
         private void ViewSelect()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("============================================");
-            Console.WriteLine("||         행동을 선택해 주세요           ||");
-            Console.WriteLine("||      1. 열어보기 0. 던전 돌아가기      ||");
-            Console.WriteLine("============================================");
-            Console.WriteLine("");
-            Console.ResetColor();
+            Console.WriteLine(
+                            $"\n" +
+                            $"1. 열어보기 \n" +
+                            $"0. 던전 돌아가기 \n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
         // 의문의 상자 확률 계산 함수 
