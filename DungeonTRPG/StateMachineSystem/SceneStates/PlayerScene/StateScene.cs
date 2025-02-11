@@ -51,19 +51,6 @@
             Console.WriteLine("상태 보기");
             Console.ResetColor();
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
-
-            Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            Console.WriteLine("================================");
-            Console.WriteLine($"||   이름 :  {stateMachine.Player.Name}             ||");
-            Console.WriteLine($"||   직업 :  {stateMachine.Player.Job}        ||");
-            Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv}             ||");
-            Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp}            ||");
-            Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk}            ||");
-            Console.WriteLine($"||   방어력 : {stateMachine.Player.Stat.Def}            ||");
-            Console.WriteLine($"||   현재 HP : {stateMachine.Player.Stat.Hp} / {stateMachine.Player.Stat.MaxHp}   ||");
-            Console.WriteLine($"||   현재 MP : {stateMachine.Player.Stat.Mp} / {stateMachine.Player.Stat.MaxMp}   ||");
-            Console.WriteLine("================================");
-            Console.WriteLine("");
             
             Console.Write($"Lv. ");
             Console.ForegroundColor = ConsoleColor.Green;
