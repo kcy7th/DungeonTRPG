@@ -16,17 +16,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 
         public override void Enter()
         {
-            base.Enter();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
-        public override void Update()
-        {
-            base.Update();
+            
         }
 
         // 행동 선택 함수 

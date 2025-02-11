@@ -20,6 +20,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.Exit();
 
+            foreach (Enemy enemy in enemys)
+            {
+                enemy.CharacterState.TurnCountDown();
+            }
+
             player.CharacterState.TurnCountDown();
         }
 

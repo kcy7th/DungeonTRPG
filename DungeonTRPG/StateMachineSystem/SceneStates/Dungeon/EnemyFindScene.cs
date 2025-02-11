@@ -13,17 +13,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 
         public override void Enter()
         {
-            base.Enter();
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-        }
-
-        public override void Update()
-        {
-            base.Update();
+            
         }
 
         // 전투 함수
