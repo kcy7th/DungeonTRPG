@@ -14,6 +14,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Enter()
         {
             base.Enter();
+
+            Console.Title = "EnemyTurn";
         }
 
         public override void Exit()
@@ -30,9 +32,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            base.View();
-
-            Console.Title = "EnemyTurn";
+            EnemyStats();
         }
 
         protected override void Control()
@@ -66,9 +66,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                         case State.Sleep:
                             Sleep(enemy);
                             return false;
-                        case State.Addiction:
-                            enemy.TrueDamaged(enemy.Stat.MaxHp / 10);
+                        case State.Poison:
+                        case State.Burn:
                             Addiction(enemy);
+                            enemy.TrueDamaged(enemy.Stat.MaxHp / 10);
                             break;
                         case State.Confusion:
                             Confusion(enemy);

@@ -61,7 +61,7 @@
                     // 이전 상태로 돌아가기 
                     stateMachine.currentFloor = 1;
                     stateMachine.exploredCount = 0;
-                    stateMachine.GoPreviousState();
+                    stateMachine.ChangeState(stateMachine.VillageScene);
                     break;
                 default:
                     break;

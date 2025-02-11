@@ -19,6 +19,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
 
         public virtual void Enter()
         {
+            Console.Clear();
+            Console.SetCursorPosition(0, 0);
+
             player.OnHeal += Heal;
         }
 
@@ -52,9 +55,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Thread.Sleep(1000);
         }
 
-        protected void InputField(string message = "원하시는 행동을 입력해주세요.")
+        protected (int Left, int Top) InputField(string message = "원하시는 행동을 입력해주세요.")
         {
             Console.Write($"{message} \n>> ");
+            return Console.GetCursorPosition();
         }
 
         protected abstract void View();

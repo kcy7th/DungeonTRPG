@@ -49,7 +49,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 Console.WriteLine($"- {i+1} {skills[i].name} | {skills[i].description}");
                 hasFind = true;
             }
-            if (!hasFind) Console.WriteLine("보유하신 스킬이 없습니다. \n");
+            if (!hasFind) Console.WriteLine("보유하신 스킬이 없습니다.");
 
             Console.WriteLine();
 
@@ -57,7 +57,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
 
-            InputField();
+            var cursurPos = InputField();
+
+            PlayerStats();
+
+            Console.SetCursorPosition(cursurPos.Left, cursurPos.Top);
         }
 
         protected override void Control()

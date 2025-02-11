@@ -2,6 +2,7 @@
 using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
@@ -59,18 +60,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            EnemyStats();
-            PlayerStats();
+
         }
 
         protected override void Control()
         {
-            Thread.Sleep(1000);
             stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
         }
 
         protected void PlayerStats()
         {
+            Console.WriteLine();
             Console.WriteLine();
 
             Console.Write($"{player.Name} ( Lv. ");
@@ -189,7 +189,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State} \t\t");
+                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State}   \t");
                 else Console.Write("\t\t\t");
             }
         }
@@ -315,19 +315,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.Clear();
             EnemyStats();
             PlayerStats();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             Console.Clear();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             EnemyStats();
             PlayerStats();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             Console.Clear();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             EnemyStats();
             PlayerStats();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             Console.Clear();
-            Thread.Sleep(100);
+            Thread.Sleep(50);
             EnemyStats();
             PlayerStats();
         }
@@ -339,19 +339,31 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             EnemyStats();
 
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 데미지를 자고 있습니다.");
+                $"Lv. {target.Stat.Lv} {target.Name} 이(가) 자고 있습니다.");
 
             Thread.Sleep(1000);
         }
 
         protected void Addiction(Character target)
         {
+            string message = "";
+
+            switch (target.CharacterState.State)
+            {
+                case State.Burn:
+                    message = "화상에 걸려 있습니다.";
+                    break;
+                case State.Poison:
+                    message = "독에 걸려 있습니다.";
+                    break;
+            }
+
             Console.Clear();
 
             EnemyStats();
 
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 독에 걸려 있습니다.");
+                $"Lv. {target.Stat.Lv} {target.Name} 이(가) {message}");
 
             Thread.Sleep(1000);
         }
@@ -363,7 +375,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             EnemyStats();
 
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 혼란에 빠져 있습니다.");
+                $"Lv. {target.Stat.Lv} {target.Name} 이(가) 혼란에 빠져 있습니다.");
 
             Thread.Sleep(1000);
         }

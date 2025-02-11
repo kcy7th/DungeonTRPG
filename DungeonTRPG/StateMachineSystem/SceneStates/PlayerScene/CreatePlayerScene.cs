@@ -38,15 +38,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
             player.SetName(name); // 플레이어 클래스에 이름 관리 메서드에 입력 받은 이름에 대한 정보 전달
 
+            Console.Clear();
+
             if (name != null)
             {                
                 Console.WriteLine($"안녕하세요 '{name}'님 DungeonTRPG에 오신 것을 환영합니다.");
                 Console.WriteLine("");
-                Console.WriteLine("===========================================================================");
-                Console.WriteLine("||                       원하는 직업을 선택해주세요                      ||");
-                Console.WriteLine("||              1. 전사    2. 법사    3. 궁수   0. 게임 종료             ||");
-                Console.WriteLine("===========================================================================");
+                Console.WriteLine("[직업 선택]");
+                Console.WriteLine("1. 전사");
+                Console.WriteLine("2. 법사");
+                Console.WriteLine("3. 궁수");
                 Console.WriteLine("");
+
+                InputField("원하는 직업을 선택해주세요");
 
                 string input = Console.ReadLine();
                 switch (input)
