@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity.Enemy;
+using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
                 if (0 < num && num <= enemys.Count)
                 {
-                    stateMachine.ChangeState(new ActionScene(stateMachine, enemys, num - 1));
+                    if (stateMachine.preCombatScene is PlayerTurnScene) player.Attack(enemys[num - 1]);
+                    else if (stateMachine.preCombatScene is CombatSkillScene)
+                    {
+                        CombatSkillScene combatSkill = stateMachine.preCombatScene as CombatSkillScene;
+                        Skill skill = player.Skills[combatSkill.selectSkill];
+                        skill.UseSkill(null, enemys[num - 1]);
+                    }
+                    else if (stateMachine.preCombatScene is CombatItemScene) { }
+
+                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
                 }
             }
             else SendMessage("잘못된 입력입니다.");

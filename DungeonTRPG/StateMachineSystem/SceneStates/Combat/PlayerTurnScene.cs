@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity.Enemy;
+using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
@@ -11,6 +12,25 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Enter()
         {
             base.Enter();
+
+            Console.Title = "PlayerTurn";
+
+            stateMachine.enemyTurnCount = 0;
+
+            switch (player.CharacterState.State)
+            {
+                case State.Sleep:
+                    Sleep(player);
+                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                    break;
+                case State.Addiction:
+                    player.Damaged(player.Stat.MaxHp / 10);
+                    Addiction(player);
+                    break;
+                case State.Confusion:
+                    Confusion(player);
+                    break;
+            }
         }
 
         public override void Update()

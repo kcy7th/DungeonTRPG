@@ -1,4 +1,4 @@
-﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
     internal class StateScene : SceneState
     {

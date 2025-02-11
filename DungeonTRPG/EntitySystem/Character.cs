@@ -1,5 +1,6 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.EntitySystem.SkillSystem;
+using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 
 namespace DungeonTRPG.Entity
@@ -11,7 +12,12 @@ namespace DungeonTRPG.Entity
         public int Gold { get; protected set; }
         public Stat Stat { get; protected set; }
         public Inventory Inventory { get; protected set; }
+        public CharacterState CharacterState { get; protected set; }
         public List<Skill> Skills { get; protected set; } = new List<Skill>();
+
+        public event Action<Character, Character, int> OnAttack;
+        public event Action<Character, int> OnDamage;
+        public event Action<Character, int> OnHeal;
 
         public Character(string name, int gold, Stat stat)
         {            
@@ -19,6 +25,7 @@ namespace DungeonTRPG.Entity
             Gold = gold;
             Stat = stat;
             Inventory = new Inventory(this);
+            CharacterState = new CharacterState();
         }
 
         internal void OnItemEquipped(EquipItem item)
@@ -42,19 +49,23 @@ namespace DungeonTRPG.Entity
         {
             int damage = Stat.Atk;
             if (damage < 0) damage = 0;
-            target.Damaged(damage);
+            damage = target.Stat.TakeDamage(damage);
+            OnAttack?.Invoke(this, target, damage);
         }
 
         // 피격
         public int Damaged(int damage)
         {
-            return Stat.TakeDamage(damage);
+            int result = Stat.TakeDamage(damage);
+            OnDamage?.Invoke(this, result);
+            return result;
         }
 
         // 체력 회복
         public void Heal(int amount)
         {
             Stat.SetHp(Stat.Hp + amount);
+            OnHeal?.Invoke(this, amount);
         }
 
         // 마나 사용

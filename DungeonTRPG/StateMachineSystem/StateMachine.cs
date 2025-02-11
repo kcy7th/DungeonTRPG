@@ -3,7 +3,7 @@ using DungeonTRPG.Entity.Player;
 using DungeonTRPG.Interface;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
 using DungeonTRPG.StateMachineSystem.SceneStates.Dungeon;
-using DungeonTRPG.StateMachineSystem.SceneStates.Player;
+using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
 using DungeonTRPG.StateMachineSystem.SceneStates.Village;
 
 namespace DungeonTRPG.StateMachineSystem
@@ -15,6 +15,7 @@ namespace DungeonTRPG.StateMachineSystem
 
         internal CombatScene preCombatScene;
         internal List<Enemy> enemys = new List<Enemy>();
+        internal int enemyTurnCount = 0;
 
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }

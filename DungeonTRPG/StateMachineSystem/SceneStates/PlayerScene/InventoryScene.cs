@@ -1,6 +1,6 @@
 ﻿using DungeonTRPG.Items;
 
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Player
+namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
     internal class InventoryScene : SceneState
     {
