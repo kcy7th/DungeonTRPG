@@ -14,9 +14,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         }
 
         //character 하나만을 갖고 작동하는 기능이지만, 상속된 기능이라 더미 캐릭터 하나를 추가해야만 함
-        public void UseEffect(Character character, Character placeholder)
+        public void UseEffect(Character caster, Character placeholder)
         {
-            character.Stat.SetMp(amount+character.Stat.Mp);
+            caster.Stat.SetMp(amount+ caster.Stat.Mp);
         }
     }
 }

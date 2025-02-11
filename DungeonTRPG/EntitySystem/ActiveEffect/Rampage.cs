@@ -18,7 +18,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         // (int)(amount*(1+0.2*KillCount)) 만큼 target의 체력 감소
         public void UseEffect(Character caster, Character target)
         {
-            if (target.Stat.Hp - amount * (1 + 0.2 * KillCount) < 0) //타겟의 체력과 공격력의 차가 0일 경우
+            if ((target.Stat.Hp - amount * (1 + 0.2 * KillCount))+target.Stat.Def < 0) //타겟이 이 공격을 받은 뒤의 체력이 0보다 낮을 경우
             {
                 target.Damaged((int)(amount * (1 + 0.2 * KillCount)));
                 KillCount++;

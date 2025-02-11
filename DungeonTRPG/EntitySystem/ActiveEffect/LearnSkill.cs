@@ -13,9 +13,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             this.skill = skill;
         }
 
-        public void UseEffect(Character player, Character target)
+        public void UseEffect(Character caster, Character target)
         {
-            player.LearnSkill(skill);
+            caster.LearnSkill(skill);
         }
     }
 }
