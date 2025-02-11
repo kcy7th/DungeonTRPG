@@ -72,12 +72,79 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void PlayerStats()
         {
             Console.WriteLine();
-            Console.WriteLine($"{player.Name} ( Lv.{player.Stat.Lv} )");
-            Console.WriteLine($"상 태 \t: {player.CharacterState.State}");
-            Console.WriteLine($"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp}");
-            Console.WriteLine($"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp}");
-            Console.WriteLine($"공격력 \t: {player.Stat.Atk}");
-            Console.WriteLine($"방어력 \t: {player.Stat.Def}");
+
+            Console.Write($"{player.Name} ( Lv. ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(player.Stat.Lv);
+            Console.ResetColor();
+            Console.WriteLine(" )");
+
+            Console.Write($"상 태 \t: ");
+            Console.WriteLine(player.CharacterState.State);
+
+            Console.Write($"체 력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(player.Stat.Hp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(player.Stat.MaxHp);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipHp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipHp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"마 나 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(player.Stat.Mp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(player.Stat.MaxMp);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipMp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipMp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"공격력 \t: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(player.Stat.Atk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"방어력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(player.Stat.Def);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipDef() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipDef()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
         }
 
         protected void EnemyStats()
@@ -108,7 +175,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"{enemy.Name} ( Lv.{enemy.Stat.Lv} ) \t");
+                Console.Write($"{enemy.Name} ( Lv. ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(enemy.Stat.Lv);
+                Console.ResetColor();
+                Console.Write(" )");
+                Console.Write("\t");
             }
         }
 
@@ -127,7 +199,18 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if (enemy.Stat.Hp > 0) Console.Write($"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"체 력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(enemy.Stat.Hp);
+                    Console.ResetColor();
+                    Console.Write($" / ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(enemy.Stat.MaxHp);
+                    Console.Write("\t");
+                    Console.ResetColor();
+                }
                 else Console.Write("\t\t\t");
             }
         }
@@ -137,7 +220,18 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if (enemy.Stat.Hp > 0) Console.Write($"마 나 \t: {enemy.Stat.Mp} / {enemy.Stat.MaxMp} \t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"마 나 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.Write(enemy.Stat.Mp);
+                    Console.ResetColor();
+                    Console.Write($" / ");
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.Write(enemy.Stat.MaxMp);
+                    Console.Write("\t");
+                    Console.ResetColor();
+                }
                 else Console.Write("\tDead\t\t");
             }
         }
@@ -147,7 +241,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if (enemy.Stat.Hp > 0) Console.Write($"공격력 \t: {enemy.Stat.Atk} \t\t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"공격력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(enemy.Stat.Atk);
+                    Console.Write("\t\t");
+                    Console.ResetColor();
+                }
                 else Console.Write("\t\t\t");
             }
         }
@@ -157,7 +258,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if (enemy.Stat.Hp > 0) Console.Write($"방어력 \t: {enemy.Stat.Def} \t\t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"방어력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(enemy.Stat.Def);
+                    Console.Write("\t\t");
+                    Console.ResetColor();
+                }
                 else Console.Write("\t\t\t");
             }
         }

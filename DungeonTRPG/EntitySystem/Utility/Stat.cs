@@ -85,7 +85,7 @@
         internal void SetMaxMp(int value)
         {
             if (value <= 0) return;
-            MaxHp = value;
+            MaxMp = value;
         }
 
         // 마나 관리
