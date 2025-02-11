@@ -1,9 +1,10 @@
-﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
+
+namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class SecretBoxScene : DungeonScene
     {
-        // 던전 클리어 후 모든 변수 초기화 필요 
-
         bool isBoxOpen = false;
         int boxOpenCount = 0;
         Random random = new Random();
@@ -43,6 +44,10 @@
                 // 의문의 상자 열어보기
                 case "1":
                     isBoxOpen = true;
+                    OpenSecretBox(CalProbability());
+
+                    // 이전 상태로 돌아가기 
+                    stateMachine.GoPreviousState();
                     break;
                 // 다른 입력 
                 default:
@@ -102,12 +107,12 @@
             {
                 randInt = 3;
             }
-            // 80~84 장비 획득
-            else if (randInt < 85)
+            // 80~95 사용 아이템 획득 
+            else if (randInt < 95)
             {
                 randInt = 4;
             }
-            // 85~100 몬스터와 조우 
+            // 95~100 장비 획득
             else
             {
                 randInt = 5;
@@ -118,49 +123,84 @@
         // 의문의 상자 열기 함수 
         private void OpenSecretBox(int randInt)
         {
+            Console.Clear();
             // 의문의 상자 열기 함수 로직 추가
             switch (randInt)
             {
                 // 아무일도 없었다
                 case 1:
-                    Console.WriteLine("상자를 열어보았지만 아무일도 없었다.");
+                    Console.WriteLine("상자를 열어보았지만 아무것도 없었다.");
                     break;
                 // 골드 획득
                 case 2:
-                    int gold = random.Next(1, 11) * 100;
-                    Console.WriteLine("상자에는 골드가 들어있었다.");
-                    Console.WriteLine($"{gold} Gold를 획득했습니다.");
+                    GetGold();
                     break;
                 // 포션 획득
                 case 3:
-                    randInt = random.Next(1, 3);
-                    // 포션 생성 로직 추가 
-                    switch (randInt)
-                    {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                    }
-                    Console.WriteLine("상자에는 포션이 들어있었다.");
+                    GetPotion();
+                    break;
+                // 사용 아이템 획득
+                case 4:
+                    GetActiveItem();
                     break;
                 // 장비 획득
-                case 4:
-                    Console.WriteLine("상자에는 장비가 들어있었다.");
-                    randInt = random.Next(1, 3);
-                    // 장비 생성 로직 추가 
-                    switch (randInt)
-                    {
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                    }
-                    break;
-                // 몬스터와 조우
                 case 5:
-                    Console.WriteLine("상자에는 몬스터가 들어있었다.");
+                    GetEquipItem();
                     break;
+            }
+            Thread.Sleep(1500);
+        }
+
+        private void GetGold()
+        {
+            Console.WriteLine("상자에는 골드가 들어있었다.");
+            int gold = random.Next(1, 11) * 100;
+            stateMachine.Player.GetGold(gold);
+            Console.WriteLine($"{gold} Gold를 획득했습니다.");
+        }
+
+        private void GetPotion()
+        {
+            int potionNum = random.Next(0, 10) + 1000;
+            ActiveItem potionItem = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(potionNum);
+            Console.WriteLine($"상자에는 {potionItem.GetName()}이 들어있었다.");
+            if (stateMachine.Player.Inventory.AddItem(potionItem))
+            {
+                Console.WriteLine($"{potionItem.GetName()}을 획득했습니다.");
+            }
+            else
+            {
+                Console.WriteLine("인벤토리가 가득 찼습니다");
+            }
+        }
+
+        private void GetActiveItem()
+        {
+            int potionNum = random.Next(10, 24) + 1000;
+            ActiveItem potionItem = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(potionNum);
+            Console.WriteLine($"상자에는 {potionItem.GetName()}이(가) 들어있었다.");
+            if (stateMachine.Player.Inventory.AddItem(potionItem))
+            {
+                Console.WriteLine($"{potionItem.GetName()}을(를) 획득했습니다.");
+            }
+            else
+            {
+                Console.WriteLine("인벤토리가 가득 찼습니다");
+            }
+        }
+
+        private void GetEquipItem() 
+        {
+            int equipItemNum = random.Next(2, 8) * 1000 + random.Next(0, 2);
+            EquipItem equipItem = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(equipItemNum);
+            Console.WriteLine($"상자에는 {equipItem.GetName()}이(가) 들어있었다.");
+            if (stateMachine.Player.Inventory.AddItem(equipItem))
+            {
+                Console.WriteLine($"{equipItem.GetName()}을(를) 획득했습니다.");
+            }
+            else
+            {
+                Console.WriteLine("인벤토리가 가득 찼습니다");
             }
         }
     }
