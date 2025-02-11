@@ -15,6 +15,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+        }
+
         protected override void View()
         {
             base.View();
@@ -31,19 +36,24 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             {
                 if (num == 0) stateMachine.GoPreviousState();
 
-                if (0 < num && num <= enemys.Count)
+                else if (0 < num && num <= enemys.Count)
                 {
-                    if (stateMachine.preCombatScene is PlayerTurnScene) player.Attack(enemys[num - 1]);
-                    else if (stateMachine.preCombatScene is CombatSkillScene)
+                    if (enemys[num - 1].Stat.Hp > 0)
                     {
-                        CombatSkillScene combatSkill = stateMachine.preCombatScene as CombatSkillScene;
-                        Skill skill = player.Skills[combatSkill.selectSkill];
-                        skill.UseSkill(null, enemys[num - 1]);
-                    }
-                    else if (stateMachine.preCombatScene is CombatItemScene) { }
+                        if (stateMachine.preCombatScene is PlayerTurnScene) player.Attack(enemys[num - 1]);
+                        else if (stateMachine.preCombatScene is CombatSkillScene)
+                        {
+                            CombatSkillScene combatSkill = stateMachine.preCombatScene as CombatSkillScene;
+                            Skill skill = player.Skills[combatSkill.selectSkill];
+                            skill.UseSkill(null, enemys[num - 1]);
+                        }
+                        else if (stateMachine.preCombatScene is CombatItemScene) { }
 
-                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                        stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                    }
+                    else SendMessage("이미 죽어 있습니다.");
                 }
+                else SendMessage("잘못된 입력입니다.");
             }
             else SendMessage("잘못된 입력입니다.");
         }

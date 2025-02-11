@@ -44,12 +44,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.Clear();
         }
 
-        protected void Heal(Character target, int heal)
+        protected virtual void Heal(Character target, int heal)
         {
-            Console.Clear();
-
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : {heal}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : {heal}]");
 
             Thread.Sleep(1000);
         }
