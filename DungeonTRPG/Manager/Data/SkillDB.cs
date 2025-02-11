@@ -17,7 +17,7 @@ namespace DungeonTRPG.Manager.Data
             { 9001, new Skill("강한 타격", "피해를 10 + 공격력의 50%만큼 입힌다", new List<IEffect>(){new HpDamageFixed(10), new HpDamageATK(0.5f) } ) },
             { 9002, new Skill("광란", "피해를 10 입히며, 처치할때마다 데미지가 20% 오른다.", new List<IEffect>(){new Rampage(10) } ) },
             { 9003, new Skill("무모한 돌격", "스스로에게 피해를 2 입히고, 대상에게 15+공격력의 100%만큼의 데미지를 입힌다.", new List<IEffect>(){new HpDown(2), new HpDamageFixed(15), new HpDamageATK(1f) } ) },
-            { 9004, new Skill("어지러운 일격", $"공격력의 75%만큼의 피해를 입히고, 50%의 확률로 기절을 부여한다.", new List<IEffect>(){new HpDamageATK(0.75f), new StateTarget(50,State.Stun) } ) },
+            { 9004, new Skill("어지러운 일격", $"공격력의 75%만큼의 피해를 입히고, 50%의 확률로 기절을 부여한다.", new List<IEffect>(){new HpDamageATK(0.75f), new StateTarget(50,State.Stun,1) } ) },
         };
 
         public Skill GetByKey(int key)

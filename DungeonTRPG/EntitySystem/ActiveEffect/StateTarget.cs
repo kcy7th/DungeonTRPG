@@ -13,10 +13,12 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
     {
         int probability;
         State state;
-        public StateTarget(int probability, State state)
+        int turn;
+        public StateTarget(int probability, State state, int turn)
         {
             this.probability = probability;
             this.state = state;
+            this.turn = turn;
         }
 
 
@@ -29,6 +31,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             if (roll < probability) // 생성된 난수가 확률보다 낮다면 성공
             {
                 enemy.CharacterState.SetState(state); //enemy의 상태를 효과에 지정된 매개변수로 설정
+                enemy.CharacterState.SetRemainingTurn(turn);
                 //필요하다면, 성공 메세지 호출하기
             }
             else
