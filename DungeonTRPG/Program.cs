@@ -6,6 +6,7 @@ using DungeonTRPG.Interface;
 using DungeonTRPG.Items;
 using DungeonTRPG.Manager;
 using DungeonTRPG.StateMachineSystem;
+using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
 using DungeonTRPG.StateMachineSystem.SceneStates.Village;
 using DungeonTRPG.Utility.Enums;
 
@@ -36,7 +37,7 @@ namespace DungeonTRPG
 
             StateMachine machine = new StateMachine(player);
 
-            machine.ChangeState(machine.VillageScene);
+            machine.ChangeState(new CreatePlayerScene(machine));
 
             while (!machine.isGameOver)
             {

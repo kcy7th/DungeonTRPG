@@ -28,6 +28,7 @@ namespace DungeonTRPG.StateMachineSystem
         internal INNScene InnScene { get; }
         internal ShopScene ShopScene { get; }
         internal InventoryScene InventoryScene { get; }
+        internal CreatePlayerScene CreatePlayerScene { get; }
         internal EquipmentScene EquipmentScene { get; }
         internal ItemUseScene ItemUseScene { get; }
         internal StateScene StateScene { get; }
@@ -46,6 +47,7 @@ namespace DungeonTRPG.StateMachineSystem
             InnScene = new INNScene(this);
             ShopScene = new ShopScene(this);
             InventoryScene = new InventoryScene(this);
+            CreatePlayerScene = new CreatePlayerScene(this);
             EquipmentScene = new EquipmentScene(this);
             StateScene = new StateScene(this);
             RestRoomScene = new RestRoomScene(this);

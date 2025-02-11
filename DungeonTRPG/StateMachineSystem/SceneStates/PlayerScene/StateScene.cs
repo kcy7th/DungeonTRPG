@@ -51,13 +51,13 @@
             Console.WriteLine("상태 보기");
             Console.ResetColor();
             Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
-
+            
             Console.Write($"Lv. ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(player.Stat.Lv);
             Console.ResetColor();
 
-            Console.WriteLine($"{player.Name} ( {player.job} )");
+            Console.WriteLine($"{player.Name} ( {player.Job} )");
 
             Console.Write($"상 태 \t: ");
             Console.WriteLine(player.CharacterState.State);
