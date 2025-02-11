@@ -1,7 +1,6 @@
 ﻿using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.Interface;
 using DungeonTRPG.Items;
-using DungeonTRPG.ItemsSystem;
 using DungeonTRPG.Utility.Enums;
 using Newtonsoft.Json;
 

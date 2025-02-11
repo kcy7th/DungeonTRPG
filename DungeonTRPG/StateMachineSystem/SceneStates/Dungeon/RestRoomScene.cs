@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
-    internal class RestRoomScene : SceneState
+    internal class RestRoomScene : DungeonScene
     {
         int restCount = 0;
 

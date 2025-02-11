@@ -1,10 +1,6 @@
 ﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
-using DungeonTRPG.StateMachineSystem;
-using DungeonTRPG.Utility.Enums;
-using System.Security.Cryptography.X509Certificates;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace DungeonTRPG.Entity
 {
@@ -15,19 +11,17 @@ namespace DungeonTRPG.Entity
         public int Gold { get; protected set; }
         public Stat Stat { get; protected set; }
         public Inventory Inventory { get; protected set; }
+        public List<Skill> Skills { get; protected set; } = new List<Skill>();
 
         public Character(string name, int gold, Stat stat)
         {            
             Name = name;
             Gold = gold;
             Stat = stat;
-            Inventory = new Inventory();
-
-            Inventory.OnItemEquip += ItemEquip;
-            Inventory.OnItemUnEquip += ItemUnEquip;
+            Inventory = new Inventory(this);
         }
 
-        private void ItemEquip(EquipItem item)
+        internal void OnItemEquipped(EquipItem item)
         {
             Stat.SetMaxHp(Stat.MaxHp + item.ExtraStat.Hp);
             Stat.SetMaxMp(Stat.MaxMp + item.ExtraStat.Mp);
@@ -35,7 +29,7 @@ namespace DungeonTRPG.Entity
             Stat.SetDef(Stat.Def + item.ExtraStat.Def);
         }
 
-        private void ItemUnEquip(EquipItem item)
+        internal void OnItemUnEquipped(EquipItem item)
         {
             Stat.SetMaxHp(Stat.MaxHp - item.ExtraStat.Hp);
             Stat.SetMaxMp(Stat.MaxMp - item.ExtraStat.Mp);
@@ -52,9 +46,9 @@ namespace DungeonTRPG.Entity
         }
 
         // 피격
-        public void Damaged(int damage)
+        public int Damaged(int damage)
         {
-            Stat.TakeDamage(damage);
+            return Stat.TakeDamage(damage);
         }
 
         // 체력 회복
@@ -73,6 +67,12 @@ namespace DungeonTRPG.Entity
         public void RecoverMana(int amount)
         {
             Stat.SetMp(Stat.Mp + amount);
+        }
+
+        public void LearnSkill(Skill skill)
+        {
+            if(Skills.Contains(skill)) return;
+            Skills.Add(skill);
         }
     }
 }

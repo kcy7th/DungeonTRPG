@@ -1,13 +1,6 @@
-﻿using DungeonTRPG.ShopSystem;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
-    internal class SecretBoxScene : SceneState
+    internal class SecretBoxScene : DungeonScene
     {
         // 던전 클리어 후 모든 변수 초기화 필요 
 

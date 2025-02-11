@@ -1,6 +1,4 @@
-﻿using DungeonTRPG.EntitySystem.Utility;
-
-namespace DungeonTRPG.Entity.Utility
+﻿namespace DungeonTRPG.Entity.Utility
 {
     internal class Stat
     {
@@ -40,14 +38,21 @@ namespace DungeonTRPG.Entity.Utility
         }
 
         // 데미지 관리
-        public void TakeDamage(int damage)
+        public int TakeDamage(int damage)
         {
-            Hp -= damage;
+            if (damage < Def) return 0;
+
+            int caculate = damage - Def;
+
+            Hp -= caculate;
+
             if (Hp <= 0)
             {
                 Hp = 0;
                 CharacterDie?.Invoke();
             }
+
+            return caculate;
         }
 
         internal void SetMaxHp(int value)

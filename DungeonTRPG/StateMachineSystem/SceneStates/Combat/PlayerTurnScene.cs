@@ -1,15 +1,10 @@
 ﻿using DungeonTRPG.Entity.Enemy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class PlayerTurnScene : CombatScene
     {
-        public PlayerTurnScene(StateMachine stateMachine) : base(stateMachine)
+        public PlayerTurnScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
         }
 
@@ -30,7 +25,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void View()
         {
-            EnemyStat();
+            base.View();
 
             Console.WriteLine(
                 $"\n" +
@@ -47,11 +42,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             switch (input)
             {
                 case "1":
-
+                    stateMachine.preCombatScene = this;
+                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
                     break;
-                // 인벤토리 열어보기
                 case "2":
-                    stateMachine.ChangeState(stateMachine.ItemUseScene);
+                    stateMachine.ChangeState(new CombatSkillScene(stateMachine, enemys));
+                    break;
+                case "3":
+                    stateMachine.ChangeState(new CombatItemScene(stateMachine, enemys));
+                    break;
+                case "4":
                     break;
                 case "0":
                     // 이전 상태로 돌아가기 
