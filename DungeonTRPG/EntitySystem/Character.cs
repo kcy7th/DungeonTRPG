@@ -15,9 +15,12 @@ namespace DungeonTRPG.Entity
         public CharacterState CharacterState { get; protected set; }
         public List<Skill> Skills { get; protected set; } = new List<Skill>();
 
-        public event Action<Character, Character, int> OnAttack;
-        public event Action<Character, int> OnDamage;
-        public event Action<Character, int> OnHeal;
+        public bool isDead { get; private set; } = false;
+
+        public event Action<Character, Character, int>? OnAttack;
+        public event Action<Character, int>? OnDamage;
+        public event Action<Character, int>? OnHeal;
+        public event Action<Character>? OnCharacterDie;
 
         public Character(string name, int gold, Stat stat)
         {            
@@ -26,6 +29,14 @@ namespace DungeonTRPG.Entity
             Stat = stat;
             Inventory = new Inventory(this);
             CharacterState = new CharacterState();
+
+            Stat.CharacterDie += CharacterDie;
+        }
+
+        private void CharacterDie()
+        {
+            isDead = true;
+            OnCharacterDie?.Invoke(this);
         }
 
         internal void OnItemEquipped(EquipItem item)

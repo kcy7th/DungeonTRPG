@@ -49,8 +49,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             // 행동 선택
             Console.WriteLine("0. 나가기");
+            Console.WriteLine();
 
-            Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+            InputField();
         }
 
         protected override void Control()

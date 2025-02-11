@@ -27,11 +27,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 enemy.OnAttack += Attack;
                 enemy.OnDamage += Damage;
                 enemy.OnHeal += Heal;
-                enemy.Stat.CharacterDie += CharacterDie;
+                enemy.OnCharacterDie += CharacterDead;
             }
 
             player.OnAttack += Attack;
             player.OnDamage += Damage;
+            player.OnCharacterDie += CharacterDead;
         }
 
         public override void Update()
@@ -48,10 +49,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 enemy.OnAttack -= Attack;
                 enemy.OnDamage -= Damage;
                 enemy.OnHeal -= Heal;
+                enemy.OnCharacterDie -= CharacterDead;
             }
 
             player.OnAttack -= Attack;
             player.OnDamage -= Damage;
+            player.OnCharacterDie -= CharacterDead;
         }
 
         protected override void View()
@@ -68,14 +71,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void PlayerStats()
         {
-            Console.WriteLine(
-                $"\n" +
-                $"{player.Name} ( Lv.{player.Stat.Lv} ) \n" +
-                $"상 태 \t: {player.CharacterState.State} \n" +
-                $"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp} \n" +
-                $"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp} \n" +
-                $"공격력 \t: {player.Stat.Atk} \n" +
-                $"방어력 \t: {player.Stat.Def}");
+            Console.WriteLine();
+            Console.WriteLine($"{player.Name} ( Lv.{player.Stat.Lv} )");
+            Console.WriteLine($"상 태 \t: {player.CharacterState.State}");
+            Console.WriteLine($"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp}");
+            Console.WriteLine($"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp}");
+            Console.WriteLine($"공격력 \t: {player.Stat.Atk}");
+            Console.WriteLine($"방어력 \t: {player.Stat.Def}");
         }
 
         protected void EnemyStats()
@@ -115,7 +117,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"상 태 \t: {enemy.CharacterState.State} \t\t");
+                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State} \t\t");
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -124,7 +127,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \t");
+                if (enemy.Stat.Hp > 0) Console.Write($"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \t");
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -133,7 +137,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"마 나 \t: {enemy.Stat.Mp} / {enemy.Stat.MaxMp} \t");
+                if (enemy.Stat.Hp > 0) Console.Write($"마 나 \t: {enemy.Stat.Mp} / {enemy.Stat.MaxMp} \t");
+                else Console.Write("\tDead\t\t");
             }
         }
 
@@ -142,7 +147,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"공격력 \t: {enemy.Stat.Atk} \t\t");
+                if (enemy.Stat.Hp > 0) Console.Write($"공격력 \t: {enemy.Stat.Atk} \t\t");
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -151,13 +157,18 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"방어력 \t: {enemy.Stat.Def} \t\t");
+                if (enemy.Stat.Hp > 0) Console.Write($"방어력 \t: {enemy.Stat.Def} \t\t");
+                else Console.Write("\t\t\t");
             }
         }
 
-        private void CharacterDie()
+        private void CharacterDead(Character target)
         {
-
+            if (target == player)
+            {
+                stateMachine.ChangeState(new PlayerDefeatScene(stateMachine, enemys));
+                return;
+            }
         }
 
         private void Attack(Character caster, Character target, int damage)
@@ -166,7 +177,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             Console.WriteLine("\n" +
                 $"{caster.Name} 의 공격! \n" +
-                $"{target.Stat.Lv} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
             Thread.Sleep(1000);
         }
@@ -176,27 +187,41 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             BlinkingEffect();
 
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
 
             Thread.Sleep(1000);
+        }
+
+        protected override void Heal(Character target, int heal)
+        {
+            Console.Clear();
+
+            EnemyStats();
+            PlayerStats();
+
+            base.Heal(target, heal);
         }
 
         private void BlinkingEffect()
         {
             Console.Clear();
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
         }
 
         protected void Sleep(Character target)

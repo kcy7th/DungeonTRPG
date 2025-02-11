@@ -14,15 +14,16 @@ namespace DungeonTRPG.StateMachineSystem
         private Stack<IState> preStates = new Stack<IState>();
 
         internal CombatScene preCombatScene;
-        internal List<Enemy> enemys = new List<Enemy>();
         internal int enemyTurnCount = 0;
+
+        internal int exploredCount = 0;
+        internal int currentFloor = 1;
+        internal bool isGameOver = false;
 
         internal Player Player { get; }
         internal Enemy Enemy { get; set; }
-        internal int ExploredCount { get; set; }
-        internal int currentFloor { get; set; }
-        internal bool isGameOver { get; set; } = false;
 
+        internal VillageScene VillageScene { get; }
         internal DungeonScene DungeonScene { get; }
         internal INNScene InnScene { get; }
         internal ShopScene ShopScene { get; }
@@ -40,6 +41,7 @@ namespace DungeonTRPG.StateMachineSystem
         {
             Player = player;
 
+            VillageScene = new VillageScene(this);
             DungeonScene = new DungeonScene(this);
             InnScene = new INNScene(this);
             ShopScene = new ShopScene(this);

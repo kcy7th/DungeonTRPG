@@ -47,12 +47,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.View();
 
-            Console.WriteLine(
-                $"\n" +
-                $"1. 공격 \n" +
-                $"2. 스킬 \n" +
-                $"3. 아이템 \n" +
-                $"4. 방어 \n");
+            Console.WriteLine();
+            Console.WriteLine("1. 공격");
+            Console.WriteLine("2. 스킬");
+            Console.WriteLine("3. 아이템");
+            Console.WriteLine("4. 방어");
+            Console.WriteLine();
+            InputField();
         }
 
         protected override void Control()

@@ -9,6 +9,16 @@
         public override void Enter()
         {
             base.Enter();
+
+            Console.Title = "Dungeon";
+
+            if (stateMachine.exploredCount == 10)
+            {
+                stateMachine.exploredCount = 0;
+                stateMachine.currentFloor++;
+            }
+
+            stateMachine.exploredCount++;
         }
 
         public override void Exit()
@@ -39,14 +49,18 @@
             switch (input)
             {
                 case "1":
-                    AdventureDungeon(RandomInt());
+                    stateMachine.ChangeState(stateMachine.StateScene);
                     break;
-                // 인벤토리 열어보기
                 case "2":
                     stateMachine.ChangeState(stateMachine.InventoryScene);
                     break;
+                case "3":
+                    AdventureDungeon(RandomInt());
+                    break;
                 case "0":
                     // 이전 상태로 돌아가기 
+                    stateMachine.currentFloor = 1;
+                    stateMachine.exploredCount = 0;
                     stateMachine.GoPreviousState();
                     break;
                 default:
@@ -58,11 +72,15 @@
         // 던전 내 선택지 보기 함수
         private void ViewSelect()
         {
-            Console.WriteLine("=============================================");
-            Console.WriteLine("||            행동을 선택해 주세요         ||");
-            Console.WriteLine("||      1. 탐험 2. 인벤토리 0. 나가기      ||");
-            Console.WriteLine("==============================================");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine($"던전 - 지하 {stateMachine.currentFloor}층 \n");
+            Console.ResetColor();
+            Console.WriteLine($"1. 상태보기");
+            Console.WriteLine($"2. 인벤토리");
+            Console.WriteLine($"3. 탐험");
+            Console.WriteLine($"0. 나기기");
             Console.WriteLine("");
+            InputField();
         }
 
         private int RandomInt()
