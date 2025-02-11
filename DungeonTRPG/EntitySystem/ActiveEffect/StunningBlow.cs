@@ -1,5 +1,6 @@
 ﻿using DungeonTRPG.Entity;
 using DungeonTRPG.Interface;
+using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.EntitySystem.ActiveEffect
 {
@@ -23,15 +24,16 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             // enemy에게 player의 힘*0.75만큼의 피해를 주고
             enemy.Damaged((int)(caster.Stat.Atk * 0.75));
 
-            //if (chance > 5)
-            //{
-            //    enemy.State = State.stun;
-            //    //필요하다면, 성공 메세지 호출하기
-            //}
-            //else
-            //{
-            //    //필요하다면, 실패 메세지 호출하기
-            //}
+            if (chance > 5)
+            {
+
+                enemy.CharacterState.SetState(State.Stun);
+                //필요하다면, 성공 메세지 호출하기
+            }
+            else
+            {
+                //필요하다면, 실패 메세지 호출하기
+            }
         }
     }
 }
