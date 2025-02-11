@@ -68,7 +68,7 @@
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("================================");
             Console.WriteLine($"||   이름 :  {stateMachine.Player.Name} ||");
-            Console.WriteLine($"||   직업 :  {stateMachine.Player.job} ||");
+            Console.WriteLine($"||   직업 :  {stateMachine.Player.Job} ||");
             Console.WriteLine($"||   레벨 :  {stateMachine.Player.Stat.Lv} ||");
             Console.WriteLine($"||   경험치 : {stateMachine.Player.Stat.Exp} ||");
             Console.WriteLine($"||   공격력 : {stateMachine.Player.Stat.Atk} ||");

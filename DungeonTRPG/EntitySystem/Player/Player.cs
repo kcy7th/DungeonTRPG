@@ -5,11 +5,11 @@ namespace DungeonTRPG.Entity.Player
 {
     internal class Player : Character
     {
-        public Job job;
+        public Job Job;
 
         public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
-            this.job = job;
+            this.Job = job;
         }
 
         // 경험치 획득
@@ -22,6 +22,15 @@ namespace DungeonTRPG.Entity.Player
         public void GetGold(int dropGold)
         {
             Gold += dropGold;
+        }
+
+        // 플레이어 이름 지정
+        public void SetName(string name)
+        {
+            if (!string.IsNullOrEmpty(name))
+            {
+                Name = name;
+            }
         }
     }
 }
