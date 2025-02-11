@@ -7,6 +7,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
     {
         // 상점 생성
         Shop shop = new Shop();
+        private List<Item> availableItems;
 
         internal ShopScene(StateMachine stateMachine) : base(stateMachine)
         {

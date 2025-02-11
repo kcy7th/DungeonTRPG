@@ -1,29 +1,31 @@
-﻿using System;
-using DungeonTRPG.Items;
-using DungeonTRPG.Utility.Enums;
+﻿using DungeonTRPG.Utility.Enums;
+using DungeonTRPG.EntitySystem.ActiveEffect;
+using DungeonTRPG.Interface;
+using System.Collections.Generic;
 
-namespace ungeonTRPG.Items
+namespace DungeonTRPG.Items
 {
-    internal class SecretItem : Item
+    internal class SecretItem : ActiveItem
     {
-        public string SpecialEffect { get; }
+        public int Price { get; }
 
-        public SecretItem(string name, string description, List<Job> allowedJobs, string specialEffect)
-            : base(name, description, allowedJobs)
+        public SecretItem(string name, string description, int price, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn)
+            : base(name, description, price, allowedJobs, effects, useableIn)
         {
-            SpecialEffect = specialEffect;
+            Price = price;
         }
 
         public override Item Clone()
         {
-            return new SecretItem(name, description, new List<Job>(AllowedJobs), SpecialEffect);
+            return new SecretItem(name, description, Price, new List<Job>(AllowedJobs), new List<IEffect>(effects), UseableIn);
         }
 
+        // 아이템 비교 메서드
         public override int CompareTo(Item? other)
         {
-            if (other is EquipItem) return 0;
-            else return 1;
+            if (other is SecretItem) return 0;
+            if (other is ActiveItem) return 1;
+            return -1;
         }
     }
-
 }

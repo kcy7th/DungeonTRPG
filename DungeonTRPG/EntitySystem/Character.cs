@@ -96,5 +96,16 @@ namespace DungeonTRPG.Entity
             if(Skills.Contains(skill)) return;
             Skills.Add(skill);
         }
+
+        // 골드 차감
+        public bool SpendGold(int amount)
+        {
+            if (Gold >= amount)
+            {
+                Gold -= amount;
+                return true;  
+            }
+            return false; 
+        }
     }
 }
