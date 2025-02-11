@@ -27,7 +27,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 enemy.OnAttack += Attack;
                 enemy.OnDamage += Damage;
                 enemy.OnHeal += Heal;
-                enemy.Stat.CharacterDie += 
+                enemy.Stat.CharacterDie += CharacterDie;
             }
 
             player.OnAttack += Attack;
