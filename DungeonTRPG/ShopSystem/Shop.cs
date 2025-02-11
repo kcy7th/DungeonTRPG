@@ -1,5 +1,7 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
+using DungeonTRPG.Manager.Data;
 
 namespace DungeonTRPG.ShopSystem
 {
