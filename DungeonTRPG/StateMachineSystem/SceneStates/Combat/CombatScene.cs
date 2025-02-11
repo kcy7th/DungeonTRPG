@@ -27,11 +27,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 enemy.OnAttack += Attack;
                 enemy.OnDamage += Damage;
                 enemy.OnHeal += Heal;
-                enemy.Stat.CharacterDie += CharacterDie;
+                enemy.OnCharacterDie += CharacterDead;
             }
 
             player.OnAttack += Attack;
             player.OnDamage += Damage;
+            player.OnCharacterDie += CharacterDead;
         }
 
         public override void Update()
@@ -48,10 +49,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 enemy.OnAttack -= Attack;
                 enemy.OnDamage -= Damage;
                 enemy.OnHeal -= Heal;
+                enemy.OnCharacterDie -= CharacterDead;
             }
 
             player.OnAttack -= Attack;
             player.OnDamage -= Damage;
+            player.OnCharacterDie -= CharacterDead;
         }
 
         protected override void View()
@@ -68,14 +71,80 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void PlayerStats()
         {
-            Console.WriteLine(
-                $"\n" +
-                $"{player.Name} ( Lv.{player.Stat.Lv} ) \n" +
-                $"상 태 \t: {player.CharacterState.State} \n" +
-                $"체 력 \t: {player.Stat.Hp} / {player.Stat.MaxHp} \n" +
-                $"마 나 \t: {player.Stat.Mp} / {player.Stat.MaxMp} \n" +
-                $"공격력 \t: {player.Stat.Atk} \n" +
-                $"방어력 \t: {player.Stat.Def}");
+            Console.WriteLine();
+
+            Console.Write($"{player.Name} ( Lv. ");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(player.Stat.Lv);
+            Console.ResetColor();
+            Console.WriteLine(" )");
+
+            Console.Write($"상 태 \t: ");
+            Console.WriteLine(player.CharacterState.State);
+
+            Console.Write($"체 력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(player.Stat.Hp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.Write(player.Stat.MaxHp);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipHp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipHp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"마 나 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(player.Stat.Mp);
+            Console.ResetColor();
+            Console.Write($" / ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Write(player.Stat.MaxMp);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipMp() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipMp()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"공격력 \t: ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write(player.Stat.Atk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"방어력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Write(player.Stat.Def);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipDef() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipDef()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
         }
 
         protected void EnemyStats()
@@ -106,7 +175,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"{enemy.Name} ( Lv.{enemy.Stat.Lv} ) \t");
+                Console.Write($"{enemy.Name} ( Lv. ");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write(enemy.Stat.Lv);
+                Console.ResetColor();
+                Console.Write(" )");
+                Console.Write("\t");
             }
         }
 
@@ -115,7 +189,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"상 태 \t: {enemy.CharacterState.State} \t\t");
+                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State} \t\t");
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -124,7 +199,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"체 력 \t: {enemy.Stat.Hp} / {enemy.Stat.MaxHp} \t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"체 력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(enemy.Stat.Hp);
+                    Console.ResetColor();
+                    Console.Write($" / ");
+                    Console.ForegroundColor = ConsoleColor.DarkRed;
+                    Console.Write(enemy.Stat.MaxHp);
+                    Console.Write("\t");
+                    Console.ResetColor();
+                }
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -133,7 +220,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"마 나 \t: {enemy.Stat.Mp} / {enemy.Stat.MaxMp} \t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"마 나 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.Write(enemy.Stat.Mp);
+                    Console.ResetColor();
+                    Console.Write($" / ");
+                    Console.ForegroundColor = ConsoleColor.DarkBlue;
+                    Console.Write(enemy.Stat.MaxMp);
+                    Console.Write("\t");
+                    Console.ResetColor();
+                }
+                else Console.Write("\tDead\t\t");
             }
         }
 
@@ -142,7 +241,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"공격력 \t: {enemy.Stat.Atk} \t\t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"공격력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.Cyan;
+                    Console.Write(enemy.Stat.Atk);
+                    Console.Write("\t\t");
+                    Console.ResetColor();
+                }
+                else Console.Write("\t\t\t");
             }
         }
 
@@ -151,13 +258,25 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"방어력 \t: {enemy.Stat.Def} \t\t");
+                if (enemy.Stat.Hp > 0)
+                {
+                    Console.Write($"방어력 \t: ");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.Write(enemy.Stat.Def);
+                    Console.Write("\t\t");
+                    Console.ResetColor();
+                }
+                else Console.Write("\t\t\t");
             }
         }
 
-        private void CharacterDie()
+        private void CharacterDead(Character target)
         {
-
+            if (target == player)
+            {
+                stateMachine.ChangeState(new PlayerDefeatScene(stateMachine, enemys));
+                return;
+            }
         }
 
         private void Attack(Character caster, Character target, int damage)
@@ -166,7 +285,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             Console.WriteLine("\n" +
                 $"{caster.Name} 의 공격! \n" +
-                $"{target.Stat.Lv} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
             Thread.Sleep(1000);
         }
@@ -176,31 +295,47 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             BlinkingEffect();
 
             Console.WriteLine("\n" +
-                $"{target.Stat.Lv} {target.Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
 
             Thread.Sleep(1000);
+        }
+
+        protected override void Heal(Character target, int heal)
+        {
+            Console.Clear();
+
+            EnemyStats();
+            PlayerStats();
+
+            base.Heal(target, heal);
         }
 
         private void BlinkingEffect()
         {
             Console.Clear();
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
             Thread.Sleep(100);
             Console.Clear();
             Thread.Sleep(100);
             EnemyStats();
+            PlayerStats();
         }
 
         protected void Sleep(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +
@@ -211,6 +346,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void Addiction(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +
@@ -221,6 +358,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void Confusion(Character target)
         {
+            Console.Clear();
+
             EnemyStats();
 
             Console.WriteLine("\n" +

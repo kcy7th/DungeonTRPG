@@ -96,5 +96,49 @@ namespace DungeonTRPG.Entity.Utility
         {
             return equippedItems.ContainsKey(slot) ? equippedItems[slot] : null;
         }
+
+        public int GetTotalEquipHp()
+        {
+            int totalHp = 0;
+            foreach (var item in equippedItems)
+            {
+                if(item.Value != null) totalHp += item.Value.ExtraStat.Hp;
+            }
+
+            return totalHp;
+        }
+
+        public int GetTotalEquipMp()
+        {
+            int totalMp = 0;
+            foreach (var item in equippedItems)
+            {
+                if (item.Value != null) totalMp += item.Value.ExtraStat.Mp;
+            }
+
+            return totalMp;
+        }
+
+        public int GetTotalEquipAtk()
+        {
+            int totalAtk = 0;
+            foreach (var item in equippedItems)
+            {
+                if (item.Value != null) totalAtk += item.Value.ExtraStat.Atk;
+            }
+
+            return totalAtk;
+        }
+
+        public int GetTotalEquipDef()
+        {
+            int totalDef = 0;
+            foreach (var item in equippedItems)
+            {
+                if (item.Value != null) totalDef += item.Value.ExtraStat.Def;
+            }
+
+            return totalDef;
+        }
     }
 }

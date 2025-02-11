@@ -14,37 +14,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Enter()
         {
             base.Enter();
-
-            Console.Title = "EnemyTurn";
-
-            if (stateMachine.enemyTurnCount < enemys.Count)
-            {
-                enemy = enemys[stateMachine.enemyTurnCount];
-
-                switch (enemy.CharacterState.State)
-                {
-                    case State.Sleep:
-                        Sleep(enemy);
-                        break;
-                    case State.Addiction:
-                        Addiction(enemy);
-                        break;
-                    case State.Confusion:
-                        Confusion(enemy);
-                        break;
-                }
-            }
-            else
-            {
-                stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
-            }
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            stateMachine.enemyTurnCount++;
+            foreach (Enemy enemy in enemys)
+            {
+                enemy.CharacterState.TurnCountDown();
+            }
 
             player.CharacterState.TurnCountDown();
         }
@@ -52,10 +31,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected override void View()
         {
             base.View();
+
+            Console.Title = "EnemyTurn";
         }
 
         protected override void Control()
         {
+            if (!CheckState()) return;
+
             int random = Random.Next(0, 2);
 
             if (random == 0 || enemy.Skills.Count < 1) enemy.Attack(player);
@@ -66,8 +49,49 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             }
 
             Thread.Sleep(1000);
+        }
 
-            stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+        private bool CheckState()
+        {
+            if (stateMachine.enemyTurnCount < enemys.Count)
+            {
+                enemy = enemys[stateMachine.enemyTurnCount];
+
+                stateMachine.enemyTurnCount++;
+
+                if (!enemy.isDead)
+                {
+                    switch (enemy.CharacterState.State)
+                    {
+                        case State.Sleep:
+                            Sleep(enemy);
+                            return false;
+                        case State.Addiction:
+                            enemy.TrueDamaged(enemy.Stat.MaxHp / 10);
+                            Addiction(enemy);
+                            break;
+                        case State.Confusion:
+                            Confusion(enemy);
+                            break;
+                    }
+                }
+                else return false;
+            }
+            else
+            {
+                int count = 0;
+                foreach (Enemy enemy in enemys)
+                {
+                    if (enemy.isDead) count++;
+                }
+
+                if (count == enemys.Count) stateMachine.ChangeState(new PlayerWinScene(stateMachine, enemys));
+                else stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
+
+                return false;
+            }
+
+            return true;
         }
     }
 }
