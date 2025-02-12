@@ -24,7 +24,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
         protected override void View()
         {
             ViewShopItems();
-
         }
 
         private void ViewShopItems()
@@ -49,11 +48,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             }
 
             Console.WriteLine();
-
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine();
-
-            InputField("구매하고 싶은 아이템 번호를 입력하세요.");
+            InputField("구매하실 아이템 번호를 입력하세요.");
         }
 
         // 구매 메서드

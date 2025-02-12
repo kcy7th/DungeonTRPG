@@ -60,6 +60,17 @@ namespace DungeonTRPG.Entity.Utility
             items.RemoveAt(index);
         }
 
+        public bool RemoveItem(Item item)
+        {
+            int index = items.IndexOf(item);
+            if (index >= 0)
+            {
+                RemoveItem(index);
+                return true; 
+            }
+            return false; 
+        }
+
         public List<Item> GetItems() => items;
 
         public int GetMaxSlots() => maxSlots;
