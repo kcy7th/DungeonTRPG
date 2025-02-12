@@ -7,33 +7,48 @@ namespace DungeonTRPG.ShopSystem
 {
     internal class Shop
     {
-        private List<Item> availableItems = new List<Item>(); // 판매 아이템 목록
+        public List<Item> Items { get; private set; } = new List<Item>(); // 판매 아이템 목록
+        public int BoundaryIndex { get; private set; } = 0;
+        private GameData gameData;
 
-        public void AddItemToShop(Item item)
+        public Shop()
         {
-            availableItems.Add(item);
+            this.gameData = GameManager.Instance.DataManager.GameData;
+        }
+
+        public void AddItem(Item item)
+        {
+            Items.Add(item);
+            if (item is EquipItem) BoundaryIndex++;
+            Items.Sort();
+        }
+
+        public void AddItem(int index)
+        {
+            Item item = gameData.ActiveItemDB.GetByKey(index);
+            if (item != null) item = gameData.EquipItemDB.GetByKey(index);
+
+            if (item != null)
+            {
+                Items.Add(item);
+                if (item is EquipItem) BoundaryIndex++;
+                Items.Sort();
+            }
         }
 
         // 아이템 구매
-        public bool BuyItem(Item item, Inventory playerInventory)
+        public Item BuyItem(int index)
         {
-            if (item is ActiveItem activeItem && playerInventory.AddItem(activeItem))
-            {
-                availableItems.Remove(item);
-                return true;
-            }
-            else if (item is EquipItem equipItem && playerInventory.EquipItem(equipItem))
-            {
-                availableItems.Remove(item);
-                return true;
-            }
-            return false;
+            Item item = Items[index];
+            if (item is EquipItem) BoundaryIndex--;
+            Items.RemoveAt(index);
+            return item;
         }
 
         // 판매 아이템 목록 반환
-        public List<Item> GetItems()
+        public Item GetItem(int index)
         {
-            return availableItems;
+            return Items[index];
         }
     }
 }

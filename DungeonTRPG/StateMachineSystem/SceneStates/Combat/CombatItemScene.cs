@@ -19,7 +19,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.Enter();
 
-            lastPage = (items.Count - inventory.boundaryIndex) / 5;
+            lastPage = (items.Count - inventory.BoundaryIndex) / 5;
             currentPage = 0;
         }
 
@@ -37,7 +37,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             EnemyStats();
 
-            int pageRange = inventory.boundaryIndex + ((1 + currentPage) * 5);
+            int pageRange = inventory.BoundaryIndex + ((1 + currentPage) * 5);
             if (pageRange > items.Count) pageRange = items.Count;
 
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -47,11 +47,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             bool hasFind = false;
 
-            for (int i = inventory.boundaryIndex + (currentPage * 5); i < pageRange; i++)
+            for (int i = inventory.BoundaryIndex + (currentPage * 5); i < pageRange; i++)
             {
                 if (items[i] is ActiveItem)
                 {
-                    Console.WriteLine($"- {i - (inventory.boundaryIndex - 1) - (currentPage * 5)} {items[i].GetName()} | {items[i].GetDescription()}");
+                    Console.WriteLine($"- {i - (inventory.BoundaryIndex - 1) - (currentPage * 5)} {items[i].GetItemInformation()}");
                     hasFind = true;
                 }
             }
@@ -82,17 +82,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 else if (num == 7 && currentPage < lastPage) currentPage++;
                 else if (0 < num && num <= 5)
                 {
-                    ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1) + (currentPage * 5)];
+                    ActiveItem item = (ActiveItem)items[num + (inventory.BoundaryIndex - 1) + (currentPage * 5)];
                     if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
                     else
                     {
                         if (item.useOnSelf)
                         {
-                            inventory.ItemUse(num + (inventory.boundaryIndex - 1) + (currentPage * 5), player, null);
+                            inventory.ItemUse(num + (inventory.BoundaryIndex - 1) + (currentPage * 5), player, null);
                         }
                         else
                         {
-                            selectItem = num + (inventory.boundaryIndex - 1 + (currentPage * 5));
+                            selectItem = num + (inventory.BoundaryIndex - 1 + (currentPage * 5));
                             stateMachine.preCombatScene = this;
                             stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
                         }

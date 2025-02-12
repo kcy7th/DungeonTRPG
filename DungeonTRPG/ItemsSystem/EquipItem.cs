@@ -1,4 +1,5 @@
 ﻿using System;
+using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.ItemsSystem;
 using DungeonTRPG.Utility.Enums;
 
@@ -28,6 +29,22 @@ namespace DungeonTRPG.Items
         {
             if (other is EquipItem) return 0;
             else return -1;
+        }
+
+        public string GetItemStatToString()
+        {
+            string s = "";
+            if (ExtraStat.Hp > 0) s += $"| 체력 +{ExtraStat.Hp.ToString()} ";
+            if (ExtraStat.Mp > 0) s += $"| 마나 +{ExtraStat.Mp.ToString()} ";
+            if (ExtraStat.Atk > 0) s += $"| 공격력 +{ExtraStat.Atk.ToString()} ";
+            if (ExtraStat.Def > 0) s += $"| 방어력 +{ExtraStat.Def.ToString()} ";
+            return s;
+        }
+
+        public override string GetItemInformation()
+        {
+            string s = $"{name} | {description} {GetItemStatToString()}";
+            return s;
         }
     }
 }

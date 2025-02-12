@@ -6,6 +6,7 @@ namespace DungeonTRPG.Manager.Data
         [JsonProperty] public ActiveItemDB ActiveItemDB { get; private set; }
         [JsonProperty] public EquipItemDB EquipItemDB { get; private set; }
         [JsonProperty] public SkillDB SkillDB { get; private set; }
+        public object SecretItemDB { get; internal set; }
 
         public GameData()
         {

@@ -9,7 +9,7 @@ namespace DungeonTRPG.Entity.Utility
 
         private List<Item> items = new List<Item>();
         private int maxSlots;
-        public int boundaryIndex { get; private set; } = 0;
+        public int BoundaryIndex { get; private set; } = 0;
 
         private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 
@@ -27,11 +27,21 @@ namespace DungeonTRPG.Entity.Utility
             }
         }
 
-        public bool AddItem(Item item)
+        public void AddItem(Item item)
         {
             if (items.Count < maxSlots)
             {
-                if (item is EquipItem) boundaryIndex++;
+                if (item is EquipItem) BoundaryIndex++;
+                items.Add(item);
+                items.Sort();
+            }
+        }
+
+        public bool TryAddItem(Item item)
+        {
+            if (items.Count < maxSlots)
+            {
+                if (item is EquipItem) BoundaryIndex++;
                 items.Add(item);
                 items.Sort();
                 return true;
@@ -39,11 +49,11 @@ namespace DungeonTRPG.Entity.Utility
             return false;
         }
 
-        public void ItemUse(int index, Character player, Character target)
+        public void ItemUse(int index, Character player, List<Character> targets)
         {
             if (items[index] is ActiveItem)
             {
-                ((ActiveItem)items[index]).ItemUse(player, target);
+                ((ActiveItem)items[index]).ItemUse(player, targets);
                 RemoveItem(index);
             }
             else
@@ -56,13 +66,26 @@ namespace DungeonTRPG.Entity.Utility
         {
             if (index >= items.Count) return;
 
-            if (items[index] is EquipItem) boundaryIndex--;
+            if (items[index] is EquipItem) BoundaryIndex--;
             items.RemoveAt(index);
+        }
+
+        public bool RemoveItem(Item item)
+        {
+            int index = items.IndexOf(item);
+            if (index >= 0)
+            {
+                RemoveItem(index);
+                return true; 
+            }
+            return false; 
         }
 
         public List<Item> GetItems() => items;
 
-        public int GetMaxSlots() => maxSlots;
+        public int MaxSlots { get { return maxSlots; } }
+
+        public int Count { get { return items.Count; } }
 
         // 가방 슬롯 구매
         public void ExpandSlots(int additionalSlots)

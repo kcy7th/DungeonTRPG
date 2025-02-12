@@ -19,7 +19,7 @@ namespace DungeonTRPG.ShopSystem
         {
             foreach (var item in secretItemDB.Items.Values)
             {
-                AddItemToShop(item);
+                AddItem(item);
             }
         }
     }

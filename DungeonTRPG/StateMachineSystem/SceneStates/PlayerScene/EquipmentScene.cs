@@ -9,13 +9,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
         internal EquipmentScene(StateMachine stateMachine) : base(stateMachine)
         {
+            inventory = stateMachine.Player.Inventory;
         }
 
         public override void Enter()
         {
             base.Enter();
-
-            inventory = stateMachine.Player.Inventory;
         }
 
         public override void Exit()
@@ -31,9 +30,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
         protected override void View()
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("인벤토리");
+            Console.WriteLine("인벤토리 - 장착관리");
             Console.ResetColor();
-            Console.WriteLine("보유 중인 아이템을 관리할 수 있습니다.\n");
+            Console.WriteLine("이 곳에서 장비를 착용할 수 있습니다.\n");
 
             // 장착 아이템 출력
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -41,24 +40,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.ResetColor();
 
             List<Item> items = stateMachine.Player.Inventory.GetItems();
-            bool hasFind = false;
-            for (int i = 0; i < items.Count; i++)
+
+            for (int i = 0; i < inventory.BoundaryIndex; i++)
             {
-                if (items[i] is EquipItem)
-                {
-                    string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
-                    Console.WriteLine($"- {i + 1}{equipment} {items[i].GetName()} | {items[i].GetDescription()}");
-                    hasFind = true;
-                }
+                string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
+                Console.WriteLine($"- {i + 1}{equipment} {items[i].GetItemInformation()}");
             }
-            if (!hasFind) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
+            if (inventory.BoundaryIndex == 0) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 
             Console.WriteLine();
 
             // 행동 선택
             Console.WriteLine("0. 나가기");
+            Console.WriteLine();
 
-            Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+            InputField();
         }
 
         protected override void Control()
@@ -69,7 +65,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             {
                 if (num == 0) stateMachine.GoPreviousState();
 
-                if (0 < num && num <= inventory.boundaryIndex)
+                if (0 < num && num <= inventory.BoundaryIndex)
                 {
                     inventory.EquipItem(inventory.GetItems()[num - 1] as EquipItem);
                 }

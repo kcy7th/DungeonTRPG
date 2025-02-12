@@ -18,16 +18,16 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             this.amount = amount;
         }
 
-        public void UseEffect(Character caster, Character enemy)
+        public void UseEffect(Character caster, List<Character> enemys)
         {
             Random random = new Random();
             int roll = (int)(random.Next(1, 10) + caster.Stat.Atk * 0.1);
 
-            if (caster.Stat.Lv < enemy.Stat.Lv) //플레이어 레벨이 적보다 낮다면
+            if (caster.Stat.Lv < enemys[0].Stat.Lv) //플레이어 레벨이 적보다 낮다면
             {
                 if (roll > 5)
                 {
-                    enemy.Stat.SetDef(enemy.Stat.Atk - amount); //적의 공격력 amount만큼 감소
+                    enemys[0].Stat.SetDef(enemys[0].Stat.Atk - amount); //적의 공격력 amount만큼 감소
                     //가능하다면 공격력 감소 State를 추가해서 일정 턴동안만 유지될 수 있게 하면 좋을 것 같습니다.
                 }
                 //else
@@ -37,7 +37,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             }
             else
             {
-                enemy.Stat.SetDef(enemy.Stat.Atk - amount); //적의 공격력 amount만큼 감소
+                enemys[0].Stat.SetDef(enemys[0].Stat.Atk - amount); //적의 공격력 amount만큼 감소
             }
         }
     }

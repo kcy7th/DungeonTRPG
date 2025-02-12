@@ -17,8 +17,6 @@
                 stateMachine.exploredCount = 0;
                 stateMachine.currentFloor++;
             }
-
-            stateMachine.exploredCount++;
         }
 
         public override void Exit()
@@ -55,6 +53,7 @@
                     stateMachine.ChangeState(stateMachine.InventoryScene);
                     break;
                 case "3":
+                    stateMachine.exploredCount++;
                     AdventureDungeon(RandomInt());
                     break;
                 case "0":

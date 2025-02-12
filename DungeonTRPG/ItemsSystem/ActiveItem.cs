@@ -37,11 +37,11 @@ namespace DungeonTRPG.Items
             else return 1;
         }
 
-        public void ItemUse(Character player, Character target)
+        public void ItemUse(Character player, List<Character> targets)
         {
             foreach(var effect in effects)
             {
-                effect.UseEffect(player, target);
+                effect.UseEffect(player, targets);
             }
         }
 
