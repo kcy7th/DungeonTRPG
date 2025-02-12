@@ -56,9 +56,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
 
-            for (int i = inventory.BoundaryIndex; i <= items.Count; i++)
+            for (int i = inventory.BoundaryIndex; i < items.Count; i++)
             {
-                Console.WriteLine($"- {items[i - 1].GetItemInformation()}");
+                Console.WriteLine($"- {items[i].GetItemInformation()}");
             }
             if (inventory.BoundaryIndex == items.Count) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 

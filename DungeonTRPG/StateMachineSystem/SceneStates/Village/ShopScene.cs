@@ -19,8 +19,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.ResetColor();
             Console.WriteLine("\n상점에 오신 것을 환영합니다!\n");
 
-            Console.WriteLine("1. 구매");
-            Console.WriteLine("2. 판매");
+            Console.WriteLine("1. 구매하기");
+            Console.WriteLine("2. 판매하기");
             Console.WriteLine("0. 돌아가기");
 
             Console.WriteLine();

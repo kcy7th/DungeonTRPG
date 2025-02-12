@@ -46,9 +46,9 @@ namespace DungeonTRPG.ShopSystem
         }
 
         // 판매 아이템 목록 반환
-        public List<Item> GetItems()
+        public Item GetItem(int index)
         {
-            return Items;
+            return Items[index];
         }
     }
 }

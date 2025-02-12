@@ -27,7 +27,17 @@ namespace DungeonTRPG.Entity.Utility
             }
         }
 
-        public bool AddItem(Item item)
+        public void AddItem(Item item)
+        {
+            if (items.Count < maxSlots)
+            {
+                if (item is EquipItem) BoundaryIndex++;
+                items.Add(item);
+                items.Sort();
+            }
+        }
+
+        public bool TryAddItem(Item item)
         {
             if (items.Count < maxSlots)
             {
@@ -60,9 +70,22 @@ namespace DungeonTRPG.Entity.Utility
             items.RemoveAt(index);
         }
 
+        public bool RemoveItem(Item item)
+        {
+            int index = items.IndexOf(item);
+            if (index >= 0)
+            {
+                RemoveItem(index);
+                return true; 
+            }
+            return false; 
+        }
+
         public List<Item> GetItems() => items;
 
-        public int GetMaxSlots() => maxSlots;
+        public int MaxSlots { get { return maxSlots; } }
+
+        public int Count { get { return items.Count; } }
 
         // 가방 슬롯 구매
         public void ExpandSlots(int additionalSlots)
