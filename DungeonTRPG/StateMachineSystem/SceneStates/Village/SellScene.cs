@@ -33,6 +33,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.WriteLine(" - [판매]");
             Console.WriteLine();
 
+            Console.WriteLine("[보유 골드]");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(player.Gold);
+            Console.ResetColor();
+            Console.WriteLine("G");
+            Console.WriteLine();
+
             var inventoryItems = stateMachine.Player.Inventory.GetItems();
             if (inventoryItems.Count == 0)
             {
@@ -42,7 +49,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             {
                 for (int i = 0; i < inventoryItems.Count; i++)
                 {
-                    Console.WriteLine($"- {i + 1} {inventoryItems[i].GetName()} | {inventoryItems[i].GetDescription()} | 판매가: {(int)(inventoryItems[i].Price * 0.8)}G");
+                    Console.WriteLine($"- {i + 1} {inventoryItems[i].GetItemInformation()} | 판매가 : {(int)(inventoryItems[i].Price * 0.8)} G");
                 }
             }
 
@@ -54,7 +61,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 
         private void SellItem(int index)
         {
-            var inventoryItems = stateMachine.Player.Inventory.GetItems();
+            var inventoryItems = player.Inventory.GetItems();
             Item selectedItem = inventoryItems[index];
 
             int sellPrice = (int)(selectedItem.Price * 0.8);
