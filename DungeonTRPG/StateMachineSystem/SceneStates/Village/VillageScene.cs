@@ -13,12 +13,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
         {
             base.Enter();
 
-            for (int i = 1; i <= 100; i++)
-            {
-                stateMachine.currentFloor++;
-                stateMachine.Invoke();
-            }
-
             stateMachine.PreStateDataClear();
         }
 

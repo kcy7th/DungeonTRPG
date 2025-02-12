@@ -94,10 +94,5 @@ namespace DungeonTRPG.StateMachineSystem
             currentState?.Update();
             if (currentFloor % 10 == 0) OnFloorMultiplesTen?.Invoke();
         }
-
-        public void Invoke()
-        {
-            if (currentFloor % 10 == 0) OnFloorMultiplesTen?.Invoke();
-        }
     }
 }
