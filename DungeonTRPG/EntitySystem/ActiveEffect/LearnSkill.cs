@@ -13,7 +13,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             this.skill = skill;
         }
 
-        public void UseEffect(Character caster, Character target)
+        public void UseEffect(Character caster, List<Character> enemys)
         {
             caster.LearnSkill(skill);
         }

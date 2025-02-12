@@ -136,5 +136,13 @@ namespace DungeonTRPG.Entity
             }
             return false; 
         }
+
+        public void EarnGold(int amount)
+        {
+            if (amount > 0)
+            {
+                Gold += amount;
+            }
+        }
     }
 }

@@ -143,7 +143,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             int potionNum = random.Next(0, 10) + 1000;
             ActiveItem potionItem = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(potionNum);
             Console.WriteLine($"상자에는 {potionItem.GetName()}이 들어있었다.");
-            if (stateMachine.Player.Inventory.AddItem(potionItem))
+            if (stateMachine.Player.Inventory.TryAddItem(potionItem))
             {
                 Console.WriteLine($"{potionItem.GetName()}을 획득했습니다.");
             }
@@ -158,7 +158,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             int potionNum = random.Next(10, 24) + 1000;
             ActiveItem potionItem = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(potionNum);
             Console.WriteLine($"상자에는 {potionItem.GetName()}이(가) 들어있었다.");
-            if (stateMachine.Player.Inventory.AddItem(potionItem))
+            if (stateMachine.Player.Inventory.TryAddItem(potionItem))
             {
                 Console.WriteLine($"{potionItem.GetName()}을(를) 획득했습니다.");
             }
@@ -173,7 +173,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             int equipItemNum = random.Next(2, 8) * 1000 + random.Next(0, 2);
             EquipItem equipItem = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(equipItemNum);
             Console.WriteLine($"상자에는 {equipItem.GetName()}이(가) 들어있었다.");
-            if (stateMachine.Player.Inventory.AddItem(equipItem))
+            if (stateMachine.Player.Inventory.TryAddItem(equipItem))
             {
                 Console.WriteLine($"{equipItem.GetName()}을(를) 획득했습니다.");
             }

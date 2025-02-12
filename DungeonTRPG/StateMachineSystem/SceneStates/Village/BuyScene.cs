@@ -6,6 +6,7 @@ using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,7 +25,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
         protected override void View()
         {
             ViewShopItems();
-
         }
 
         private void ViewShopItems()
@@ -33,6 +33,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.Write("상점");
             Console.ResetColor();
             Console.WriteLine(" - [구매]");
+            Console.WriteLine();
+
+            Console.WriteLine("[보유 골드]");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Write(player.Gold);
+            Console.ResetColor();
+            Console.WriteLine("G");
             Console.WriteLine();
 
             if (shop.Items.Count == 0)
@@ -49,27 +56,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             }
 
             Console.WriteLine();
-
             Console.WriteLine("0. 돌아가기");
             Console.WriteLine();
-
-            InputField("구매하고 싶은 아이템 번호를 입력하세요.");
-        }
-
-        // 구매 메서드
-        private void BuyItem(int index)
-        {
-            Item selectedItem = shop.Items[index];
-
-            if (stateMachine.Player.SpendGold(selectedItem.Price))
-            {
-                Item item = shop.BuyItem(index);
-                SendMessage($"{selectedItem.GetName()}을(를) 구매했습니다!");
-            }
-            else
-            {
-                SendMessage("골드가 부족합니다!");
-            }
+            InputField("구매하실 아이템 번호를 입력하세요.");
         }
 
         protected override void Control()
@@ -81,7 +70,25 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                 if (num == 0) stateMachine.GoPreviousState();
                 else if (0 < num && num <= shop.Items.Count)
                 {
-                    BuyItem(num - 1);
+                    Item item = shop.BuyItem(num - 1);
+                    if (player.Gold >= item.Price)
+                    {
+                        if (player.Inventory.MaxSlots > player.Inventory.Count)
+                        {
+                            player.SpendGold(item.Price);
+                            player.Inventory.AddItem(item);
+                            SendMessage($"{item.GetName()}을(를) 구매했습니다!");
+                        }
+                        else
+                        {
+                            shop.AddItem(item);
+                            SendMessage($"인벤토리가 가득 찼습니다!");
+                        }
+                    }
+                    else
+                    {
+                        SendMessage("골드가 부족합니다!");
+                    }
                 }
                 else SendMessage("잘못된 입력입니다.");
             }

@@ -1,4 +1,5 @@
-﻿using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 
@@ -73,7 +74,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                 {
                     ActiveItem item = (ActiveItem)items[num + (inventory.BoundaryIndex - 1)];
                     if (UseableIn.OnlyCombat == item.UseableIn) SendMessage("전투 중에만 사용할 수 있습니다.");
-                    else inventory.ItemUse(num + (inventory.BoundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
+                    else inventory.ItemUse(num + (inventory.BoundaryIndex - 1), stateMachine.Player, new List<Character>() { stateMachine.Enemy });
                 }
                 else SendMessage("잘못된 입력입니다.");
             }
