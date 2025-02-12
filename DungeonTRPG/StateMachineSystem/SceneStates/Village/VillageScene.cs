@@ -6,11 +6,18 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
     {
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
+            
         }
 
         public override void Enter()
         {
             base.Enter();
+
+            for (int i = 1; i <= 100; i++)
+            {
+                stateMachine.currentFloor++;
+                stateMachine.Invoke();
+            }
 
             stateMachine.PreStateDataClear();
         }

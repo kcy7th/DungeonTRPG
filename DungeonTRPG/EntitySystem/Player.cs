@@ -18,12 +18,6 @@ namespace DungeonTRPG.EntitySystem
             return new Player(Name, Gold, Stat, Job);
         }
 
-        // 경험치 획득
-        public void GetExp(int dropExp)
-        {
-            Stat.AddExp(dropExp);
-        }
-
         // 골드 획득
         public void GetGold(int dropGold)
         {
@@ -37,6 +31,49 @@ namespace DungeonTRPG.EntitySystem
             {
                 Name = name;
             }            
+        }
+
+        public void AddExp(int value)
+        {
+            Stat.AddExp(value);
+            CheckExp();
+        }
+
+        private void CheckExp()
+        {
+            while(Stat.Exp >= Stat.MaxExp)
+            {
+                Stat.AddExp(-Stat.MaxExp);
+                LevelUp();
+            }
+        }
+
+        private void LevelUp()
+        {
+            switch(Job)
+            {
+                case Job.Warrior:
+                    Stat.SetMaxHp(Stat.MaxHp + 20);
+                    Stat.SetMaxMp(Stat.MaxMp + 5);
+                    Stat.SetAtk(Stat.Atk + 3);
+                    Stat.SetDef(Stat.Def + 2);
+                    break;
+                case Job.Mage:
+                    Stat.SetMaxHp(Stat.MaxHp + 10);
+                    Stat.SetMaxMp(Stat.MaxMp + 10);
+                    Stat.SetSpellAtk(Stat.SpellAtk + 5);
+                    Stat.SetDef(Stat.Def + 1);
+                    break;
+                case Job.Archer:
+                    Stat.SetMaxHp(Stat.MaxHp + 15);
+                    Stat.SetMaxMp(Stat.MaxMp + 5);
+                    Stat.SetAtk(Stat.Atk + 2);
+                    Stat.SetSpellAtk(Stat.SpellAtk + 1);
+                    Stat.SetDef(Stat.Def + 2);
+                    break;
+            }
+
+            Stat.LevelUp();
         }
     }
 }

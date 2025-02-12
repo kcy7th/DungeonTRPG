@@ -26,7 +26,7 @@ namespace DungeonTRPG.ShopSystem
         public void AddItem(int index)
         {
             Item item = gameData.ActiveItemDB.GetByKey(index);
-            if (item != null) item = gameData.EquipItemDB.GetByKey(index);
+            if (item == null) item = gameData.EquipItemDB.GetByKey(index);
 
             if (item != null)
             {

@@ -13,38 +13,42 @@ namespace DungeonTRPG.StateMachineSystem
         private Stack<IState> preStates = new Stack<IState>();
 
         internal CombatScene preCombatScene;
-        internal int enemyTurnCount = 0;
+        internal int enemyTurnCount = 9;
 
         internal int exploredCount = 0;
         internal int currentFloor = 1;
         internal bool isGameOver = false;
 
-        internal Player Player { get; }
+        public event Action OnFloorMultiplesTen;
+
+        private Player player;
+        public Player Player => player;
         internal Enemy Enemy { get; set; }
 
-        internal VillageScene VillageScene { get; }
-        internal DungeonScene DungeonScene { get; }
-        internal INNScene InnScene { get; }
-        internal ShopScene ShopScene { get; }
-        internal InventoryScene InventoryScene { get; }
-        internal CreatePlayerScene CreatePlayerScene { get; }
-        internal EquipmentScene EquipmentScene { get; }
-        internal ItemUseScene ItemUseScene { get; }
-        internal StateScene StateScene { get; }
-        internal RestRoomScene RestRoomScene { get; }
-        internal SecretShopScene SecretShopScene { get; }
-        internal SecretBoxScene SecretBoxScene { get; }
-        internal EnemyFindScene EnemyFindScene { get; }
+        internal VillageScene VillageScene { get; private set; }
+        internal DungeonScene DungeonScene { get; private set; }
+        internal INNScene InnScene { get; private set; }
+        internal ShopScene ShopScene { get; private set; }
+        internal BuyScene BuyScene { get; private set; }
+        internal InventoryScene InventoryScene { get; private set; }
+        internal CreatePlayerScene CreatePlayerScene { get; private set; }
+        internal EquipmentScene EquipmentScene { get; private set; }
+        internal ItemUseScene ItemUseScene { get; private set; }
+        internal StateScene StateScene { get; private set; }
+        internal RestRoomScene RestRoomScene { get; private set; }
+        internal SecretShopScene SecretShopScene { get; private set; }
+        internal SecretBoxScene SecretBoxScene { get; private set; }
+        internal EnemyFindScene EnemyFindScene { get; private set; }
 
-
-        internal StateMachine(Player player)
+        public void Init(Player player)
         {
-            Player = player;
+            this.player = player;
 
             VillageScene = new VillageScene(this);
             DungeonScene = new DungeonScene(this);
             InnScene = new INNScene(this);
             ShopScene = new ShopScene(this);
+            BuyScene = new BuyScene(this);
             InventoryScene = new InventoryScene(this);
             CreatePlayerScene = new CreatePlayerScene(this);
             EquipmentScene = new EquipmentScene(this);
@@ -88,6 +92,12 @@ namespace DungeonTRPG.StateMachineSystem
         public void Update()
         {
             currentState?.Update();
+            if (currentFloor % 10 == 0) OnFloorMultiplesTen?.Invoke();
+        }
+
+        public void Invoke()
+        {
+            if (currentFloor % 10 == 0) OnFloorMultiplesTen?.Invoke();
         }
     }
 }

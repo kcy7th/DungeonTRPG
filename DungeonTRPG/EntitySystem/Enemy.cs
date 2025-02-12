@@ -20,7 +20,7 @@ namespace DungeonTRPG.EntitySystem
 
         public override Character Clone()
         {
-            return new Enemy(Name, Gold, Stat, Skills);
+            return new Enemy(Name, Gold, Stat.Clone(), new List<Skill>(Skills));
         }
     }
 }

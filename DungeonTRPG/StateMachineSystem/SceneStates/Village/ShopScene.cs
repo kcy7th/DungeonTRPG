@@ -35,7 +35,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             switch (input)
             {
                 case "1":
-                    stateMachine.ChangeState(new BuyScene(stateMachine));
+                    stateMachine.ChangeState(stateMachine.BuyScene);
                     break;
                 case "2":
                     stateMachine.ChangeState(new SellScene(stateMachine));
