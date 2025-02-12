@@ -47,14 +47,14 @@ namespace DungeonTRPG.Manager.Data
             { 8019, new Enemy("검은 드래곤", 1500, new Stat(12, 150, 180, 30, 52, 30),new List<int>(){9506}) },
 
             //3층 강화 아종 (2층 몬스터들의 1.5배(마나 제외, 소수점 내림), 레벨의 경우 2배 더 높게, 강화 스킬 보유)
-            { 9010, new Enemy("섬뜩한 슬라임", 112, new Stat(4, 22, 30, 0, 15, 0)) },
-            { 9011, new Enemy("섬뜩한 박쥐", 157, new Stat(4, 30, 36, 0, 15, 1),new List<int>(){9500}) },
-            { 9012, new Enemy("섬뜩한 고블린", 225, new Stat(8, 45, 45, 7, 19, 4),new List<int>(){9501}) },
-            { 9013, new Enemy("섬뜩한 스켈레톤", 337, new Stat(8, 67, 67, 7, 27, 6),new List<int>(){9502}) },
-            { 9014, new Enemy("섬뜩한 골렘", 450, new Stat(12, 90, 67, 15, 15, 6),new List<int>(){9503}) },
-            { 9015, new Enemy("섬뜩한 마녀", 1125, new Stat(16, 112, 180, 30, 55, 22),new List<int>(){9504}) },
-            { 9016, new Enemy("섬뜩한 오우거", 1575, new Stat(16, 112, 225, 22, 45, 33),new List<int>(){9505}) },
-            { 9019, new Enemy("섬뜩한 드래곤", 2250, new Stat(24, 225, 270, 30, 78, 45),new List<int>(){9506}) },
+            { 8020, new Enemy("섬뜩한 슬라임", 112, new Stat(4, 22, 30, 0, 15, 0)) },
+            { 8021, new Enemy("섬뜩한 박쥐", 157, new Stat(4, 30, 36, 0, 15, 1),new List<int>(){9600}) },
+            { 8022, new Enemy("섬뜩한 고블린", 225, new Stat(8, 45, 45, 7, 19, 4),new List<int>(){9601}) },
+            { 8023, new Enemy("섬뜩한 스켈레톤", 337, new Stat(8, 67, 67, 7, 27, 6),new List<int>(){9602}) },
+            { 8024, new Enemy("섬뜩한 골렘", 450, new Stat(12, 90, 67, 15, 15, 6),new List<int>(){9603}) },
+            { 8025, new Enemy("섬뜩한 마녀", 1125, new Stat(16, 112, 180, 30, 55, 22),new List<int>(){9604}) },
+            { 8026, new Enemy("섬뜩한 오우거", 1575, new Stat(16, 112, 225, 22, 45, 33),new List<int>(){9605}) },
+            { 8029, new Enemy("섬뜩한 드래곤", 2250, new Stat(24, 225, 270, 30, 78, 45),new List<int>(){9606}) },
         };
 
         public Enemy GetByKey(int key)
