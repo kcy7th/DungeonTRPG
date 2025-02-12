@@ -55,6 +55,8 @@ namespace DungeonTRPG.Entity.Utility
         public void RemoveItem(int index)
         {
             if (index >= items.Count) return;
+
+            if (items[index] is EquipItem) boundaryIndex--;
             items.RemoveAt(index);
         }
 

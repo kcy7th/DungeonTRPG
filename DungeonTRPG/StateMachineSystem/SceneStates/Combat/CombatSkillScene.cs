@@ -14,6 +14,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
     internal class CombatSkillScene : CombatScene
     {
         public int selectSkill;
+        public int currentPage = 0;
+        public int lastPage = 0;
+        List<Skill> skills;
 
         public CombatSkillScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
@@ -22,6 +25,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Enter()
         {
             base.Enter();
+
+            skills = player.Skills;
+            lastPage = skills.Count / 5;
+            currentPage = 0;
         }
 
         public override void Update()
@@ -38,22 +45,27 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             EnemyStats();
 
+            int pageRange = (1 + currentPage) * 5;
+            if (pageRange > skills.Count) pageRange = skills.Count;
+
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("\n[스킬]");
+            Console.Write("\n[스킬]");
             Console.ResetColor();
+            Console.WriteLine($" - {currentPage + 1} 페이지");
 
             bool hasFind = false;
-            List<Skill> skills = player.Skills;
-            for (int i = 0; i < skills.Count; i++)
+            for (int i = currentPage * 5; i < pageRange; i++)
             {
-                Console.WriteLine($"- {i+1} {skills[i].name} | {skills[i].description}");
+                int index = i + (currentPage * 5);
+                Console.WriteLine($"- {i + 1 - (currentPage * 5)} {skills[index].name} | {skills[index].description}");
                 hasFind = true;
             }
             if (!hasFind) Console.WriteLine("보유하신 스킬이 없습니다.");
 
             Console.WriteLine();
 
-            // 행동 선택
+            if (currentPage > 0) Console.WriteLine("6. 이전 페이지");
+            if (currentPage < lastPage) Console.WriteLine("7. 다음 페이지");
             Console.WriteLine("0. 나가기");
             Console.WriteLine();
 
@@ -71,6 +83,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             if (int.TryParse(input, out var num))
             {
                 if (num == 0) stateMachine.GoPreviousState();
+                else if (num == 6 && currentPage > 0) currentPage--;
+                else if (num == 7 && currentPage < lastPage) currentPage++;
                 else if (0 < num && num <= player.Skills.Count)
                 {
                     stateMachine.preCombatScene = this;

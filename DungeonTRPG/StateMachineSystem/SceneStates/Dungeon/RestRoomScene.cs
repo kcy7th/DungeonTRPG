@@ -23,22 +23,17 @@
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("휴식 공간");
             Console.ResetColor();
-            Console.WriteLine("");
-            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("휴식 공간을 찾았습니다.");
-            Console.ResetColor();
         }
 
         // 선택창 보기 함수 
         private void ViewSelect()
         {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("=================================");
-            Console.WriteLine("||     행동을 선택해 주세요    ||");
-            Console.WriteLine("||   1. 휴식 0.던전 돌아가기   ||");
-            Console.WriteLine("=================================");
-            Console.WriteLine("");
-            Console.ResetColor();
+            Console.WriteLine(
+                            $"\n" +
+                            $"1. 휴식 취하기 \n" +
+                            $"0. 던전 돌아가기 \n");         
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
         // 씬 선택 함수 

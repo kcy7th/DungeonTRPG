@@ -7,7 +7,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
     {
         public Stopwatch stopwatch = new Stopwatch();
 
-        bool isRest = false;
         internal INNScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -37,15 +36,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("여관");
             Console.ResetColor();
-            Console.WriteLine("");
+            Console.WriteLine("휴식을 취할 수 있는 여관입니다.");
 
             // 선택창 보기 
             ViewSelect();
-
-            if (isRest)
-            {
-                ViewHpMp();
-            }
         }
 
         // 씬 선택 함수 
@@ -73,14 +67,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 
         // 선택창 보기 함수 
         private void ViewSelect()
-        {
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("=====================================");
-            Console.WriteLine("||       행동을 선택해 주세요      ||");
-            Console.WriteLine("||   1. 휴식   0.마을로 돌아가기   ||");
-            Console.WriteLine("=====================================");
-            Console.WriteLine("");
-            Console.ResetColor();
+        {        
+            Console.WriteLine(
+                $"\n" +
+                $"1. 휴식 취하기 \n" +
+                $"0. 마을로 돌아가기 \n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");            
         }
 
         // 휴식 취하기 함수 
@@ -93,20 +85,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp);
             stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp);
 
-            isRest = true;
-
             stopwatch.Stop();
-        }
-
-        public void ViewHpMp()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("HP가 모두 회복되었습니다.");
-            Console.WriteLine("MP가 모두 회복되었습니다.");
-            Console.WriteLine("");
-            Console.WriteLine($"현재 HP는 {stateMachine.Player.Stat.Hp}입니다.");
-            Console.WriteLine($"현재 MP는 {stateMachine.Player.Stat.Mp}입니다.");
-            Console.ResetColor();
         }
     }
 }
