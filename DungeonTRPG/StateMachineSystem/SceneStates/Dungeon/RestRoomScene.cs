@@ -64,11 +64,5 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     break;
             }
         }
-
-        //protected override void Heal(Character target, int heal)
-        //{
-        //    base.Heal(target, heal);
-        //}
-
     }
 }
