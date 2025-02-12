@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity;
+using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.Interface;
 using DungeonTRPG.Utility.Enums;
 
@@ -9,11 +10,12 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
         public string name { get; }
         public string description { get; }
         public List<IEffect> effects = new List<IEffect>();
-
-        public Skill(string name, string description)
+        public int cost;
+        public Skill(string name, string description, int cost)
         {
             this.name = name;
             this.description = description;
+            this.cost = cost;
         }
 
         public void AddEffect(IEffect effect)
@@ -21,17 +23,26 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
             effects.Add(effect);
         }
 
-        public Skill(string name, string description, List<IEffect> effects)
+        public Skill(string name, string description, List<IEffect> effects, int cost)
         {
             this.name = name;
             this.description = description;
             this.effects = effects;
         }
-        public void UseSkill(Character caster, Character target)
+        public bool UseSkill(Character caster, Character target)
         {
-            foreach (var skill in effects)
+            if (caster.Stat.Mp >= cost)
             {
-                skill.UseEffect(caster, target);
+                foreach (var skill in effects)
+                {
+                    skill.UseEffect(caster, target);
+                    caster.UseMana(cost);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
