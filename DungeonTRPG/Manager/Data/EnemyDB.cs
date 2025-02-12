@@ -11,12 +11,12 @@ namespace DungeonTRPG.Manager.Data
     internal class EnemyDB
     {
         [JsonProperty]
-        public Dictionary<int, Enemy> enemys { get; } = new Dictionary<int, Enemy>()
+        private Dictionary<int, Enemy> enemys = new Dictionary<int, Enemy>()
         {
             // (level, exp, maxHp, maxMp, atk, spellPower, def)
 
             // 1 ~ 10층 (튜토리얼)
-            { 8000, new Enemy("슬라임", 50, new Stat(3, 10, 80, 30, 8, 8, 4), new List<int>(){}) },
+            { 8000, new Enemy("슬라임", 50, new Stat(3, 10, 80, 30, 8, 8, 4), new List<int>(){ 9500 }) },
             { 8001, new Enemy("거미", 60, new Stat(6, 11, 100, 40, 11, 11, 6), new List<int>(){}) },
             { 8002, new Enemy("버섯", 70, new Stat(9, 12, 120, 50, 14, 14, 8), new List<int>(){}) },
 

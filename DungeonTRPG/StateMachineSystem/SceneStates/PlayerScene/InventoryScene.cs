@@ -45,7 +45,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             for (int i = 0; i < inventory.BoundaryIndex; i++)
             {
                 string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
-                Console.WriteLine($"- {i + 1}{equipment} {items[i].GetItemInformation()}");
+                Console.WriteLine($"-{equipment} {items[i].GetItemInformation()}");
             }
             if (inventory.BoundaryIndex == 0) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 

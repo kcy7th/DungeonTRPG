@@ -6,9 +6,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 {
     internal class LearnSkill : IEffect
     {
-        private Skill skill;
+        private int skill;
 
-        public LearnSkill(Skill skill)
+        public LearnSkill(int skill)
         {
             this.skill = skill;
         }

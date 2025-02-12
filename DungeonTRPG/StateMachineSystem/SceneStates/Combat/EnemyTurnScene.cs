@@ -1,4 +1,6 @@
 ﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.SkillSystem;
+using DungeonTRPG.Manager;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
@@ -7,7 +9,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
     {
         private Enemy enemy;
 
-        public EnemyTurnScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public EnemyTurnScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -16,16 +18,37 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             base.Enter();
 
             Console.Title = "EnemyTurn";
+
+            foreach (Enemy enemy in stateMachine.enemys)
+            {
+                enemy.OnAttack += Attack;
+                enemy.OnDamage += Damage;
+                enemy.OnHeal += Heal;
+                enemy.OnCharacterDie += CharacterDead;
+            }
+
+            player.OnAttack += Attack;
+            player.OnDamage += Damage;
+            player.OnCharacterDie += CharacterDead;
         }
 
         public override void Exit()
         {
             base.Exit();
 
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
+                enemy.OnAttack -= Attack;
+                enemy.OnDamage -= Damage;
+                enemy.OnHeal -= Heal;
+                enemy.OnCharacterDie -= CharacterDead;
+
                 enemy.CharacterState.TurnCountDown();
             }
+
+            player.OnAttack -= Attack;
+            player.OnDamage -= Damage;
+            player.OnCharacterDie -= CharacterDead;
 
             player.CharacterState.TurnCountDown();
         }
@@ -45,7 +68,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             else if (random == 1)
             {
                 random = Random.Next(0, enemy.Skills.Count);
-                enemy.Skills[random].UseSkill(enemy, new List<Character>() { player });
+                int key = enemy.Skills[random];
+                Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key);
+                skill.UseSkill(enemy, new List<Character>() { player });
             }
 
             Thread.Sleep(1000);
@@ -53,9 +78,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         private bool CheckState()
         {
-            if (stateMachine.enemyTurnCount < enemys.Count)
+            if (stateMachine.enemyTurnCount < stateMachine.enemys.Count)
             {
-                enemy = enemys[stateMachine.enemyTurnCount];
+                enemy = stateMachine.enemys[stateMachine.enemyTurnCount];
 
                 stateMachine.enemyTurnCount++;
 
@@ -81,13 +106,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             else
             {
                 int count = 0;
-                foreach (Enemy enemy in enemys)
+                foreach (Enemy enemy in stateMachine.enemys)
                 {
                     if (enemy.isDead) count++;
                 }
 
-                if (count == enemys.Count) stateMachine.ChangeState(new PlayerWinScene(stateMachine, enemys));
-                else stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
+                if (count == stateMachine.enemys.Count) stateMachine.ChangeState(new PlayerWinScene(stateMachine));
+                else stateMachine.ChangeState(new PlayerTurnScene(stateMachine));
 
                 return false;
             }

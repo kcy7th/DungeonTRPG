@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DungeonTRPG.Manager;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
@@ -18,7 +19,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public int lastPage = 0;
         List<Skill> skills;
 
-        public CombatSkillScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public CombatSkillScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -26,7 +27,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.Enter();
 
-            skills = player.Skills;
+            skills = new List<Skill>();
+
+            for (int i = 0; i < skills.Count; i++)
+            {
+                int key = player.Skills[i];
+                skills.Add(GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key));
+            }
+
             lastPage = skills.Count / 5;
             currentPage = 0;
         }
@@ -88,7 +96,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 else if (0 < num && num <= player.Skills.Count)
                 {
                     stateMachine.preCombatScene = this;
-                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
                 }
                 else SendMessage("잘못된 입력입니다.");
             }

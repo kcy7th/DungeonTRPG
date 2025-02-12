@@ -8,7 +8,7 @@ namespace DungeonTRPG.Manager.Data
     internal class EquipItemDB
     {
         [JsonProperty]
-        public Dictionary<int, EquipItem> Items { get; } = new Dictionary<int, EquipItem>()
+        private Dictionary<int, EquipItem> equipItems = new Dictionary<int, EquipItem>()
         {
             // 전사 무기
             { 2000, new EquipItem("철 검", "그럭저럭 쓸만해 보인다.", 1500, new List<Job>{ Job.Warrior }, new ExtraStat(0, 0, 5, 0, 0), EquipSlot.WEAPON) },
@@ -219,9 +219,9 @@ namespace DungeonTRPG.Manager.Data
 
         public EquipItem GetByKey(int key)
         {
-            if (Items.ContainsKey(key))
+            if (equipItems.ContainsKey(key))
             {
-                return Items[key].Clone() as EquipItem;
+                return equipItems[key].Clone() as EquipItem;
             }
             return null;
         }

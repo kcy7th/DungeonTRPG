@@ -1,5 +1,6 @@
 ﻿using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.Manager;
 
 namespace DungeonTRPG.EntitySystem
 {
@@ -7,11 +8,6 @@ namespace DungeonTRPG.EntitySystem
     {
         public Enemy(string name, int gold, Stat stat, List<int> IndexSkill) : base(name, gold, stat, IndexSkill)
         {
-
-        }
-        public Enemy(string name, int gold, Stat stat, List<Skill> skills) : base(name, gold, stat, skills)
-        {
-
         }
         public Enemy(string name, int gold, Stat stat) : base(name, gold, stat)
         {
@@ -20,7 +16,7 @@ namespace DungeonTRPG.EntitySystem
 
         public override Character Clone()
         {
-            return new Enemy(Name, Gold, Stat.Clone(), new List<Skill>(Skills));
+            return new Enemy(Name, Gold, Stat.Clone(), new List<int>(Skills));
         }
     }
 }

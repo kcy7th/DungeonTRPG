@@ -9,7 +9,7 @@ namespace DungeonTRPG.Manager.Data
     internal class SkillDB
     {
         [JsonProperty]
-        public Dictionary<int, Skill> Items { get; } = new Dictionary<int, Skill>()
+        private Dictionary<int, Skill> skills = new Dictionary<int, Skill>()
         {
             //0티어 플레이어 스킬 (상급), 9900~9999
             { 9900, new Skill("강한 회복", "체력을 40 회복한다.", new List<IEffect>(){new HpRecovery(40), }, 20 ) },
@@ -54,9 +54,9 @@ namespace DungeonTRPG.Manager.Data
 
         public Skill GetByKey(int key)
         {
-            if (Items.ContainsKey(key))
+            if (skills.ContainsKey(key))
             {
-                return Items[key].Clone();
+                return skills[key].Clone();
             }
             return null;
         }

@@ -5,7 +5,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class PlayerTurnScene : CombatScene
     {
-        public PlayerTurnScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public PlayerTurnScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -21,7 +21,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             {
                 case State.Sleep:
                     Sleep(player);
-                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine));
                     break;
                 case State.Burn:
                     player.Damaged(player.Stat.MaxHp / 10);
@@ -70,13 +70,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             {
                 case "1":
                     stateMachine.preCombatScene = this;
-                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
                     break;
                 case "2":
-                    stateMachine.ChangeState(new CombatSkillScene(stateMachine, enemys));
+                    stateMachine.ChangeState(new CombatSkillScene(stateMachine));
                     break;
                 case "3":
-                    stateMachine.ChangeState(new CombatItemScene(stateMachine, enemys));
+                    stateMachine.ChangeState(new CombatItemScene(stateMachine));
                     break;
                 case "4":
                     break;

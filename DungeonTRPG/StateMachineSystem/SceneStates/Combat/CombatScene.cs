@@ -1,19 +1,18 @@
 ﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class CombatScene : SceneState
     {
-        protected List<Enemy> enemys;
         protected Inventory inventory;
         protected List<Item> items;
 
-        public CombatScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine)
+        public CombatScene(StateMachine stateMachine) : base(stateMachine)
         {
-            this.enemys = enemys;
             inventory = stateMachine.Player.Inventory;
             items = inventory.GetItems();
         }
@@ -21,18 +20,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Enter()
         {
             base.Enter();
-
-            foreach (Enemy enemy in enemys)
-            {
-                enemy.OnAttack += Attack;
-                enemy.OnDamage += Damage;
-                enemy.OnHeal += Heal;
-                enemy.OnCharacterDie += CharacterDead;
-            }
-
-            player.OnAttack += Attack;
-            player.OnDamage += Damage;
-            player.OnCharacterDie += CharacterDead;
         }
 
         public override void Update()
@@ -43,18 +30,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public override void Exit()
         {
             base.Exit();
-
-            foreach (Enemy enemy in enemys)
-            {
-                enemy.OnAttack -= Attack;
-                enemy.OnDamage -= Damage;
-                enemy.OnHeal -= Heal;
-                enemy.OnCharacterDie -= CharacterDead;
-            }
-
-            player.OnAttack -= Attack;
-            player.OnDamage -= Damage;
-            player.OnCharacterDie -= CharacterDead;
         }
 
         protected override void View()
@@ -64,7 +39,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void Control()
         {
-            stateMachine.ChangeState(new PlayerTurnScene(stateMachine, enemys));
+            stateMachine.ChangeState(new PlayerTurnScene(stateMachine));
         }
 
         protected void PlayerStats()
@@ -162,6 +137,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void EnemyStats()
         {
+            
+
             Console.ResetColor();
             EnemyNumbers();
             Console.WriteLine();
@@ -176,7 +153,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void EnemyNumbers()
         {
-            for (int i = 0; i < enemys.Count; i++)
+            for (int i = 0; i < stateMachine.enemys.Count; i++)
             {
                 Console.Write($"\t {i+1}번 \t\t\t");
             }
@@ -184,9 +161,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void EnemyNames()
         {
+            if (stateMachine.enemys.Count < 1) return;
+
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
+                if(enemy == null) continue;
+
                 Console.Write($"{enemy.Name}(Lv.");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(enemy.Stat.Lv);
@@ -203,7 +184,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void EnemyStates()
         {
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State}   \t\t");
                 else Console.Write("\t\t\t\t");
@@ -213,7 +194,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void EnemyHps()
         {
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 if (enemy.Stat.Hp > 0)
                 {
@@ -234,7 +215,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void EnemyMps()
         {
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 if (enemy.Stat.Hp > 0)
                 {
@@ -255,7 +236,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void EnemyAtks()
         {
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 if (enemy.Stat.Hp > 0)
                 {
@@ -272,7 +253,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         protected void EnemyDefs()
         {
             Console.WriteLine();
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 if (enemy.Stat.Hp > 0)
                 {
@@ -286,16 +267,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             }
         }
 
-        private void CharacterDead(Character target)
+        protected void CharacterDead(Character target)
         {
             if (target == player)
             {
-                stateMachine.ChangeState(new PlayerDefeatScene(stateMachine, enemys));
+                stateMachine.ChangeState(new PlayerDefeatScene(stateMachine));
                 return;
             }
         }
 
-        private void Attack(Character caster, Character target, int damage)
+        protected void Attack(Character caster, Character target, int damage)
         {
             BlinkingEffect();
 
@@ -306,7 +287,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Thread.Sleep(1000);
         }
 
-        private void Damage(Character target, int damage)
+        protected void Damage(Character target, int damage)
         {
             BlinkingEffect();
 
@@ -383,7 +364,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             Thread.Sleep(1000);
         }
-
         protected void Confusion(Character target)
         {
             Console.Clear();

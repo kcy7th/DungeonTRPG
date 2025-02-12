@@ -14,7 +14,7 @@ namespace DungeonTRPG.EntitySystem
         public Stat Stat { get; protected set; }
         public Inventory Inventory { get; protected set; }
         public CharacterState CharacterState { get; protected set; }
-        public List<Skill> Skills { get; protected set; } = new List<Skill>();
+        public List<int> Skills { get; protected set; } = new List<int>();
 
         public bool isDead { get; private set; } = false;
 
@@ -34,18 +34,6 @@ namespace DungeonTRPG.EntitySystem
             Stat.CharacterDie += CharacterDie;
         }
 
-        public Character(string name, int gold, Stat stat, List<Skill> skills)
-        {
-            Name = name;
-            Gold = gold;
-            Stat = stat;
-            Inventory = new Inventory(this);
-            CharacterState = new CharacterState();
-            Skills = skills;
-
-            Stat.CharacterDie += CharacterDie;
-        }
-
         public Character(string name, int gold, Stat stat, List<int> IndexSkill)
         {
             Name = name;
@@ -54,15 +42,7 @@ namespace DungeonTRPG.EntitySystem
             Inventory = new Inventory(this);
             CharacterState = new CharacterState();
 
-            List<Skill> temp = new List<Skill>();
-
-            for(int i = 0; i < IndexSkill.Count; i++)
-            {
-                Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(IndexSkill[i]);
-                if(skill != null)temp.Add(skill);
-            }
-
-            Skills = temp;
+            Skills = IndexSkill;
 
             Stat.CharacterDie += CharacterDie;
         }
@@ -134,10 +114,10 @@ namespace DungeonTRPG.EntitySystem
             Stat.SetMp(Stat.Mp + amount);
         }
 
-        public void LearnSkill(Skill skill)
+        public void LearnSkill(int skillNum)
         {
-            if(Skills.Contains(skill)) return;
-            Skills.Add(skill);
+            if(Skills.Contains(skillNum)) return;
+            Skills.Add(skillNum);
         }
 
         // 골드 차감

@@ -11,7 +11,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public int currentPage = 0;
         public int lastPage = 0;
 
-        public CombatItemScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public CombatItemScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -91,14 +91,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                             if (item.useOnSelf)
                             {
                                 inventory.ItemUse(num + (inventory.BoundaryIndex - 1) + (currentPage * 5), player, null);
-                                stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                                stateMachine.ChangeState(new EnemyTurnScene(stateMachine));
                                 return;
                             }
                             else
                             {
                                 selectItem = num + (inventory.BoundaryIndex - 1 + (currentPage * 5));
                                 stateMachine.preCombatScene = this;
-                                stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                                stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
                                 return;
                             }
                         }

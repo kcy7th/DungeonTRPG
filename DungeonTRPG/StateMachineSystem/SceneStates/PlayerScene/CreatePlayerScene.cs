@@ -1,6 +1,8 @@
 ﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Interface;
+using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
@@ -63,6 +65,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                     // 전사
                     case "1":
                         player = new Player(name, 500, new Stat(1, 100, 100, 20, 10, 0, 5), Job.Warrior);
+                        Item item = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(1020);
+                        player.Inventory.AddItem(item);
+                        item = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(7009);
+                        player.Inventory.AddItem(item);
                         stateMachine.Init(player);
                         stateMachine.ChangeState(stateMachine.VillageScene); // 직업 선택 후 마을로 이동
                         break;

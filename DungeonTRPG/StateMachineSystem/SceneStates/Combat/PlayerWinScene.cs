@@ -10,7 +10,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class PlayerWinScene : CombatScene
     {
-        public PlayerWinScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public PlayerWinScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
@@ -25,7 +25,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             Console.WriteLine("Victory");
             Console.WriteLine();
-            Console.WriteLine($"던전에서 몬스터 {enemys.Count}마리를 잡았습니다.");
+            Console.WriteLine($"던전에서 몬스터 {stateMachine.enemys.Count}마리를 잡았습니다.");
             Console.WriteLine();
             if (preLv < player.Stat.Lv) Console.WriteLine($"Lv.{preLv} -> {player.Stat.Lv}");
             Console.WriteLine($"Exp : {preExp} -> {player.Stat.Exp}");
@@ -35,7 +35,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         private int CalculateExp()
         {
             int totalExp = 0;
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 totalExp += enemy.Stat.MaxExp;
             }
@@ -45,7 +45,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         private int CalculateGold()
         {
             int totalGold = 0;
-            foreach (Enemy enemy in enemys)
+            foreach (Enemy enemy in stateMachine.enemys)
             {
                 totalGold += enemy.Gold;
             }
@@ -54,7 +54,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void Control()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             stateMachine.ChangeState(stateMachine.DungeonScene);
         }
     }

@@ -9,7 +9,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
     internal class PlayerDefeatScene : CombatScene
     {
-        public PlayerDefeatScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
+        public PlayerDefeatScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 

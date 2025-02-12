@@ -3,47 +3,27 @@ using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Manager.Data;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
 using DungeonTRPG.Manager;
+using DungeonTRPG.EntitySystem.SkillSystem;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class EnemyFindScene : DungeonScene
     {
-        private List<Enemy> enemys = new List<Enemy>();
-
         internal EnemyFindScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
 
         public override void Enter()
         {
-            enemys.Clear();
-
-            if(stateMachine.currentFloor % 10 == 0 && stateMachine.exploredCount == 10)
-            {
-                Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + stateMachine.currentFloor);
-                enemys.Add(enemy);
-            }
-            else
-            {
-                int enemyCount = Random.Next(1, 5);
-
-                for (int i = 0; i < enemyCount; i++)
-                {
-                    int enemyIndex = GetRandomIndexInBoundery();
-                    Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + enemyIndex);
-                    enemys.Add(enemy);
-                }
-            }
-
             base.Enter();
         }
 
         private int GetRandomIndexInBoundery()
         {
             int index = Random.Next(stateMachine.currentFloor - 2, stateMachine.currentFloor + 2);
-            if (index % 10 == 0) index--;
+            if (index % 10 == 0 && index / 10 != 0) index--;
             else if (index < 1) index = 1;
-            else if(index > 100) index = 100;
+            else if (index > 100) index = 100;
 
             return index;
         }
@@ -70,8 +50,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("===================================");
-            Console.WriteLine("||     행동을 선택해 주세요      ||");
-            Console.WriteLine("||    1. 싸운다   0.도망간다     ||");
+            Console.WriteLine("||     행동을 선택해 주세요       ||");
+            Console.WriteLine("||  1. 싸운다   0. 몰래 지나간다  ||");
             Console.WriteLine("===================================");
             Console.WriteLine("");
             Console.ResetColor();
@@ -82,21 +62,53 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         {
             string input = Console.ReadLine();
 
-            switch (input)
+            int random = Random.Next(0, 101);
+
+            if (int.TryParse(input, out var num))
             {
-                // 도망간다
-                case "0":
-                    // 이전 상태로 돌아가기 
-                    stateMachine.GoPreviousState();
-                    break;
-                case "1":
-                    // 싸운다
-                    stateMachine.ChangeState(new CombatScene(stateMachine, enemys));
-                    break;
-                // 다른 입력
-                default:
-                    SendMessage("잘못된 입력입니다.");
-                    break;
+                if (num == 0)
+                {
+                    if (random > 50)
+                    {
+                        SendMessage("몰래 지나가다가 발각 되었습니다.");
+                        CreateEnemys();
+                        stateMachine.ChangeState(stateMachine.CombatScene);
+                    }
+                    else
+                    {
+                        SendMessage("무사히 몰래 지나쳤습니다.");
+                        stateMachine.GoPreviousState();
+                    }
+                }
+                else if(num == 1)
+                {
+                    CreateEnemys();
+                    stateMachine.ChangeState(stateMachine.CombatScene);
+                }
+                else SendMessage("잘못된 입력입니다.");
+            }
+            else SendMessage("잘못된 입력입니다.");
+        }
+
+        private void CreateEnemys()
+        {
+            stateMachine.enemys.Clear();
+
+            if (stateMachine.currentFloor % 10 == 0 && stateMachine.exploredCount == 10)
+            {
+                Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + stateMachine.currentFloor);
+                stateMachine.enemys.Add(enemy);
+            }
+            else
+            {
+                int enemyCount = Random.Next(1, 5);
+
+                for (int i = 0; i < enemyCount; i++)
+                {
+                    int enemyIndex = GetRandomIndexInBoundery();
+                    Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + enemyIndex);
+                    stateMachine.enemys.Add(enemy);
+                }
             }
         }
     }
