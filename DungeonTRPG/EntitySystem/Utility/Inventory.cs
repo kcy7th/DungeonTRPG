@@ -9,7 +9,7 @@ namespace DungeonTRPG.Entity.Utility
 
         private List<Item> items = new List<Item>();
         private int maxSlots;
-        public int boundaryIndex { get; private set; } = 0;
+        public int BoundaryIndex { get; private set; } = 0;
 
         private Dictionary<EquipSlot, EquipItem> equippedItems = new Dictionary<EquipSlot, EquipItem>(); // 장착된 아이템
 
@@ -31,7 +31,7 @@ namespace DungeonTRPG.Entity.Utility
         {
             if (items.Count < maxSlots)
             {
-                if (item is EquipItem) boundaryIndex++;
+                if (item is EquipItem) BoundaryIndex++;
                 items.Add(item);
                 items.Sort();
                 return true;
@@ -56,7 +56,7 @@ namespace DungeonTRPG.Entity.Utility
         {
             if (index >= items.Count) return;
 
-            if (items[index] is EquipItem) boundaryIndex--;
+            if (items[index] is EquipItem) BoundaryIndex--;
             items.RemoveAt(index);
         }
 

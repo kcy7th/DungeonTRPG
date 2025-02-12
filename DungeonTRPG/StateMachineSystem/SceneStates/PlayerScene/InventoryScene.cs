@@ -1,11 +1,15 @@
-﻿using DungeonTRPG.Items;
+﻿using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.Items;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
     internal class InventoryScene : SceneState
     {
+        private Inventory inventory;
+
         internal InventoryScene(StateMachine stateMachine) : base(stateMachine)
         {
+            inventory = stateMachine.Player.Inventory;
         }
 
         public override void Enter()
@@ -36,18 +40,14 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.WriteLine("[장착 아이템]");
             Console.ResetColor();
 
-            List<Item> Items = stateMachine.Player.Inventory.GetItems();
-            bool hasEquip = false;
-            foreach (var item in Items)
+            List<Item> items = inventory.GetItems();
+
+            for (int i = 0; i < inventory.BoundaryIndex; i++)
             {
-                if (item is EquipItem)
-                {
-                    string equipment = ((EquipItem)item).IsEquipped ? " [E]" : "";
-                    Console.WriteLine($"-{equipment} {item.GetName()} | {item.GetDescription()}");
-                    hasEquip = true;
-                }
+                string equipment = ((EquipItem)items[i]).IsEquipped ? " [E]" : "";
+                Console.WriteLine($"- {i + 1}{equipment} {items[i].GetItemInformation()}");
             }
-            if (!hasEquip) Console.WriteLine("보유하신 장착 아이템이 없습니다.");
+            if (inventory.BoundaryIndex == 0) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 
             Console.WriteLine();
 
@@ -56,22 +56,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
 
-            bool hasActive = false;
-            foreach (var item in Items)
+            for (int i = inventory.BoundaryIndex; i <= items.Count; i++)
             {
-                if (item is ActiveItem)
-                {
-                    Console.WriteLine($"- {item.GetName()} | {item.GetDescription()}");
-                    hasActive = true;
-                }
+                Console.WriteLine($"- {items[i - 1].GetItemInformation()}");
             }
-            if (!hasActive) Console.WriteLine("보유하신 소비 아이템이 없습니다.");
+            if (inventory.BoundaryIndex == items.Count) Console.WriteLine("보유하신 장착 아이템이 없습니다. \n");
 
             // 행동 선택
-            Console.WriteLine("\n1. 장착 관리");
+            Console.WriteLine();
+            Console.WriteLine("1. 장착 관리");
+            Console.WriteLine("2. 소비 아이템");
             Console.WriteLine("0. 나가기");
 
-            Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+            Console.WriteLine();
+
+            InputField();
         }
 
         // 씬 선택 함수 

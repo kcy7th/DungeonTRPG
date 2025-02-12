@@ -29,5 +29,10 @@ namespace DungeonTRPG.Items
         public abstract Item Clone();
 
         public abstract int CompareTo(Item? other);
+
+        public virtual string GetItemInformation()
+        {
+            return $"{name} | {description}";
+        }
     }
 }

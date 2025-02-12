@@ -19,7 +19,7 @@ namespace DungeonTRPG
             Player player = new Player("Player", 1500, new Stat(1, 10, 100, 100, 1, 1), Job.Archer);
             EquipItem item1 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(2001);
             EquipItem item2 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(4000);
-            EquipItem item3 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(7000);
+            EquipItem item3 = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(4001);
             ActiveItem item4 = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(1000);
             ActiveItem item5 = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(1004);
             ActiveItem item7 = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(1020);
