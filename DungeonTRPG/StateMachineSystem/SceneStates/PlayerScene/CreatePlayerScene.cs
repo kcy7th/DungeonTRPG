@@ -84,8 +84,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                 Console.Clear();
                 if (string.IsNullOrWhiteSpace(name))
                 {
-                    Console.WriteLine("사용할 수 없는 이름입니다. 다시 입력해주세요.");
-                    name = Console.ReadLine();
+                    Console.WriteLine("사용할 수 없는 이름입니다.\n");
                     View();
                 }
             }

@@ -42,21 +42,16 @@
 
         protected override void View()
         {
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("상태 보기");
             Console.ResetColor();
-            Console.WriteLine("내 정보를 표시합니다.");
+            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
 
             ViewStat();
         }
 
         private void ViewStat()
-        {
-            Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("상태 보기");
-            Console.ResetColor();
-            Console.WriteLine("캐릭터의 정보가 표시됩니다.\n");
-            
+        {           
             Console.Write($"Lv. ");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(player.Stat.Lv);
