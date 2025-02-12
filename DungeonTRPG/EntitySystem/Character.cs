@@ -2,6 +2,7 @@
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
 
 namespace DungeonTRPG.Entity
 {
@@ -29,6 +30,27 @@ namespace DungeonTRPG.Entity
             Stat = stat;
             Inventory = new Inventory(this);
             CharacterState = new CharacterState();
+
+            Stat.CharacterDie += CharacterDie;
+        }
+
+        public Character(string name, int gold, Stat stat, List<int> IndexSkill)
+        {
+            Name = name;
+            Gold = gold;
+            Stat = stat;
+            Inventory = new Inventory(this);
+            CharacterState = new CharacterState();
+
+            List<Skill> temp = new List<Skill>();
+
+            for(int i = 0; i < IndexSkill.Count; i++)
+            {
+                Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(IndexSkill[i]);
+                if(skill != null)temp.Add(skill);
+            }
+
+            Skills = temp;
 
             Stat.CharacterDie += CharacterDie;
         }

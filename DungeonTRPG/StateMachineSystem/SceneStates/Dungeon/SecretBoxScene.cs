@@ -14,11 +14,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         {
         }
 
-        public override void Enter()
-        {
-            
-        }
-
         // 행동 선택 함수 
         protected override void Control()
         {

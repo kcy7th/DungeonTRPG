@@ -40,7 +40,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
             Console.Clear();
 
-            if (name != null)
+            if (!string.IsNullOrWhiteSpace(name))
             {                
                 Console.WriteLine($"안녕하세요 '{name}'님 DungeonTRPG에 오신 것을 환영합니다.");
                 Console.WriteLine("");
@@ -77,6 +77,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                     default:
                         Console.WriteLine("잘못된 입력입니다.");
                         break;
+                }
+            }
+            else
+            {
+                Console.Clear();
+                if (string.IsNullOrWhiteSpace(name))
+                {
+                    Console.WriteLine("사용할 수 없는 이름입니다.\n");
+                    View();
                 }
             }
         }            

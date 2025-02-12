@@ -91,9 +91,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                 $"3. 여관 \n" +
                 $"4. 인벤토리 \n" +
                 $"5. 상태 보기 \n" +
-                $"0. 게임 종료 \n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
-            
+                $"0. 게임 종료");
+            Console.WriteLine();
+
+            InputField();
         }
     }
 }

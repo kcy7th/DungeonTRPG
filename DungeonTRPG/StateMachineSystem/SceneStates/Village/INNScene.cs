@@ -5,8 +5,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 {
     internal class INNScene : SceneState
     {
-        public Stopwatch stopwatch = new Stopwatch();
-
         internal INNScene(StateMachine stateMachine) : base(stateMachine)
         {
         }
@@ -32,7 +30,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
         // 여관 함수 
         protected override void View()
         {
-
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("여관");
             Console.ResetColor();
@@ -56,7 +53,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                     break;
                 case "1":
                     // 휴식 취하기
-                    GetSomeRest();
+                    Rest(1);
                     break;
                 // 다른 입력
                 default:
@@ -73,19 +70,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                 $"1. 휴식 취하기 \n" +
                 $"0. 마을로 돌아가기 \n");
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");            
-        }
-
-        // 휴식 취하기 함수 
-        public void GetSomeRest()
-        {
-            // 5초마다 회복
-            stopwatch.Restart();
-            Thread.Sleep(1000);
-         
-            stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp);
-            stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp);
-
-            stopwatch.Stop();
         }
     }
 }

@@ -17,8 +17,6 @@
                 stateMachine.exploredCount = 0;
                 stateMachine.currentFloor++;
             }
-
-            stateMachine.exploredCount++;
         }
 
         public override void Exit()
@@ -55,6 +53,7 @@
                     stateMachine.ChangeState(stateMachine.InventoryScene);
                     break;
                 case "3":
+                    stateMachine.exploredCount++;
                     AdventureDungeon(RandomInt());
                     break;
                 case "0":
@@ -78,7 +77,7 @@
             Console.WriteLine($"1. 상태보기");
             Console.WriteLine($"2. 인벤토리");
             Console.WriteLine($"3. 탐험");
-            Console.WriteLine($"0. 나기기");
+            Console.WriteLine($"0. 나가기");
             Console.WriteLine("");
             InputField();
         }

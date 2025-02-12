@@ -6,11 +6,6 @@
         {
         }
 
-        public override void Enter()
-        {
-            
-        }
-
         protected override void View()
         {
             RestRoom();
@@ -50,9 +45,7 @@
                     break;
                 case "1":
                     // 휴식 취하기
-                    stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp / 2);
-                    stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp / 2);
-
+                    Rest(0.5f);
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
                     break;

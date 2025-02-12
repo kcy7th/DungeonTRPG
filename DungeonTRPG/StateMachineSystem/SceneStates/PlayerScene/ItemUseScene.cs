@@ -32,17 +32,22 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
         protected override void View()
         {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("인벤토리 - 소비 아이템");
+            Console.ResetColor();
+            Console.WriteLine("이 곳에서 아이템을 사용할 수 있습니다.\n");
+
             // 장착 아이템 출력
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("[소비 아이템]");
             Console.ResetColor();
 
             bool hasFind = false;
-            for (int i = inventory.boundaryIndex; i < items.Count; i++)
+            for (int i = inventory.BoundaryIndex; i < items.Count; i++)
             {
                 if (items[i] is ActiveItem)
                 {
-                    Console.WriteLine($"- {i - (inventory.boundaryIndex - 1)} {items[i].GetName()} | {items[i].GetDescription()}");
+                    Console.WriteLine($"- {i - (inventory.BoundaryIndex - 1)} {items[i].GetItemInformation()}");
                     hasFind = true;
                 }
             }
@@ -52,8 +57,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
             // 행동 선택
             Console.WriteLine("0. 나가기");
+            Console.WriteLine();
 
-            Console.Write("\n원하시는 행동을 입력해주세요.\n>> ");
+            InputField();
         }
 
         protected override void Control()
@@ -63,11 +69,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             if (int.TryParse(input, out var num))
             {
                 if (num == 0) stateMachine.GoPreviousState();
-                else if (0 < num && num <= items.Count - inventory.boundaryIndex)
+                else if (0 < num && num <= items.Count - inventory.BoundaryIndex)
                 {
-                    ActiveItem item = (ActiveItem)items[num + (inventory.boundaryIndex - 1)];
+                    ActiveItem item = (ActiveItem)items[num + (inventory.BoundaryIndex - 1)];
                     if (UseableIn.OnlyCombat == item.UseableIn) SendMessage("전투 중에만 사용할 수 있습니다.");
-                    else inventory.ItemUse(num + (inventory.boundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
+                    else inventory.ItemUse(num + (inventory.BoundaryIndex - 1), stateMachine.Player, stateMachine.Enemy);
                 }
                 else SendMessage("잘못된 입력입니다.");
             }
