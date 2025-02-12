@@ -11,8 +11,8 @@ namespace DungeonTRPG.Items
         public EquipSlot Slot { get; } // 장착 슬롯 정보 추가
         public bool IsEquipped { get; internal set;}
 
-        public EquipItem(string name, string description, List<Job> allowedJobs, ExtraStat extraStat, EquipSlot slot)
-            : base(name, description, allowedJobs)
+        public EquipItem(string name, string description, int price, List<Job> allowedJobs, ExtraStat extraStat, EquipSlot slot)
+            : base(name, description, price, allowedJobs)
         {
             Slot = slot;
             ExtraStat = extraStat;
@@ -21,7 +21,7 @@ namespace DungeonTRPG.Items
         // 아이템 복제
         public override Item Clone()
         {
-            return new EquipItem(name, description, new List<Job>(AllowedJobs), ExtraStat, Slot);
+            return new EquipItem(name, description, Price, new List<Job>(AllowedJobs), ExtraStat, Slot);
         }
 
         public override int CompareTo(Item? other)

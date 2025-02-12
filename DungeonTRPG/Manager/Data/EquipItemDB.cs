@@ -1,5 +1,5 @@
-﻿using DungeonTRPG.Items;
-using DungeonTRPG.ItemsSystem;
+﻿using DungeonTRPG.ItemsSystem;
+using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 using Newtonsoft.Json;
 
@@ -10,116 +10,30 @@ namespace DungeonTRPG.Manager.Data
         [JsonProperty]
         public Dictionary<int, EquipItem> Items { get; } = new Dictionary<int, EquipItem>()
         {
-            // WEAPON
-            { 2000, new EquipItem(
-                "새벽의 검",
-                "기초적인 무기지만 전사의 첫 걸음을 돕는 검. 약간의 공격력 보너스를 준다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(0, 0, 5, 0),   // HP, MP, Atk, Def
-                EquipSlot.WEAPON)
-            },
-            { 2001, new EquipItem(
-                "월광의 단도",
-                "달빛의 힘을 담은 단도로, 더욱 강력한 공격력을 선사한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(0, 0, 8, 0),
-                EquipSlot.WEAPON)
-            },
-            { 2002, new EquipItem(
-                "폭풍의 도끼",
-                "폭풍처럼 강렬한 일격을 가할 수 있는 무기. 공격력에 중점을 두었다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(0, 0, 12, 0),
-                EquipSlot.WEAPON)
-            },
-            { 2999, new EquipItem(
-                "천상의 엑스칼리버",
-                "전설 속 신들이 선택한 검으로, 엄청난 공격력 보너스를 지닌다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(0, 0, 30, 0),
-                EquipSlot.WEAPON)
-            },
+                // 전사
+                { 1000, new EquipItem("강철의 검", "전사 전용 강력한 검", 1500, new List<Job>{ Job.Warrior }, new ExtraStat(15, 0, 0, 5), EquipSlot.WEAPON) },
+                { 1001, new EquipItem("튼튼한 갑옷", "전사의 방어력을 강화하는 갑옷", 2000, new List<Job>{ Job.Warrior }, new ExtraStat(0, 0, 50, 20), EquipSlot.CHESTPLATE) },
+                { 1002, new EquipItem("방패", "공격을 막아주는 방패", 1200, new List<Job>{ Job.Warrior }, new ExtraStat(0, 0, 0, 30), EquipSlot.ACCESSORY) },
 
-            // HELMET
-            { 3000, new EquipItem(
-                "수호자의 투구",
-                "견고한 재질로 만들어진 투구로, 착용 시 HP와 방어력이 상승한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(10, 0, 0, 3),
-                EquipSlot.HELMET)
-            },
-            { 3001, new EquipItem(
-                "지혜의 왕관",
-                "지혜의 상징인 이 관은 MP와 HP를 약간 보강해준다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(8, 5, 0, 2),
-                EquipSlot.HELMET)
-            },
+                // 마법사
+                { 2000, new EquipItem("마법 지팡이", "마법사의 마력을 증가시키는 지팡이", 1800, new List<Job>{ Job.Mage }, new ExtraStat(5, 20, 0, 0), EquipSlot.WEAPON) },
+                { 2001, new EquipItem("마법 로브", "마법 저항력이 높은 로브", 1600, new List<Job>{ Job.Mage }, new ExtraStat(0, 0, 30, 10), EquipSlot.CHESTPLATE) },
+                { 2002, new EquipItem("마나의 반지", "MP 회복 속도를 증가시키는 반지", 1400, new List<Job>{ Job.Mage }, new ExtraStat(0, 10, 0, 5), EquipSlot.ACCESSORY) },
 
-            // CHESTPLATE
-            { 4000, new EquipItem(
-                "불굴의 갑옷",
-                "전투에서의 생존력을 높여주는 갑옷. 높은 HP와 방어력 보너스를 제공한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(20, 0, 0, 7),
-                EquipSlot.CHESTPLATE)
-            },
-            { 4001, new EquipItem(
-                "용의 비늘 판금갑옷",
-                "드래곤의 비늘로 만들어져 뛰어난 방어력을 자랑하는 갑옷.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(15, 0, 0, 10),
-                EquipSlot.CHESTPLATE)
-            },
+                // 궁수
+                { 3000, new EquipItem("장궁", "궁수 전용 장거리 무기", 2000, new List<Job>{ Job.Archer }, new ExtraStat(12, 0, 0, 3), EquipSlot.WEAPON) },
+                { 3001, new EquipItem("가벼운 갑옷", "궁수가 빠르게 움직일 수 있도록 제작된 갑옷", 1700, new List<Job>{ Job.Archer }, new ExtraStat(0, 0, 25, 15), EquipSlot.CHESTPLATE) },
+                { 3002, new EquipItem("민첩의 장갑", "공격 속도를 증가시키는 장갑", 1300, new List<Job>{ Job.Archer }, new ExtraStat(3, 0, 0, 5), EquipSlot.ACCESSORY) },
 
-            // LEGGINGS
-            { 5000, new EquipItem(
-                "투명 다리 보호구",
-                "불가사의한 수정과 그림자가 어우러진 소재로 제작되어, 착용자의 윤곽을 흐리게 만든다. 전투 중 HP와 방어력이 소폭 증가한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(5, 0, 0, 4),
-                EquipSlot.LEGGINGS)
-            },
-            { 5001, new EquipItem(
-                "꽃무늬 바지",
-                "화사한 꽃무늬가 돋보이는 바지로, 전투 중에도 기분 좋은 보너스를 제공한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(5, 5, 0, 3),
-                EquipSlot.LEGGINGS)
-            },
-
-            // BOOTS
-            { 6000, new EquipItem(
-                "바람의 장화",
-                "가볍고 민첩한 움직임을 돕는 부츠로, 약간의 HP와 방어력을 보강한다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(3, 0, 0, 3),
-                EquipSlot.BOOTS)
-            },
-            { 6001, new EquipItem(
-                "대지의 발걸음",
-                "단단한 지면 위를 걷는 듯한 안정감을 주는 부츠로, 방어력에 중점을 두었다.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(2, 0, 0, 5),
-                EquipSlot.BOOTS)
-            },
-
-            // ACCESSORY
-            { 7000, new EquipItem(
-                "생명의 목걸이",
-                "착용자에게 큰 HP 보너스를 제공하는 신비로운 목걸이.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(15, 0, 0, 0),
-                EquipSlot.ACCESSORY)
-            },
-            { 7001, new EquipItem(
-                "마력의 반지",
-                "MP를 크게 증가시켜 마법 사용에 도움을 주는 반지.",
-                new List<Job>{ Job.Warrior },
-                new ExtraStat(0, 10, 0, 0),
-                EquipSlot.ACCESSORY)
-            },
-        };
+                // None
+                { 4000, new EquipItem("여행자의 검", "초보자가 사용하기 좋은 기본 검", 1000, new List<Job>{ Job.None }, new ExtraStat(5, 0, 0, 2), EquipSlot.WEAPON) },
+                { 4001, new EquipItem("천 갑옷", "가벼운 보호구", 800, new List<Job>{ Job.None }, new ExtraStat(0, 0, 15, 5), EquipSlot.CHESTPLATE) },
+                { 4002, new EquipItem("방어의 부적", "착용하면 방어력이 소폭 상승", 700, new List<Job>{ Job.None }, new ExtraStat(0, 0, 0, 8), EquipSlot.ACCESSORY) },
+                { 4003, new EquipItem("탐험가의 장화", "장거리 여행에 적합한 가벼운 신발", 600, new List<Job>{ Job.None }, new ExtraStat(0, 0, 10, 3), EquipSlot.ACCESSORY) },
+                { 4004, new EquipItem("사냥꾼의 망토", "사냥꾼들이 애용하는 방어력 강화 망토", 900, new List<Job>{ Job.None }, new ExtraStat(0, 0, 20, 6), EquipSlot.CHESTPLATE) },
+                { 4005, new EquipItem("은빛 팔찌", "행운을 가져다준다고 전해지는 팔찌", 1100, new List<Job>{ Job.None }, new ExtraStat(2, 0, 0, 5), EquipSlot.ACCESSORY) },
+                { 4006, new EquipItem("모험가의 허리띠", "다양한 도구를 넣을 수 있는 허리띠", 950, new List<Job>{ Job.None }, new ExtraStat(0, 5, 0, 5), EquipSlot.ACCESSORY) }
+            };
 
         public EquipItem GetByKey(int key)
         {
@@ -129,5 +43,5 @@ namespace DungeonTRPG.Manager.Data
             }
             return null;
         }
-    }
+    };
 }

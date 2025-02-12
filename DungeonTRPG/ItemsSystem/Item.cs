@@ -6,14 +6,16 @@ namespace DungeonTRPG.Items
     {
         protected string name;
         protected string description;
+        public int Price { get; private set; }
         protected List<Job> allowedJobs;
 
         public List<Job> AllowedJobs => allowedJobs;
 
-        public Item(string name, string description, List<Job>? allowedJobs = null)
+        public Item(string name, string description, int price, List<Job>? allowedJobs = null)
         {
             this.name = name;
             this.description = description;
+            this.Price = price;
             this.allowedJobs = allowedJobs ?? new List<Job>();
         }
 

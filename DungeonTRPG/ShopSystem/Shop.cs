@@ -1,5 +1,7 @@
 ﻿using DungeonTRPG.Entity.Utility;
 using DungeonTRPG.Items;
+using DungeonTRPG.Manager;
+using DungeonTRPG.Manager.Data;
 
 namespace DungeonTRPG.ShopSystem
 {
@@ -12,7 +14,7 @@ namespace DungeonTRPG.ShopSystem
             availableItems.Add(item);
         }
 
-        // 아이템 구매 (ActiveItem은 가방에 추가, EquipItem은 인벤토리에 추가)
+        // 아이템 구매
         public bool BuyItem(Item item, Inventory playerInventory)
         {
             if (item is ActiveItem activeItem && playerInventory.AddItem(activeItem))
