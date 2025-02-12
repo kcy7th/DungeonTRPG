@@ -1,6 +1,4 @@
-﻿using DungeonTRPG.Entity;
-
-namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
+﻿namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class RestRoomScene : DungeonScene
     {
@@ -34,7 +32,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             Console.WriteLine(
                             $"\n" +
                             $"1. 휴식 취하기 \n" +
-                            $"0. 던전 돌아가기 \n");
+                            $"0. 던전 돌아가기 \n");         
             Console.Write("원하시는 행동을 입력해주세요.\n>> ");
         }
 
@@ -52,8 +50,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     break;
                 case "1":
                     // 휴식 취하기
-                    stateMachine.Player.OnHeal += Heal;
-                    stateMachine.InnScene.GetSomeRest(stateMachine.Player.Stat.MaxHp / 3, stateMachine.Player.Stat.MaxMp / 3);
+                    stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp / 2);
+                    stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp / 2);
 
                     // 이전 상태로 돌아가기 
                     stateMachine.GoPreviousState();
@@ -64,11 +62,5 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     break;
             }
         }
-
-        //protected override void Heal(Character target, int heal)
-        //{
-        //    base.Heal(target, heal);
-        //}
-
     }
 }

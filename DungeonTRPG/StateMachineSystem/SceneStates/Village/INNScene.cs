@@ -1,6 +1,4 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Enemy;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
@@ -28,7 +26,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             base.Update();
 
             // 여관
-            //View();
+            View();
         }
 
         // 여관 함수 
@@ -58,7 +56,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                     break;
                 case "1":
                     // 휴식 취하기
-                    GetSomeRest(stateMachine.Player.Stat.MaxHp, stateMachine.Player.Stat.MaxMp);
+                    GetSomeRest();
                     break;
                 // 다른 입력
                 default:
@@ -69,22 +67,25 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
 
         // 선택창 보기 함수 
         private void ViewSelect()
-        {
+        {        
             Console.WriteLine(
                 $"\n" +
                 $"1. 휴식 취하기 \n" +
                 $"0. 마을로 돌아가기 \n");
-            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");            
         }
 
         // 휴식 취하기 함수 
-        public void GetSomeRest(int healHpAmount, int recoverMpAmount)
+        public void GetSomeRest()
         {
+            // 5초마다 회복
+            stopwatch.Restart();
             Thread.Sleep(1000);
+         
+            stateMachine.Player.Heal(stateMachine.Player.Stat.MaxHp);
+            stateMachine.Player.RecoverMana(stateMachine.Player.Stat.MaxMp);
 
-            stateMachine.Player.Heal(healHpAmount);
-            stateMachine.Player.RecoverMana(recoverMpAmount);
-            
+            stopwatch.Stop();
         }
     }
 }
