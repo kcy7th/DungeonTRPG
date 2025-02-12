@@ -10,11 +10,12 @@
         public int Mp { get; private set; }
         public int MaxMp { get; private set; }
         public int Atk { get; private set; }
+        public int SpellAtk { get; private set; }
         public int Def { get; private set; }
 
         public event Action? CharacterDie; // 죽음 이벤트
 
-        public Stat(int level, int maxExp, int maxHp, int maxMp, int atk, int def)
+        public Stat(int level, int maxExp, int maxHp, int maxMp, int atk, int spellPower, int def)
         {
             Lv = level;
             Exp = 0;
@@ -24,6 +25,7 @@
             Mp = maxMp;
             MaxMp = maxMp;
             Atk = atk;
+            SpellAtk = spellPower;
             Def = def;
         }
 
@@ -119,6 +121,12 @@
         {
             if (value < 0) Atk = 0;
             else Atk = value;
+        }
+
+        public void SetSpellPower(int value)
+        {
+            if (value < 0) SpellAtk = 0;
+            else SpellAtk = value;
         }
     }
 }
