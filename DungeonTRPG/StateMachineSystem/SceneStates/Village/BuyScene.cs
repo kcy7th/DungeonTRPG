@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.ShopSystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;

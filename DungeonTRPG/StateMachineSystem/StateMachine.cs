@@ -1,5 +1,4 @@
-﻿using DungeonTRPG.Entity.Enemy;
-using DungeonTRPG.Entity.Player;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Interface;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
 using DungeonTRPG.StateMachineSystem.SceneStates.Dungeon;

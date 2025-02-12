@@ -1,12 +1,5 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Utility.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {

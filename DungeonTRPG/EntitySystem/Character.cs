@@ -1,10 +1,10 @@
-﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.SkillSystem;
+﻿using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.Manager;
+using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.Entity
+namespace DungeonTRPG.EntitySystem
 {
 
     internal abstract class Character
@@ -80,7 +80,8 @@ namespace DungeonTRPG.Entity
         // 공격
         public void Attack(Character target)
         {
-            int damage = Stat.Atk;
+            int damage = Stat.Atk > Stat.SpellAtk ? Stat.Atk : Stat.SpellAtk;
+            
             if (damage < 0) damage = 0;
             damage = target.Stat.TakeDamage(damage);
             OnAttack?.Invoke(this, target, damage);

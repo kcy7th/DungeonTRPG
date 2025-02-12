@@ -1,5 +1,5 @@
-﻿using DungeonTRPG.Entity.Enemy;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Items;
 using DungeonTRPG.StateMachineSystem;
 using Newtonsoft.Json;

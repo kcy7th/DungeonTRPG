@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using DungeonTRPG.Entity.Player;
-using DungeonTRPG.Items;
-using DungeonTRPG.Manager.Data;
+﻿using DungeonTRPG.Manager.Data;
 
 namespace DungeonTRPG.ShopSystem
 {

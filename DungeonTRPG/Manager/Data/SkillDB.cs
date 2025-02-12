@@ -1,5 +1,3 @@
-using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
 using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Interface;

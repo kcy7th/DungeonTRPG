@@ -1,8 +1,8 @@
-﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.Entity.Player
+namespace DungeonTRPG.EntitySystem
 {
     internal class Player : Character
     {

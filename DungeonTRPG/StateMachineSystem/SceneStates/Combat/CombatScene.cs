@@ -1,6 +1,6 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Enemy;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 
@@ -127,6 +127,20 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 Console.Write(" (");
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.Write($"+{player.Inventory.GetTotalEquipAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"주문력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write(player.Stat.SpellAtk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipSpellAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipSpellAtk()}");
                 Console.ResetColor();
                 Console.Write(")");
             }

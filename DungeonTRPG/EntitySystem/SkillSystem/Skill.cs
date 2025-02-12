@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.Interface;
 using DungeonTRPG.Utility.Enums;

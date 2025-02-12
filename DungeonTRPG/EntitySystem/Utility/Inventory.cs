@@ -1,7 +1,7 @@
 ﻿using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.Entity.Utility
+namespace DungeonTRPG.EntitySystem.Utility
 {
     internal class Inventory
     {
@@ -153,6 +153,17 @@ namespace DungeonTRPG.Entity.Utility
             }
 
             return totalAtk;
+        }
+
+        public int GetTotalEquipSpellAtk()
+        {
+            int totalSpellAtk = 0;
+            foreach (var item in equippedItems)
+            {
+                if (item.Value != null) totalSpellAtk += item.Value.ExtraStat.SpellAtk;
+            }
+
+            return totalSpellAtk;
         }
 
         public int GetTotalEquipDef()

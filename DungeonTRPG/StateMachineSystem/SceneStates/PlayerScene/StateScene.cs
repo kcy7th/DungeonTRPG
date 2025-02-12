@@ -112,6 +112,20 @@
             }
             Console.WriteLine();
 
+            Console.Write($"주문력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write(player.Stat.SpellAtk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipSpellAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipSpellAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
             Console.Write($"방어력 \t: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write(player.Stat.Def);

@@ -1,5 +1,5 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
 using System;
