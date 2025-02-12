@@ -1,10 +1,10 @@
-﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.EntitySystem.SkillSystem;
+﻿using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.Manager;
+using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.Entity
+namespace DungeonTRPG.EntitySystem
 {
 
     internal abstract class Character
@@ -30,6 +30,18 @@ namespace DungeonTRPG.Entity
             Stat = stat;
             Inventory = new Inventory(this);
             CharacterState = new CharacterState();
+
+            Stat.CharacterDie += CharacterDie;
+        }
+
+        public Character(string name, int gold, Stat stat, List<Skill> skills)
+        {
+            Name = name;
+            Gold = gold;
+            Stat = stat;
+            Inventory = new Inventory(this);
+            CharacterState = new CharacterState();
+            Skills = skills;
 
             Stat.CharacterDie += CharacterDie;
         }
@@ -80,9 +92,16 @@ namespace DungeonTRPG.Entity
         // 공격
         public void Attack(Character target)
         {
-            int damage = Stat.Atk;
+            int damage = Stat.Atk > Stat.SpellAtk ? Stat.Atk : Stat.SpellAtk;
+            
             if (damage < 0) damage = 0;
             damage = target.Stat.TakeDamage(damage);
+
+            Console.Clear();
+            Console.WriteLine(OnAttack?.GetInvocationList().Length);
+
+            Thread.Sleep(10000);
+
             OnAttack?.Invoke(this, target, damage);
         }
 
@@ -144,5 +163,7 @@ namespace DungeonTRPG.Entity
                 Gold += amount;
             }
         }
+
+        public abstract Character Clone();
     }
 }

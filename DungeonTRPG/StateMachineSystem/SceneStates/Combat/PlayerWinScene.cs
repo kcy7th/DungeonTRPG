@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.Dungeon;
 using System;
 using System.Collections.Generic;

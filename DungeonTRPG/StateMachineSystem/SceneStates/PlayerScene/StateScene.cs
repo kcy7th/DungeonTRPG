@@ -51,10 +51,21 @@
         }
 
         private void ViewStat()
-        {           
+        {
             Console.Write($"Lv. ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(player.Stat.Lv);
+            Console.Write(player.Stat.Lv);
+            Console.ResetColor();
+
+            Console.Write($" [ Exp : ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.Exp);
+            Console.ResetColor();
+            Console.Write(" / ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.MaxExp);
+            Console.ResetColor();
+            Console.WriteLine(" ]");
             Console.ResetColor();
 
             Console.WriteLine($"{player.Name} ( {player.Job} )");
@@ -107,6 +118,20 @@
                 Console.Write(" (");
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.Write($"+{player.Inventory.GetTotalEquipAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
+            Console.Write($"주문력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write(player.Stat.SpellAtk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipSpellAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipSpellAtk()}");
                 Console.ResetColor();
                 Console.Write(")");
             }

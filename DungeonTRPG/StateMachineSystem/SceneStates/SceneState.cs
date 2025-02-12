@@ -1,8 +1,5 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Interface;
-using System.Diagnostics;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates
 {

@@ -1,8 +1,8 @@
-﻿using DungeonTRPG.Entity.Utility;
-using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Utility.Enums;
 
-namespace DungeonTRPG.Entity.Player
+namespace DungeonTRPG.EntitySystem
 {
     internal class Player : Character
     {
@@ -11,6 +11,11 @@ namespace DungeonTRPG.Entity.Player
         public Player(string name, int gold, Stat stat, Job job) : base(name, gold, stat)
         {
             this.Job = job;
+        }
+
+        public override Character Clone()
+        {
+            return new Player(Name, Gold, Stat, Job);
         }
 
         // 경험치 획득

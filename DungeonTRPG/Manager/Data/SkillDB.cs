@@ -1,5 +1,3 @@
-using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
 using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Interface;
@@ -58,7 +56,7 @@ namespace DungeonTRPG.Manager.Data
         {
             if (Items.ContainsKey(key))
             {
-                return Items[key];
+                return Items[key].Clone();
             }
             return null;
         }

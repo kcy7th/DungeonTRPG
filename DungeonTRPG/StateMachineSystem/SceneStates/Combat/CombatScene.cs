@@ -1,6 +1,5 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Enemy;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.Utility.Enums;
 
@@ -132,6 +131,20 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             }
             Console.WriteLine();
 
+            Console.Write($"주문력 \t: ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
+            Console.Write(player.Stat.SpellAtk);
+            Console.ResetColor();
+            if (player.Inventory.GetTotalEquipSpellAtk() != 0)
+            {
+                Console.Write(" (");
+                Console.ForegroundColor = ConsoleColor.DarkMagenta;
+                Console.Write($"+{player.Inventory.GetTotalEquipSpellAtk()}");
+                Console.ResetColor();
+                Console.Write(")");
+            }
+            Console.WriteLine();
+
             Console.Write($"방어력 \t: ");
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Write(player.Stat.Def);
@@ -165,7 +178,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             for (int i = 0; i < enemys.Count; i++)
             {
-                Console.Write($"\t {i+1}번 \t\t");
+                Console.Write($"\t {i+1}번 \t\t\t");
             }
         }
 
@@ -174,11 +187,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"{enemy.Name} ( Lv. ");
+                Console.Write($"{enemy.Name} (Lv.");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(enemy.Stat.Lv);
                 Console.ResetColor();
-                Console.Write(" )");
+                Console.Write(")");
+                for(int i = 0; i < 5 / enemy.Name.Length; i++)
+                {
+                    Console.Write("\t");
+                }
                 Console.Write("\t");
             }
         }
@@ -188,8 +205,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State}   \t");
-                else Console.Write("\t\t\t");
+                if(enemy.Stat.Hp > 0) Console.Write($"상 태 \t: {enemy.CharacterState.State}   \t\t");
+                else Console.Write("\t\t\t\t");
             }
         }
 
@@ -207,10 +224,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     Console.Write($" / ");
                     Console.ForegroundColor = ConsoleColor.DarkRed;
                     Console.Write(enemy.Stat.MaxHp);
-                    Console.Write("\t");
+                    Console.Write("\t\t");
                     Console.ResetColor();
                 }
-                else Console.Write("\t\t\t");
+                else Console.Write("\t\t\t\t");
             }
         }
 
@@ -228,10 +245,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     Console.Write($" / ");
                     Console.ForegroundColor = ConsoleColor.DarkBlue;
                     Console.Write(enemy.Stat.MaxMp);
-                    Console.Write("\t");
+                    Console.Write("\t\t");
                     Console.ResetColor();
                 }
-                else Console.Write("\tDead\t\t");
+                else Console.Write("\tDead\t\t\t");
             }
         }
 
@@ -245,10 +262,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     Console.Write($"공격력 \t: ");
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Write(enemy.Stat.Atk);
-                    Console.Write("\t\t");
+                    Console.Write("\t\t\t");
                     Console.ResetColor();
                 }
-                else Console.Write("\t\t\t");
+                else Console.Write("\t\t\t\t");
             }
         }
 
@@ -262,10 +279,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     Console.Write($"방어력 \t: ");
                     Console.ForegroundColor = ConsoleColor.DarkGray;
                     Console.Write(enemy.Stat.Def);
-                    Console.Write("\t\t");
+                    Console.Write("\t\t\t");
                     Console.ResetColor();
                 }
-                else Console.Write("\t\t\t");
+                else Console.Write("\t\t\t\t");
             }
         }
 

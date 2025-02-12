@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 using DungeonTRPG.ShopSystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
@@ -20,6 +20,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
         {
             shop = new Shop();
             shop.AddItem(1000);
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+
+            ShopInit();
         }
 
         protected override void View()
@@ -93,6 +100,32 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                 else SendMessage("잘못된 입력입니다.");
             }
             else SendMessage("잘못된 입력입니다.");
+        }
+
+        private void ShopInit()
+        {
+            switch (stateMachine.currentFloor)
+            {
+                case 10:
+                    shop.AddItem(1000);
+                    break;
+                case 20:
+                    break;
+                case 30:
+                    break;
+                case 40:
+                    break;
+                case 50:
+                    break;
+                case 60:
+                    break;
+                case 70:
+                    break;
+                case 80:
+                    break;
+                case 90:
+                    break;
+            }
         }
     }
 }

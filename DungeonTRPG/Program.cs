@@ -1,5 +1,4 @@
-﻿using DungeonTRPG.Entity.Player;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.EntitySystem.ActiveEffect;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Interface;
@@ -7,8 +6,9 @@ using DungeonTRPG.Items;
 using DungeonTRPG.Manager;
 using DungeonTRPG.StateMachineSystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
-using DungeonTRPG.StateMachineSystem.SceneStates.Village;
 using DungeonTRPG.Utility.Enums;
+using DungeonTRPG.EntitySystem;
+using System.Runtime.InteropServices;
 
 namespace DungeonTRPG
 {

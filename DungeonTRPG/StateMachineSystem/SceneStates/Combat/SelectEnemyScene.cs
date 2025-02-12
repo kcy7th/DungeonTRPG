@@ -1,5 +1,5 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
 using System;
@@ -14,6 +14,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
     {
         public SelectEnemyScene(StateMachine stateMachine, List<Enemy> enemys) : base(stateMachine, enemys)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
         }
 
         public override void Exit()

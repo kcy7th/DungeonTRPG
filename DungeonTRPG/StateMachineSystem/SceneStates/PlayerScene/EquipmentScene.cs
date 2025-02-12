@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
@@ -67,7 +67,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 
                 if (0 < num && num <= inventory.BoundaryIndex)
                 {
-                    inventory.EquipItem(inventory.GetItems()[num - 1] as EquipItem);
+                    EquipItem item = inventory.GetItems()[num - 1] as EquipItem;
+                    if (item.isAllowedJob(player.Job))
+                    {
+                        inventory.EquipItem(item);
+                    }
+                    else SendMessage($"{player.Job} 은(는) 착용할 수 없는 아이템 입니다.");
                 }
             }
             else SendMessage("잘못된 입력입니다.");
