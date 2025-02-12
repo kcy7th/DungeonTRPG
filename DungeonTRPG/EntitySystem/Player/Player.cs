@@ -1,4 +1,5 @@
 ﻿using DungeonTRPG.Entity.Utility;
+using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.Entity.Player
@@ -27,10 +28,10 @@ namespace DungeonTRPG.Entity.Player
         // 플레이어 이름 지정
         public void SetName(string name)
         {
-            if (!string.IsNullOrEmpty(name)) // IsNullOrEmpty()로 빈칸이 입력되는 경우까지 방지
+            if (!string.IsNullOrWhiteSpace(name)) // IsNullOrWhiteSpace()로 빈칸이 입력되는 경우까지 방지
             {
                 Name = name;
-            }
+            }            
         }
     }
 }
