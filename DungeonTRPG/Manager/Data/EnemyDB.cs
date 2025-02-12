@@ -10,17 +10,6 @@ namespace DungeonTRPG.Manager.Data
 {
     internal class EnemyDB
     {
-        public int Randomizer(int skilltoAdd)
-        {
-            Random random = new Random();
-            if (GameManager.Instance.DataManager.GameData.SkillDB.Items.ContainsKey(skilltoAdd))
-            {
-                return random2;
-            }
-
-            return 0;
-        }
-
         [JsonProperty]
         public Dictionary<int, Enemy> enemys { get; } = new Dictionary<int, Enemy>()
         {
