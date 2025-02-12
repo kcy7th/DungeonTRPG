@@ -26,9 +26,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             Console.WriteLine("\n0. 돌아가기");
             Console.WriteLine();
-            InputField("공격하고 싶은 적의 번호를 입력해주세요.");
+            var cursurPos = InputField("공격하고 싶은 적의 번호를 입력해주세요.");
 
             PlayerStats();
+
+            Console.SetCursorPosition(cursurPos.Left, cursurPos.Top);
         }
 
         protected override void Control()

@@ -163,7 +163,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected void EnemyNumbers()
         {
-            Console.WriteLine();
             for (int i = 0; i < enemys.Count; i++)
             {
                 Console.Write($"\t {i+1}번 \t\t");
