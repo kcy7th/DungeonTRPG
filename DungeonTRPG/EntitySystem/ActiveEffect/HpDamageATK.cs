@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Interface;
 
 namespace DungeonTRPG.EntitySystem.ActiveEffect

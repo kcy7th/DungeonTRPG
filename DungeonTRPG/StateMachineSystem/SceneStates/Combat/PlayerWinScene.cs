@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.EntitySystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.Dungeon;
 using System;
 using System.Collections.Generic;
@@ -18,8 +18,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             int preLv = player.Stat.Lv;
             int preExp = player.Stat.Exp;
+            int preGold = player.Gold;
 
-            player.Stat.AddExp(CalculateExp());
+            player.AddExp(CalculateExp());
+            player.EarnGold(CalculateGold());
 
             Console.WriteLine("Victory");
             Console.WriteLine();
@@ -27,6 +29,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             if (preLv < player.Stat.Lv) Console.WriteLine($"Lv.{preLv} -> {player.Stat.Lv}");
             Console.WriteLine($"Exp : {preExp} -> {player.Stat.Exp}");
+            Console.WriteLine($"Gold : {preGold} -> {player.Gold}");
         }
 
         private int CalculateExp()
@@ -37,6 +40,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 totalExp += enemy.Stat.MaxExp;
             }
             return totalExp;
+        }
+
+        private int CalculateGold()
+        {
+            int totalGold = 0;
+            foreach (Enemy enemy in enemys)
+            {
+                totalGold += enemy.Gold;
+            }
+            return totalGold;
         }
 
         protected override void Control()

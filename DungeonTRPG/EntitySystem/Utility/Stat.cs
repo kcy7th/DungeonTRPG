@@ -1,4 +1,4 @@
-﻿namespace DungeonTRPG.Entity.Utility
+﻿namespace DungeonTRPG.EntitySystem.Utility
 {
     internal class Stat
     {
@@ -15,7 +15,7 @@
 
         public event Action? CharacterDie; // 죽음 이벤트
 
-        public Stat(int level, int maxExp, int maxHp, int maxMp, int atk, int spellPower, int def)
+        public Stat(int level, int maxExp, int maxHp, int maxMp, int atk, int spellAtk, int def)
         {
             Lv = level;
             Exp = 0;
@@ -25,7 +25,7 @@
             Mp = maxMp;
             MaxMp = maxMp;
             Atk = atk;
-            SpellAtk = spellPower;
+            SpellAtk = spellAtk;
             Def = def;
         }
 
@@ -33,23 +33,18 @@
         public void AddExp(int value)
         {
             Exp += value;
-            CheckExp();
         }
 
         public void SetExp(int value)
         {
             Exp = value;
-            CheckExp();
         }
 
-        public void CheckExp()
+        public void LevelUp()
         {
-            while (Exp >= MaxExp) // 한번에 여러번 레벨업 할 경우를 생각하여 반복문
-            {
-                Exp -= MaxExp; // 100이 넘는 경험치를 얻을 경우 남은 경험치 유지
-                Lv++;
-                Hp = MaxHp;
-            }
+            Lv++;
+            MaxExp = (int)(MaxExp * 1.1f);
+            Hp = MaxHp;
         }
 
         // 데미지 관리
@@ -57,7 +52,7 @@
         {
             if (damage < Def) return 0;
 
-            int caculate = damage - Def;
+            int caculate = damage - (int)(Def / 5.0f);
 
             Hp -= caculate;
 
@@ -123,10 +118,15 @@
             else Atk = value;
         }
 
-        public void SetSpellPower(int value)
+        public void SetSpellAtk(int value)
         {
             if (value < 0) SpellAtk = 0;
             else SpellAtk = value;
+        }
+
+        public Stat Clone()
+        {
+            return new Stat(Lv, MaxExp, MaxHp, MaxMp, Atk, SpellAtk, Def);
         }
     }
 }

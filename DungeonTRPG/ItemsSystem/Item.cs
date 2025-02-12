@@ -34,5 +34,26 @@ namespace DungeonTRPG.Items
         {
             return $"{name} | {description}";
         }
+
+        public bool isAllowedJob(Job job)
+        {
+            foreach(Job item in allowedJobs)
+            {
+                if(item == job || item == Job.None) return true;
+            }
+            return false;
+        }
+
+        public string AllowedJobToString()
+        {
+            string str = "";
+
+            foreach (Job job in allowedJobs)
+            {
+                str += job + " ";
+            }
+
+            return str;
+        }
     }
 }

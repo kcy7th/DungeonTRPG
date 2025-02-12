@@ -6,6 +6,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
     {
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
+            
         }
 
         public override void Enter()
@@ -84,14 +85,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.WriteLine("마을");
             Console.ResetColor();
             Console.WriteLine("사람들이 머무르는 마을입니다. 어디로 갈지 선택하세요.");
-            Console.WriteLine(
-                $"\n" +
-                $"1. 던전 \n" +
-                $"2. 상점 \n" +
-                $"3. 여관 \n" +
-                $"4. 인벤토리 \n" +
-                $"5. 상태 보기 \n" +
-                $"0. 게임 종료");
+
+            Console.WriteLine();
+            Console.WriteLine("1. 던전");
+            Console.Write("2. 상점 ");
+            if(stateMachine.currentFloor % 10 == 0) Console.Write("*새로운 물건이 들어온거 같다.");
+            Console.WriteLine();
+            Console.WriteLine("3. 여관");
+            Console.WriteLine("4. 인벤토리");
+            Console.WriteLine("5. 상태 보기");
+            Console.WriteLine("0. 게임 종료");
             Console.WriteLine();
 
             InputField();

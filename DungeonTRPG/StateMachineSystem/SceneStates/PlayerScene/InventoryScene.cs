@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem.Utility;
 using DungeonTRPG.Items;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene

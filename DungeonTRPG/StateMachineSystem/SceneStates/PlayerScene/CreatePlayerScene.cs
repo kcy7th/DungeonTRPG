@@ -1,42 +1,44 @@
-﻿using DungeonTRPG.Entity;
-using DungeonTRPG.Entity.Player;
-using DungeonTRPG.Entity.Utility;
+﻿using DungeonTRPG.EntitySystem;
+using DungeonTRPG.EntitySystem.Utility;
+using DungeonTRPG.Interface;
 using DungeonTRPG.Utility.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
-    internal class CreatePlayerScene : SceneState
+    internal class CreatePlayerScene : IState
     {
-        private Player player; // Player 객체 참조
+        internal Job Job { get; private set; }
 
-        internal Job Job { get; private set; }  
+        private StateMachine stateMachine;
 
-        public CreatePlayerScene(StateMachine stateMachine) : base(stateMachine)
+        public CreatePlayerScene(StateMachine stateMachine)
         {
-            player = stateMachine.Player; // 플레이어 클래스에 이름 관리 메서드에 입력 받은 이름에 대한 정보 전달
+            this.stateMachine = stateMachine;
         }
 
-        public override void Exit()
+        public void Enter()
         {
-            base.Exit();
+
         }
 
-        public override void Update()
+        public void Update()
         {
-            base.Update();
+            Console.Clear();
+
+            View();
+
+            Control();
         }
 
-        protected override void View()
+        public void Exit()
+        {
+            
+        }
+
+        protected void View()
         {
             Console.WriteLine("사용하실 이름을 입력해주세요");
             string name = Console.ReadLine();
-
-            player.SetName(name); // 플레이어 클래스에 이름 관리 메서드에 입력 받은 이름에 대한 정보 전달
 
             Console.Clear();
 
@@ -53,21 +55,27 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                 InputField("원하는 직업을 선택해주세요");
 
                 string input = Console.ReadLine();
+
+                Player player;
+
                 switch (input)
                 {
                     // 전사
                     case "1":
-                        player.Job = Job.Warrior; // player 클래스에 유저가 선택한 직업 정보 전달
+                        player = new Player(name, 500, new Stat(1, 100, 100, 20, 10, 0, 5), Job.Warrior);
+                        stateMachine.Init(player);
                         stateMachine.ChangeState(stateMachine.VillageScene); // 직업 선택 후 마을로 이동
                         break;
                     // 법사
                     case "2":
-                        player.Job = Job.Mage;
+                        player = new Player(name, 500, new Stat(1, 100, 60, 50, 2, 15, 3), Job.Mage);
+                        stateMachine.Init(player);
                         stateMachine.ChangeState(stateMachine.VillageScene);
                         break;
                     // 궁수
                     case "3":
-                        player.Job = Job.Archer;
+                        player = new Player(name, 500, new Stat(1, 100, 80, 30, 8, 2, 4), Job.Archer);
+                        stateMachine.Init(player);
                         stateMachine.ChangeState(stateMachine.VillageScene);
                         break;
                     // 게임 종료
@@ -90,9 +98,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             }
         }            
 
-        protected override void Control()
+        protected void Control()
         {
             
-        }        
+        }
+
+        protected (int Left, int Top) InputField(string message = "원하시는 행동을 입력해주세요.")
+        {
+            Console.Write($"{message} \n>> ");
+            return Console.GetCursorPosition();
+        }
+
+        
     }
 }

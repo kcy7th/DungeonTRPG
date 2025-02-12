@@ -1,4 +1,4 @@
-﻿using DungeonTRPG.Entity;
+﻿using DungeonTRPG.EntitySystem;
 
 namespace DungeonTRPG.Interface
 {
