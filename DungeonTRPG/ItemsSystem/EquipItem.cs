@@ -27,7 +27,15 @@ namespace DungeonTRPG.Items
 
         public override int CompareTo(Item? other)
         {
-            if (other is EquipItem) return 0;
+            if (other is EquipItem)
+            {
+                int index = this.AllowedJobs[0].CompareTo(other.AllowedJobs[0]);
+                if (index == 0)
+                {
+                    return this.name.CompareTo(other.GetName());
+                }
+                else return index;
+            }
             else return -1;
         }
 
@@ -44,8 +52,7 @@ namespace DungeonTRPG.Items
 
         public override string GetItemInformation()
         {
-            string job = isAllowedJob(Job.None) ? "" : $"[ 직업 : {AllowedJobToString()}]";
-            return $"{name} | {description} {GetItemStatToString()} {job}";
+            return $"{name} | {description} {GetItemStatToString()}";
         }
     }
 }

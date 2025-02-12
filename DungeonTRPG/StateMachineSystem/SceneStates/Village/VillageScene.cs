@@ -6,6 +6,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
     {
         internal VillageScene(StateMachine stateMachine) : base(stateMachine)
         {
+            
         }
 
         public override void Enter()

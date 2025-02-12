@@ -32,8 +32,7 @@ namespace DungeonTRPG.Items
 
         public virtual string GetItemInformation()
         {
-            string job = isAllowedJob(Job.None) ? "" : $"[ 직업 : {AllowedJobToString()}]";
-            return $"{name} | {description} {job}";
+            return $"{name} | {description}";
         }
 
         public bool isAllowedJob(Job job)

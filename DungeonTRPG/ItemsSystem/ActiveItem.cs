@@ -33,7 +33,10 @@ namespace DungeonTRPG.Items
 
         public override int CompareTo(Item? other)
         {
-            if (other is ActiveItem) return 0;
+            if (other is ActiveItem)
+            {
+                return this.name.CompareTo(other.GetName());
+            }
             else return 1;
         }
 

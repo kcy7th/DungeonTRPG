@@ -97,11 +97,6 @@ namespace DungeonTRPG.EntitySystem
             if (damage < 0) damage = 0;
             damage = target.Stat.TakeDamage(damage);
 
-            Console.Clear();
-            Console.WriteLine(OnAttack?.GetInvocationList().Length);
-
-            Thread.Sleep(10000);
-
             OnAttack?.Invoke(this, target, damage);
         }
 

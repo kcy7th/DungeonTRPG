@@ -72,11 +72,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             Console.WriteLine();
 
-            Console.Write($"{player.Name} ( Lv. ");
+            Console.Write($"{player.Name}(Lv.");
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(player.Stat.Lv);
             Console.ResetColor();
-            Console.WriteLine(" )");
+            Console.WriteLine(")");
 
             Console.Write($"상 태 \t: ");
             Console.WriteLine(player.CharacterState.State);
@@ -187,16 +187,16 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine();
             foreach (Enemy enemy in enemys)
             {
-                Console.Write($"{enemy.Name} (Lv.");
+                Console.Write($"{enemy.Name}(Lv.");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write(enemy.Stat.Lv);
                 Console.ResetColor();
                 Console.Write(")");
-                for(int i = 0; i < 5 / enemy.Name.Length; i++)
+                for(int i = 0; i <= 4 / enemy.Name.Length; i++)
                 {
                     Console.Write("\t");
                 }
-                Console.Write("\t");
+                if(enemy.Name.Length > 2) Console.Write("\t");
             }
         }
 
