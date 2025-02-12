@@ -11,11 +11,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         {
         }
 
-        public override void Enter()
-        {
-            
-        }
-
         // 전투 함수
         protected override void View()
         {
