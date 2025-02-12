@@ -10,7 +10,7 @@ namespace DungeonTRPG.Items
         public List<IEffect> effects = new List<IEffect>();
         public bool useOnSelf = true;
 
-        public ActiveItem(string name, string description, price, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn, bool useOnSelf)
+        public ActiveItem(string name, string description, int price, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn, bool useOnSelf)
             : base(name, description, price, allowedJobs)
         {
             UseableIn = useableIn;
@@ -18,7 +18,7 @@ namespace DungeonTRPG.Items
             this.useOnSelf = useOnSelf;
         }
 
-        public ActiveItem(string name, string description, price, List<Job> allowedJobs, UseableIn useableIn, bool useOnSelf)
+        public ActiveItem(string name, string description, int price, List<Job> allowedJobs, UseableIn useableIn, bool useOnSelf)
             : base(name, description, price, allowedJobs)
         {
             UseableIn = useableIn;

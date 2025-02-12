@@ -9,15 +9,15 @@ namespace DungeonTRPG.Items
     {
         public int Price { get; }
 
-        public SecretItem(string name, string description, int price, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn)
-            : base(name, description, price, allowedJobs, effects, useableIn)
+        public SecretItem(string name, string description, int price, List<Job> allowedJobs, List<IEffect> effects, UseableIn useableIn, bool useOnSelf)
+            : base(name, description, price, allowedJobs, effects, useableIn, useOnSelf)
         {
             Price = price;
         }
 
         public override Item Clone()
         {
-            return new SecretItem(name, description, Price, new List<Job>(AllowedJobs), new List<IEffect>(effects), UseableIn);
+            return new SecretItem(name, description, Price, new List<Job>(AllowedJobs), new List<IEffect>(effects), UseableIn, useOnSelf);
         }
 
         // 아이템 비교 메서드
