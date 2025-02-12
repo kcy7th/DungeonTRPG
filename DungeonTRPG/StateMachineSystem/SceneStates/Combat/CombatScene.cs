@@ -51,7 +51,18 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(player.Stat.Lv);
             Console.ResetColor();
-            Console.WriteLine(")");
+            Console.Write(")");
+
+            Console.Write($" [ Exp : ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.Exp);
+            Console.ResetColor();
+            Console.Write(" / ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.MaxExp);
+            Console.ResetColor();
+            Console.WriteLine(" ]");
+            Console.ResetColor();
 
             Console.Write($"상 태 \t: ");
             Console.WriteLine(player.CharacterState.State);
@@ -284,7 +295,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 $"{caster.Name} 의 공격! \n" +
                 $"Lv.{target.Stat.Lv} {target.Name} 을(를) 맞췄습니다. [데미지 : {damage}]");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
 
         protected void Damage(Character target, int damage)
@@ -294,7 +305,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("\n" +
                 $"Lv.{target.Stat.Lv} {target.Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
 
         protected override void Heal(Character target, int heal)
@@ -338,7 +349,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("\n" +
                 $"Lv. {target.Stat.Lv} {target.Name} 이(가) 자고 있습니다.");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
 
         protected void Addiction(Character target)
@@ -362,7 +373,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("\n" +
                 $"Lv. {target.Stat.Lv} {target.Name} 이(가) {message}");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
         protected void Confusion(Character target)
         {
@@ -373,7 +384,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.WriteLine("\n" +
                 $"Lv. {target.Stat.Lv} {target.Name} 이(가) 혼란에 빠져 있습니다.");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
     }
 }

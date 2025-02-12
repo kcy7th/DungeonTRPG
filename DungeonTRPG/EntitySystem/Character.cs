@@ -64,7 +64,9 @@ namespace DungeonTRPG.EntitySystem
         internal void OnItemUnEquipped(EquipItem item)
         {
             Stat.SetMaxHp(Stat.MaxHp - item.ExtraStat.Hp);
+            Stat.SetHp(Stat.MaxHp);
             Stat.SetMaxMp(Stat.MaxMp - item.ExtraStat.Mp);
+            Stat.SetMp(Stat.MaxMp);
             Stat.SetAtk(Stat.Atk - item.ExtraStat.Atk);
             Stat.SetDef(Stat.Def - item.ExtraStat.Def);
         }

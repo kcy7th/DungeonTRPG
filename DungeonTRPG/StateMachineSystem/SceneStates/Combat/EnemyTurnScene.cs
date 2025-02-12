@@ -73,7 +73,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 skill.UseSkill(enemy, new List<Character>() { player });
             }
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
 
         private bool CheckState()

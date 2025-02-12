@@ -41,7 +41,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             Console.Clear();
             Console.WriteLine(message);
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
             Console.Clear();
         }
 
@@ -50,7 +50,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.WriteLine(
                 $"Lv.{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : {heal}]");
 
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
         }
 
         protected (int Left, int Top) InputField(string message = "원하시는 행동을 입력해주세요.")
@@ -64,7 +64,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.Clear();
 
             // 5초마다 회복
-            Thread.Sleep(1000);
+            Thread.Sleep(stateMachine.tick);
 
             stateMachine.Player.Heal((int)(stateMachine.Player.Stat.MaxHp * persent));
             stateMachine.Player.RecoverMana((int)(stateMachine.Player.Stat.MaxMp * persent));

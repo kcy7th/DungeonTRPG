@@ -12,6 +12,8 @@ namespace DungeonTRPG.StateMachineSystem
         private IState currentState;
         private Stack<IState> preStates = new Stack<IState>();
 
+        internal int tick = 700;
+
         internal List<Enemy> enemys = new List<Enemy>();
 
         internal CombatScene preCombatScene;

@@ -67,8 +67,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                         player = new Player(name, 500, new Stat(1, 100, 100, 20, 10, 0, 5), Job.Warrior);
                         Item item = GameManager.Instance.DataManager.GameData.ActiveItemDB.GetByKey(1020);
                         player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
+                        player.Inventory.AddItem(item);
                         item = GameManager.Instance.DataManager.GameData.EquipItemDB.GetByKey(7009);
                         player.Inventory.AddItem(item);
+                        player.LearnSkill(9903);
                         stateMachine.Init(player);
                         stateMachine.ChangeState(stateMachine.VillageScene); // 직업 선택 후 마을로 이동
                         break;
@@ -114,7 +121,5 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.Write($"{message} \n>> ");
             return Console.GetCursorPosition();
         }
-
-        
     }
 }

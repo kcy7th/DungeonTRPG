@@ -17,7 +17,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         public int selectSkill;
         public int currentPage = 0;
         public int lastPage = 0;
-        List<Skill> skills;
+
+        private List<Skill> skills = new List<Skill>();
 
         public CombatSkillScene(StateMachine stateMachine) : base(stateMachine)
         {
@@ -27,9 +28,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             base.Enter();
 
-            skills = new List<Skill>();
+            skills.Clear();
 
-            for (int i = 0; i < skills.Count; i++)
+            for (int i = 0; i < player.Skills.Count; i++)
             {
                 int key = player.Skills[i];
                 skills.Add(GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key));
@@ -95,8 +96,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 else if (num == 7 && currentPage < lastPage) currentPage++;
                 else if (0 < num && num <= player.Skills.Count)
                 {
-                    stateMachine.preCombatScene = this;
-                    stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
+                    if (player.Stat.Mp >= skills[num - 1].cost)
+                    {
+                        stateMachine.preCombatScene = this;
+                        stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
+                    }
+                    else SendMessage("마나가 부족합니다.");
                 }
                 else SendMessage("잘못된 입력입니다.");
             }
