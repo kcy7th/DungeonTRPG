@@ -87,6 +87,8 @@
             Random random = new Random();
             int randInt = random.Next(0, 101);
 
+            if (stateMachine.currentFloor % 10 == 0 && stateMachine.exploredCount == 10) randInt = 0;
+
             // 0~49 몬스터 조우
             if (randInt < 50)
             {

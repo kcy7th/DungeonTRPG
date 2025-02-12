@@ -16,24 +16,33 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 
         public override void Enter()
         {
-            base.Enter();
-
             enemys.Clear();
 
-            int enemyCount = Random.Next(1, 5);
-
-            for(int i = 0; i < enemyCount; i++)
+            if(stateMachine.currentFloor % 10 == 0 && stateMachine.exploredCount == 10)
             {
-                int enemyIndex = GetRandomIndexInBoundery();
-                Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + enemyIndex);
+                Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + stateMachine.currentFloor);
                 enemys.Add(enemy);
             }
+            else
+            {
+                int enemyCount = Random.Next(1, 5);
+
+                for (int i = 0; i < enemyCount; i++)
+                {
+                    int enemyIndex = GetRandomIndexInBoundery();
+                    Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + enemyIndex);
+                    enemys.Add(enemy);
+                }
+            }
+
+            base.Enter();
         }
 
         private int GetRandomIndexInBoundery()
         {
             int index = Random.Next(stateMachine.currentFloor - 2, stateMachine.currentFloor + 2);
-            if (index < 1) index = 1;
+            if (index % 10 == 0) index--;
+            else if (index < 1) index = 1;
             else if(index > 100) index = 100;
 
             return index;

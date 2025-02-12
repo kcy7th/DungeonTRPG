@@ -28,7 +28,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
         protected override void Control()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(1000);
             stateMachine.ChangeState(stateMachine.VillageScene);
         }
     }
