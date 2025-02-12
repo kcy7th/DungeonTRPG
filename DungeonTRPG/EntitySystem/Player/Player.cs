@@ -27,7 +27,7 @@ namespace DungeonTRPG.Entity.Player
         // 플레이어 이름 지정
         public void SetName(string name)
         {
-            if (!string.IsNullOrEmpty(name))
+            if (!string.IsNullOrEmpty(name)) // IsNullOrEmpty()로 빈칸이 입력되는 경우까지 방지
             {
                 Name = name;
             }

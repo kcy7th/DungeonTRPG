@@ -12,13 +12,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
 {
     internal class CreatePlayerScene : SceneState
     {
-        private Player player;
+        private Player player; // Player 객체 참조
 
         internal Job Job { get; private set; }  
 
         public CreatePlayerScene(StateMachine stateMachine) : base(stateMachine)
         {
-            player = stateMachine.Player;
+            player = stateMachine.Player; // 플레이어 클래스에 이름 관리 메서드에 입력 받은 이름에 대한 정보 전달
         }
 
         public override void Exit()
@@ -36,7 +36,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
             Console.WriteLine("사용하실 이름을 입력해주세요");
             string name = Console.ReadLine();
 
-            player.SetName(name);
+            player.SetName(name); // 플레이어 클래스에 이름 관리 메서드에 입력 받은 이름에 대한 정보 전달
 
             Console.Clear();
 
@@ -57,8 +57,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene
                 {
                     // 전사
                     case "1":
-                        player.Job = Job.Warrior;
-                        stateMachine.ChangeState(stateMachine.VillageScene);
+                        player.Job = Job.Warrior; // player 클래스에 유저가 선택한 직업 정보 전달
+                        stateMachine.ChangeState(stateMachine.VillageScene); // 직업 선택 후 마을로 이동
                         break;
                     // 법사
                     case "2":
