@@ -56,7 +56,7 @@ namespace DungeonTRPG.Manager.Data
         {
             if (Items.ContainsKey(key))
             {
-                return Items[key];
+                return Items[key].Clone();
             }
             return null;
         }

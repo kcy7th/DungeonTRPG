@@ -48,6 +48,7 @@
             {
                 Exp -= MaxExp; // 100이 넘는 경험치를 얻을 경우 남은 경험치 유지
                 Lv++;
+                MaxExp = (int)(MaxExp * 1.1f);
                 Hp = MaxHp;
             }
         }

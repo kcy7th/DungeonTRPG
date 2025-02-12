@@ -8,6 +8,7 @@ using DungeonTRPG.StateMachineSystem;
 using DungeonTRPG.StateMachineSystem.SceneStates.PlayerScene;
 using DungeonTRPG.Utility.Enums;
 using DungeonTRPG.EntitySystem;
+using System.Runtime.InteropServices;
 
 namespace DungeonTRPG
 {

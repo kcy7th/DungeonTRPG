@@ -34,6 +34,18 @@ namespace DungeonTRPG.EntitySystem
             Stat.CharacterDie += CharacterDie;
         }
 
+        public Character(string name, int gold, Stat stat, List<Skill> skills)
+        {
+            Name = name;
+            Gold = gold;
+            Stat = stat;
+            Inventory = new Inventory(this);
+            CharacterState = new CharacterState();
+            Skills = skills;
+
+            Stat.CharacterDie += CharacterDie;
+        }
+
         public Character(string name, int gold, Stat stat, List<int> IndexSkill)
         {
             Name = name;
@@ -84,6 +96,12 @@ namespace DungeonTRPG.EntitySystem
             
             if (damage < 0) damage = 0;
             damage = target.Stat.TakeDamage(damage);
+
+            Console.Clear();
+            Console.WriteLine(OnAttack?.GetInvocationList().Length);
+
+            Thread.Sleep(10000);
+
             OnAttack?.Invoke(this, target, damage);
         }
 
@@ -145,5 +163,7 @@ namespace DungeonTRPG.EntitySystem
                 Gold += amount;
             }
         }
+
+        public abstract Character Clone();
     }
 }

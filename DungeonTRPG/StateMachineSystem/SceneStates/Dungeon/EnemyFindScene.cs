@@ -2,13 +2,41 @@
 using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Manager.Data;
 using DungeonTRPG.StateMachineSystem.SceneStates.Combat;
+using DungeonTRPG.Manager;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
 {
     internal class EnemyFindScene : DungeonScene
     {
+        private List<Enemy> enemys = new List<Enemy>();
+
         internal EnemyFindScene(StateMachine stateMachine) : base(stateMachine)
         {
+        }
+
+        public override void Enter()
+        {
+            base.Enter();
+
+            enemys.Clear();
+
+            int enemyCount = Random.Next(1, 5);
+
+            for(int i = 0; i < enemyCount; i++)
+            {
+                int enemyIndex = GetRandomIndexInBoundery();
+                Enemy enemy = GameManager.Instance.DataManager.GameData.EnemyDB.GetByKey(7999 + enemyIndex);
+                enemys.Add(enemy);
+            }
+        }
+
+        private int GetRandomIndexInBoundery()
+        {
+            int index = Random.Next(stateMachine.currentFloor - 2, stateMachine.currentFloor + 2);
+            if (index < 1) index = 1;
+            else if(index > 100) index = 100;
+
+            return index;
         }
 
         // 전투 함수
@@ -54,12 +82,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     break;
                 case "1":
                     // 싸운다
-                    List<Enemy> enemys = new List<Enemy>();
-                    for (int i = 0; i < 4; i++)
-                    {
-                        Enemy enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 10, 10, 1));
-                        enemys.Add(enemy);
-                    }
                     stateMachine.ChangeState(new CombatScene(stateMachine, enemys));
                     break;
                 // 다른 입력

@@ -1,5 +1,4 @@
 ﻿using DungeonTRPG.EntitySystem;
-using DungeonTRPG.EntitySystem;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat

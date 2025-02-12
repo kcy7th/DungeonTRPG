@@ -13,6 +13,11 @@ namespace DungeonTRPG.EntitySystem
             this.Job = job;
         }
 
+        public override Character Clone()
+        {
+            return new Player(Name, Gold, Stat, Job);
+        }
+
         // 경험치 획득
         public void GetExp(int dropExp)
         {

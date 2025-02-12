@@ -17,12 +17,6 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
             this.description = description;
             this.cost = cost;
         }
-
-        public void AddEffect(IEffect effect)
-        {
-            effects.Add(effect);
-        }
-
         public Skill(string name, string description, List<IEffect> effects, int cost)
         {
             this.name = name;
@@ -30,6 +24,17 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
             this.effects = effects;
             this.cost = cost;
         }
+
+        public Skill Clone()
+        {
+            return new Skill(name, description, effects, cost);
+        }
+
+        public void AddEffect(IEffect effect)
+        {
+            effects.Add(effect);
+        }
+        
         public bool UseSkill(Character caster, List<Character> targets)
         {
             if (caster.Stat.Mp >= cost)

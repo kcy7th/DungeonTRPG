@@ -44,8 +44,8 @@ namespace DungeonTRPG.Items
 
         public override string GetItemInformation()
         {
-            string s = $"{name} | {description} {GetItemStatToString()} | [사용 가능한 직업 : {AllowedJobToString()}]";
-            return s;
+            string job = isAllowedJob(Job.None) ? "" : $"[ 직업 : {AllowedJobToString()}]";
+            return $"{name} | {description} {GetItemStatToString()} {job}";
         }
     }
 }

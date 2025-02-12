@@ -86,16 +86,23 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     if (UseableIn.OnlyIdle == item.UseableIn) SendMessage("전투가 아닌 상태에만 사용할 수 있습니다.");
                     else
                     {
-                        if (item.useOnSelf)
+                        if (item.isAllowedJob(player.Job))
                         {
-                            inventory.ItemUse(num + (inventory.BoundaryIndex - 1) + (currentPage * 5), player, null);
+                            if (item.useOnSelf)
+                            {
+                                inventory.ItemUse(num + (inventory.BoundaryIndex - 1) + (currentPage * 5), player, null);
+                                stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));
+                                return;
+                            }
+                            else
+                            {
+                                selectItem = num + (inventory.BoundaryIndex - 1 + (currentPage * 5));
+                                stateMachine.preCombatScene = this;
+                                stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
+                                return;
+                            }
                         }
-                        else
-                        {
-                            selectItem = num + (inventory.BoundaryIndex - 1 + (currentPage * 5));
-                            stateMachine.preCombatScene = this;
-                            stateMachine.ChangeState(new SelectEnemyScene(stateMachine, enemys));
-                        }
+                        else SendMessage($"{player.Job} 은(는) 사용할 수 없는 아이템 입니다.");
                     }
                 }
                 else SendMessage("잘못된 입력입니다.");

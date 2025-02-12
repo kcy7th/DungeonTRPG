@@ -51,10 +51,21 @@
         }
 
         private void ViewStat()
-        {           
+        {
             Console.Write($"Lv. ");
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(player.Stat.Lv);
+            Console.Write(player.Stat.Lv);
+            Console.ResetColor();
+
+            Console.Write($" [ Exp : ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.Exp);
+            Console.ResetColor();
+            Console.Write(" / ");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(player.Stat.MaxExp);
+            Console.ResetColor();
+            Console.WriteLine(" ]");
             Console.ResetColor();
 
             Console.WriteLine($"{player.Name} ( {player.Job} )");
