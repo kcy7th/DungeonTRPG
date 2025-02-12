@@ -83,15 +83,17 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("마을");
             Console.ResetColor();
-            Console.WriteLine("");
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("===========================================================================");
-            Console.WriteLine("||                         이동할 곳을 선택해 주세요                     ||");
-            Console.WriteLine("||    1. 던전  2. 상점  3. 여관  4. 인벤토리 5. 상태 보기 0. 게임 종료   ||");
-            Console.WriteLine("===========================================================================");
-            Console.WriteLine("");
-            Console.ResetColor();
+            Console.WriteLine("사람들이 머무르는 마을입니다. 어디로 갈지 선택하세요.");
+            Console.WriteLine(
+                $"\n" +
+                $"1. 던전 \n" +
+                $"2. 상점 \n" +
+                $"3. 여관 \n" +
+                $"4. 인벤토리 \n" +
+                $"5. 상태 보기 \n" +
+                $"0. 게임 종료 \n");
+            Console.Write("원하시는 행동을 입력해주세요.\n>> ");
+            
         }
     }
 }

@@ -42,6 +42,11 @@
 
         protected override void View()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("상태 보기");
+            Console.ResetColor();
+            Console.WriteLine("내 정보를 표시합니다.");
+
             ViewStat();
         }
 
