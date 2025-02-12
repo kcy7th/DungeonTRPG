@@ -1,4 +1,5 @@
-﻿using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.Utility.Enums;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
@@ -45,7 +46,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             else if (random == 1)
             {
                 random = Random.Next(0, enemy.Skills.Count);
-                enemy.Skills[random].UseSkill(enemy, player);
+                enemy.Skills[random].UseSkill(enemy, new List<Character>() { player });
             }
 
             Thread.Sleep(1000);

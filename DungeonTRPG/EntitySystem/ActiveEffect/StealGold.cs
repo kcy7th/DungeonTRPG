@@ -20,9 +20,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         //대상의 골드를 갈취하는 효과
         //
-        public void UseEffect(Character caster, Character target)
+        public void UseEffect(Character caster, List<Character> targets)
         {
-            bool stolemoney = target.SpendGold(amount); //대상의 골드를 차감시키고
+            bool stolemoney = targets[0].SpendGold(amount); //대상의 골드를 차감시키고
 
             if (stolemoney) //털었다면
             {

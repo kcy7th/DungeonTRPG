@@ -28,14 +28,15 @@ namespace DungeonTRPG.EntitySystem.SkillSystem
             this.name = name;
             this.description = description;
             this.effects = effects;
+            this.cost = cost;
         }
-        public bool UseSkill(Character caster, Character target)
+        public bool UseSkill(Character caster, List<Character> targets)
         {
             if (caster.Stat.Mp >= cost)
             {
                 foreach (var skill in effects)
                 {
-                    skill.UseEffect(caster, target);
+                    skill.UseEffect(caster, targets);
                     caster.UseMana(cost);
                 }
                 return true;

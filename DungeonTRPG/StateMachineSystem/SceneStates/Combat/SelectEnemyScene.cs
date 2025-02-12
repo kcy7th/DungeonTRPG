@@ -1,4 +1,5 @@
-﻿using DungeonTRPG.Entity.Enemy;
+﻿using DungeonTRPG.Entity;
+using DungeonTRPG.Entity.Enemy;
 using DungeonTRPG.EntitySystem.SkillSystem;
 using DungeonTRPG.Items;
 using System;
@@ -50,12 +51,12 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                         {
                             CombatSkillScene combatSkill = stateMachine.preCombatScene as CombatSkillScene;
                             Skill skill = player.Skills[combatSkill.selectSkill];
-                            skill.UseSkill(null, enemys[num - 1]);
+                            skill.UseSkill(player, new List<Character>() { enemys[num - 1] });
                         }
                         else if (stateMachine.preCombatScene is CombatItemScene)
                         {
                             CombatItemScene combatItem = stateMachine.preCombatScene as CombatItemScene;
-                            player.Inventory.ItemUse(combatItem.selectItem, player, enemys[num - 1]);
+                            player.Inventory.ItemUse(combatItem.selectItem, player, new List<Character>() { enemys[num - 1] });
                         }
 
                         stateMachine.ChangeState(new EnemyTurnScene(stateMachine, enemys));

@@ -57,7 +57,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     List<Enemy> enemys = new List<Enemy>();
                     for (int i = 0; i < 4; i++)
                     {
-                        Enemy enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 10, 1));
+                        Enemy enemy = new Enemy("고블린", 10, new Stat(1, 10, 10, 10, 10, 10, 1));
                         enemys.Add(enemy);
                     }
                     stateMachine.ChangeState(new CombatScene(stateMachine, enemys));

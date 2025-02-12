@@ -13,10 +13,10 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         }
 
         //타겟의 Hp가 시전자의 공격력*설정된 값(modifier)만큼 감소하는 효과
-        public void UseEffect(Character caster, Character target)
+        public void UseEffect(Character caster, List<Character> enemys)
         {
             TotalDamage = (int)(caster.Stat.Atk*modifier);
-            target.Damaged(TotalDamage);
+            enemys[0].Damaged(TotalDamage);
         }
     }
 }
