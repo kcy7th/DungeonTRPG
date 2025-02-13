@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -8,11 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Manager\" />
-    <Folder Include="Item\" />
-    <Folder Include="Shop\" />
-    <Folder Include="Scenes\" />
-    <Folder Include="Utility\" />
+    <Compile Remove="Item\**" />
+    <Compile Remove="Shop\**" />
+    <EmbeddedResource Remove="Item\**" />
+    <EmbeddedResource Remove="Shop\**" />
+    <None Remove="Item\**" />
+    <None Remove="Shop\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>
