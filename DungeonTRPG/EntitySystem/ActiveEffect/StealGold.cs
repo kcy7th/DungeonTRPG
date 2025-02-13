@@ -20,7 +20,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
         //대상의 골드를 갈취하는 효과
         //
-        public void UseEffect(Character caster, List<Character> targets)
+        public int UseEffect(Character caster, List<Character> targets)
         {
             bool stolemoney = targets[0].SpendGold(amount); //대상의 골드를 차감시키고
 
@@ -28,6 +28,8 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             {
                 caster.SpendGold(-amount);//amount의 -만큼 SpendGold (반대로 올리기)
             }
+
+            return 0;
         }
     }
 }

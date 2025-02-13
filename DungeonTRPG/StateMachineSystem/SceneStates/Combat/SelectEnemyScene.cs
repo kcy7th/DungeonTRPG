@@ -24,14 +24,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             foreach (Enemy enemy in stateMachine.enemys)
             {
-                enemy.OnAttack += Attack;
-                enemy.OnDamage += Damage;
-                enemy.OnHeal += Heal;
                 enemy.OnCharacterDie += CharacterDead;
             }
 
-            player.OnAttack += Attack;
-            player.OnDamage += Damage;
             player.OnCharacterDie += CharacterDead;
         }
 
@@ -41,14 +36,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             foreach (Enemy enemy in stateMachine.enemys)
             {
-                enemy.OnAttack -= Attack;
-                enemy.OnDamage -= Damage;
-                enemy.OnHeal -= Heal;
                 enemy.OnCharacterDie -= CharacterDead;
             }
 
-            player.OnAttack -= Attack;
-            player.OnDamage -= Damage;
             player.OnCharacterDie -= CharacterDead;
         }
 
@@ -75,20 +65,27 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
                 else if (0 < num && num <= stateMachine.enemys.Count)
                 {
-                    if (stateMachine.enemys[num - 1].Stat.Hp > 0)
+                    Enemy enemy = stateMachine.enemys[num - 1];
+                    if (enemy.Stat.Hp > 0)
                     {
-                        if (stateMachine.preCombatScene is PlayerTurnScene) player.Attack(stateMachine.enemys[num - 1]);
+                        if (stateMachine.preCombatScene is PlayerTurnScene)
+                        {
+                            int damage = player.Attack(enemy);
+                            Attack(player, enemy, damage);
+                        }
                         else if (stateMachine.preCombatScene is CombatSkillScene)
                         {
                             CombatSkillScene combatSkill = stateMachine.preCombatScene as CombatSkillScene;
                             int key = player.Skills[combatSkill.selectSkill];
                             Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key);
-                            skill.UseSkill(player, new List<Character>() { stateMachine.enemys[num - 1] });
+                            UseSkill(enemy, skill.name);
+                            int damage = skill.UseSkill(player, new List<Character>() { enemy });
+                            if (damage > 0) Damage(enemy, damage);
                         }
                         else if (stateMachine.preCombatScene is CombatItemScene)
                         {
                             CombatItemScene combatItem = stateMachine.preCombatScene as CombatItemScene;
-                            player.Inventory.ItemUse(combatItem.selectItem, player, new List<Character>() { stateMachine.enemys[num - 1] });
+                            player.Inventory.ItemUse(combatItem.selectItem, player, new List<Character>() { enemy });
                         }
 
                         stateMachine.ChangeState(new EnemyTurnScene(stateMachine));

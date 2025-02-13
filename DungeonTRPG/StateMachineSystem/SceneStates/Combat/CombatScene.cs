@@ -308,14 +308,37 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Thread.Sleep(stateMachine.tick);
         }
 
-        protected override void Heal(Character target, int heal)
+        protected void SplashDamage(List<Character> targets, int damage)
+        {
+            BlinkingEffect();
+
+            for (int i = 0; i < targets.Count; i++)
+            {
+                Console.WriteLine("\n" +
+                $"Lv.{targets[i].Stat.Lv} {targets[i].Name} 이(가) 데미지를 받았습니다. [데미지 : {damage}]");
+            }
+
+            Thread.Sleep(stateMachine.tick);
+        }
+
+        protected void UseSkill(Character target, string skillName)
+        {
+            BlinkingEffect();
+
+            Console.WriteLine("\n" +
+                $"Lv.{target.Stat.Lv} {target.Name} 이(가) {skillName} 을(를) 시전 하였습니다.");
+
+            Thread.Sleep(stateMachine.tick);
+        }
+
+        protected override void Heal(Character target, int healHp, int healMp)
         {
             Console.Clear();
 
             EnemyStats();
             PlayerStats();
 
-            base.Heal(target, heal);
+            base.Heal(target, healHp, healMp);
         }
 
         private void BlinkingEffect()

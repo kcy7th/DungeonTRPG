@@ -18,9 +18,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         }
 
         //시전자의 Hp가 amount만큼 줄어드는 효과
-        public void UseEffect(Character caster, List<Character> enemys)
+        public int UseEffect(Character caster, List<Character> enemys)
         {
-            caster.Damaged(amount);
+            return caster.Damaged(amount);
         }
     }
 }

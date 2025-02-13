@@ -18,7 +18,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             this.amount = amount;
         }
 
-        public void UseEffect(Character caster, List<Character> enemys)
+        public int UseEffect(Character caster, List<Character> enemys)
         {
             Random random= new Random();
             int roll = (int)(random.Next(1, 10) + caster.Stat.Atk*0.1);
@@ -39,6 +39,8 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             {
                 enemys[0].Stat.SetDef(enemys[0].Stat.Def - amount); //적의 방어력 amount만큼 감소
             }
+
+            return 0;
         }
     }
 }

@@ -17,18 +17,18 @@ namespace DungeonTRPG.Manager.Data
 
             // 1 ~ 10층 (튜토리얼)
             { 8000, new Enemy("슬라임", 50, new Stat(3, 10, 80, 30, 8, 8, 4), new List<int>(){ 9500 }) },
-            { 8001, new Enemy("거미", 60, new Stat(6, 11, 100, 40, 11, 11, 6), new List<int>(){}) },
-            { 8002, new Enemy("버섯", 70, new Stat(9, 12, 120, 50, 14, 14, 8), new List<int>(){}) },
+            { 8001, new Enemy("거미", 60, new Stat(6, 11, 100, 40, 11, 11, 6), new List<int>(){ 9507 }) },
+            { 8002, new Enemy("버섯", 70, new Stat(9, 12, 120, 50, 14, 14, 8), new List<int>(){ 9500 }) },
 
-            { 8003, new Enemy("화난 슬라임", 80, new Stat(12, 13, 140, 60, 17, 17, 10), new List<int>(){}) },
-            { 8004, new Enemy("독거미", 90, new Stat(15, 14, 160, 70, 20, 20, 12), new List<int>(){}) },
-            { 8005, new Enemy("뿔버섯", 100, new Stat(18, 15, 180, 80, 23, 23, 14), new List<int>(){}) },
+            { 8003, new Enemy("화난 슬라임", 80, new Stat(12, 13, 140, 60, 17, 17, 10), new List<int>(){ 9600 }) },
+            { 8004, new Enemy("독거미", 90, new Stat(15, 14, 160, 70, 20, 20, 12), new List<int>(){ 9607 }) },
+            { 8005, new Enemy("뿔버섯", 100, new Stat(18, 15, 180, 80, 23, 23, 14), new List<int>(){ 9600 }) },
 
-            { 8006, new Enemy("포이즌 슬라임", 110, new Stat(21, 16, 200, 90, 26, 26, 16), new List<int>(){}) },
-            { 8007, new Enemy("거대 거미", 120, new Stat(24, 17, 220, 100, 29, 29, 18), new List<int>(){}) },
-            { 8008, new Enemy("독버섯", 130, new Stat(27, 18, 240, 110, 32, 32, 20), new List<int>(){}) },
+            { 8006, new Enemy("포이즌 슬라임", 110, new Stat(21, 16, 200, 90, 26, 26, 16), new List<int>(){ 9500, 9508 }) },
+            { 8007, new Enemy("거대 거미", 120, new Stat(24, 17, 220, 100, 29, 29, 18), new List<int>(){ 9500, 9509}) },
+            { 8008, new Enemy("독버섯", 130, new Stat(27, 18, 240, 110, 32, 32, 20), new List<int>(){ 9500, 9608 }) },
 
-            { 8009, new Enemy("가디언 I", 140, new Stat(30, 19, 260, 120, 35, 35, 22), new List<int>(){}) },
+            { 8009, new Enemy("가디언 I", 140, new Stat(30, 19, 260, 120, 35, 35, 22), new List<int>(){ 9503, 9510 }) },
 
             // 11 ~ 20층 (야생)
             { 8010, new Enemy("박쥐", 160, new Stat(33, 20, 280, 130, 38, 38, 24), new List<int>(){}) },

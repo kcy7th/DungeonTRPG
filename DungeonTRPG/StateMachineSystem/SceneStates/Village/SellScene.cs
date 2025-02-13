@@ -6,6 +6,7 @@ using DungeonTRPG.Utility.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -79,7 +80,15 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                 if (num == 0) stateMachine.GoPreviousState();
                 else if (0 < num && num <= stateMachine.Player.Inventory.GetItems().Count)
                 {
-                    SellItem(num - 1);
+                    var inventoryItems = player.Inventory.GetItems();
+                    Item item = inventoryItems[num - 1];
+                    if(item is EquipItem)
+                    {
+                        EquipItem equipItem = item as EquipItem;
+                        if (equipItem.IsEquipped == false) SellItem(num - 1);
+                        else SendMessage("장착중인 아이템 입니다.");
+                    }
+                    else SellItem(num - 1);
                 }
                 else SendMessage("잘못된 입력입니다.");
             }

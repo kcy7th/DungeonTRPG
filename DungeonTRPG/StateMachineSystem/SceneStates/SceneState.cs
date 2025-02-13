@@ -19,13 +19,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
         {
             Console.Clear();
             Console.SetCursorPosition(0, 0);
-
-            player.OnHeal += Heal;
         }
 
         public virtual void Exit()
         {
-            player.OnHeal -= Heal;
+
         }
 
         public virtual void Update()
@@ -45,10 +43,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             Console.Clear();
         }
 
-        protected virtual void Heal(Character target, int heal)
+        protected virtual void Heal(Character target, int healHp, int healMp)
         {
             Console.WriteLine(
-                $"Lv.{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : {heal}]");
+                $"Lv.{target.Stat.Lv} {target.Name} 이(가) 회복하였습니다. [회복 : Hp {target.Stat.Hp - healHp} -> {target.Stat.Hp} | Mp {target.Stat.Mp - healMp} -> {target.Stat.Mp}]");
 
             Thread.Sleep(stateMachine.tick);
         }
@@ -66,8 +64,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates
             // 5초마다 회복
             Thread.Sleep(stateMachine.tick);
 
-            stateMachine.Player.Heal((int)(stateMachine.Player.Stat.MaxHp * persent));
-            stateMachine.Player.RecoverMana((int)(stateMachine.Player.Stat.MaxMp * persent));
+            int healHp = stateMachine.Player.Heal((int)(stateMachine.Player.Stat.MaxHp * persent));
+            int healMp = stateMachine.Player.RecoverMana((int)(stateMachine.Player.Stat.MaxMp * persent));
+
+            Heal(player, healHp, healMp);
         }
 
         protected abstract void View();

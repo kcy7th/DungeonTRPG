@@ -21,14 +21,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             foreach (Enemy enemy in stateMachine.enemys)
             {
-                enemy.OnAttack += Attack;
-                enemy.OnDamage += Damage;
-                enemy.OnHeal += Heal;
                 enemy.OnCharacterDie += CharacterDead;
             }
 
-            player.OnAttack += Attack;
-            player.OnDamage += Damage;
             player.OnCharacterDie += CharacterDead;
         }
 
@@ -38,16 +33,11 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 
             foreach (Enemy enemy in stateMachine.enemys)
             {
-                enemy.OnAttack -= Attack;
-                enemy.OnDamage -= Damage;
-                enemy.OnHeal -= Heal;
                 enemy.OnCharacterDie -= CharacterDead;
 
                 enemy.CharacterState.TurnCountDown();
             }
 
-            player.OnAttack -= Attack;
-            player.OnDamage -= Damage;
             player.OnCharacterDie -= CharacterDead;
 
             player.CharacterState.TurnCountDown();
@@ -62,15 +52,30 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
         {
             if (!CheckState()) return;
 
-            int random = Random.Next(0, 2);
+            int random = Random.Next(0, 101);
 
-            if (random == 0 || enemy.Skills.Count < 1) enemy.Attack(player);
-            else if (random == 1)
+            
+            if (random < 20)
             {
                 random = Random.Next(0, enemy.Skills.Count);
                 int key = enemy.Skills[random];
                 Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key);
-                skill.UseSkill(enemy, new List<Character>() { player });
+                if(enemy.Stat.Mp >= skill.cost)
+                {
+                    UseSkill(enemy, skill.name);
+                    int damage = skill.UseSkill(enemy, new List<Character>() { player });
+                    if (damage > 0) Damage(player, damage);
+                }
+                else
+                {
+                    int damage = enemy.Attack(player);
+                    Attack(enemy, player, damage);
+                }
+            }
+            else if (random < 101 || enemy.Skills.Count < 1)
+            {
+                int damage = enemy.Attack(player);
+                Attack(enemy, player, damage);
             }
 
             Thread.Sleep(stateMachine.tick);

@@ -23,7 +23,7 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
 
 
         //자기 자신에게 특정 확률(roll<probability)로 특정 상태이상(SetState(state))에 걸리게 하는 효과
-        public void UseEffect(Character player, List<Character> enemys)
+        public int UseEffect(Character player, List<Character> enemys)
         {
             Random chance = new Random();
             int roll = (int)(chance.Next(1, 101)); //1에서 100까지의 수를 생성
@@ -38,6 +38,8 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
             {
                 //필요하다면, 실패 메세지 호출하기
             }
+
+            return 0;
         }
     }
 }

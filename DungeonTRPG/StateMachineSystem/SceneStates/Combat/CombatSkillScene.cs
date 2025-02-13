@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DungeonTRPG.Manager;
+using DungeonTRPG.Manager.Data;
 
 namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
 {
@@ -98,8 +99,19 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                 {
                     if (player.Stat.Mp >= skills[num - 1].cost)
                     {
-                        stateMachine.preCombatScene = this;
-                        stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
+                        int key = player.Skills[num - 1];
+                        Skill skill = GameManager.Instance.DataManager.GameData.SkillDB.GetByKey(key);
+                        if (skill.isSplash)
+                        {
+                            List<Character> targets = new List<Character>(stateMachine.enemys);
+                            int damage = skill.UseSkill(player, targets);
+                            if (damage > 0) SplashDamage(targets, damage);
+                        }
+                        else
+                        {
+                            stateMachine.preCombatScene = this;
+                            stateMachine.ChangeState(new SelectEnemyScene(stateMachine));
+                        }
                     }
                     else SendMessage("마나가 부족합니다.");
                 }

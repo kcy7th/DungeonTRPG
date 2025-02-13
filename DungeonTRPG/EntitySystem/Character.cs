@@ -72,36 +72,34 @@ namespace DungeonTRPG.EntitySystem
         }
 
         // 공격
-        public void Attack(Character target)
+        public int Attack(Character target)
         {
             int damage = Stat.Atk > Stat.SpellAtk ? Stat.Atk : Stat.SpellAtk;
             
             if (damage < 0) damage = 0;
             damage = target.Stat.TakeDamage(damage);
 
-            OnAttack?.Invoke(this, target, damage);
+            return damage;
         }
 
         // 피격
         public int Damaged(int damage)
         {
             int result = Stat.TakeDamage(damage);
-            OnDamage?.Invoke(this, result);
             return result;
         }
 
         public int TrueDamaged(int damage)
         {
             int result = Stat.TakeTrueDamage(damage);
-            OnDamage?.Invoke(this, result);
             return result;
         }
 
         // 체력 회복
-        public void Heal(int amount)
+        public int Heal(int amount)
         {
             Stat.SetHp(Stat.Hp + amount);
-            OnHeal?.Invoke(this, amount);
+            return amount;
         }
 
         // 마나 사용
@@ -111,15 +109,17 @@ namespace DungeonTRPG.EntitySystem
         }
 
         // 마나 회복
-        public void RecoverMana(int amount)
+        public int RecoverMana(int amount)
         {
             Stat.SetMp(Stat.Mp + amount);
+            return amount;
         }
 
-        public void LearnSkill(int skillNum)
+        public int LearnSkill(int skillNum)
         {
-            if(Skills.Contains(skillNum)) return;
+            if(Skills.Contains(skillNum)) return 0;
             Skills.Add(skillNum);
+            return 1;
         }
 
         // 골드 차감

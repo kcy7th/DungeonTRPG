@@ -13,9 +13,9 @@ namespace DungeonTRPG.EntitySystem.ActiveEffect
         }
 
         //타겟의 Hp가 amount만큼 줄어드는 효과
-        public void UseEffect(Character caster, List<Character> enemys)
+        public int UseEffect(Character caster, List<Character> enemys)
         {
-            enemys[0].Damaged(amount);
+            return enemys[0].Damaged(amount);
         }
     }
 }
