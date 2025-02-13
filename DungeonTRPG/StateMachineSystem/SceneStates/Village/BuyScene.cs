@@ -38,7 +38,21 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
             shop.AddItem(7000);
             shop.AddItem(7100);
             shop.AddItem(7200);
-        }
+
+            shop.AddItem(1800);
+            shop.AddItem(1801);
+            shop.AddItem(1802);
+            shop.AddItem(1803);
+            shop.AddItem(1804);
+            shop.AddItem(1830);
+            shop.AddItem(1831);
+            shop.AddItem(1832);
+            shop.AddItem(1833);
+            shop.AddItem(1860);
+            shop.AddItem(1861);
+            shop.AddItem(1862);
+            shop.AddItem(1863);
+        }                
 
         public override void Enter()
         {
@@ -200,6 +214,20 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                     shop.AddItem(7004);
                     shop.AddItem(7104);
                     shop.AddItem(7204);
+
+                    shop.AddItem(1700);
+                    shop.AddItem(1701);
+                    shop.AddItem(1702);
+                    shop.AddItem(1703);
+                    shop.AddItem(1704);
+                    shop.AddItem(1730);
+                    shop.AddItem(1731);
+                    shop.AddItem(1732);
+                    shop.AddItem(1733);
+                    shop.AddItem(1760);
+                    shop.AddItem(1761);
+                    shop.AddItem(1762);
+                    shop.AddItem(1763);
                     break;
                 case 50:
                     shop.AddItem(2005);
@@ -280,6 +308,20 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Village
                     shop.AddItem(7008);
                     shop.AddItem(7108);
                     shop.AddItem(7208);
+
+                    shop.AddItem(1900);
+                    shop.AddItem(1901);
+                    shop.AddItem(1902);
+                    shop.AddItem(1903);
+                    shop.AddItem(1904);
+                    shop.AddItem(1930);
+                    shop.AddItem(1931);
+                    shop.AddItem(1932);
+                    shop.AddItem(1933);
+                    shop.AddItem(1960);
+                    shop.AddItem(1961);
+                    shop.AddItem(1962);
+                    shop.AddItem(1963);
                     break;
                 case 90:
                     shop.AddItem(2009);
