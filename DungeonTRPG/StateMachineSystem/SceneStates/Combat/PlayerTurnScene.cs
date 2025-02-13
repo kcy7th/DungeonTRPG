@@ -16,6 +16,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
             Console.Title = "PlayerTurn";
 
             stateMachine.enemyTurnCount = 0;
+            player.Stat.SetDefenseStance(false);
 
             switch (player.CharacterState.State)
             {
@@ -79,6 +80,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     stateMachine.ChangeState(new CombatItemScene(stateMachine));
                     break;
                 case "4":
+                    player.Stat.SetDefenseStance(true);
+                    stateMachine.ChangeState(new EnemyTurnScene(stateMachine));
                     break;
                 case "0":
                     // 이전 상태로 돌아가기 

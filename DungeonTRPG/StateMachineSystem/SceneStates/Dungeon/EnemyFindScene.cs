@@ -16,6 +16,8 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         public override void Enter()
         {
             base.Enter();
+
+            CreateEnemys();
         }
 
         private int GetRandomIndexInBoundery()
@@ -38,6 +40,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("몬스터와 만났습니다.");
             Console.WriteLine("");
+            for(int i = 0; i < stateMachine.enemys.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {stateMachine.enemys[i].Name}(Lv.{stateMachine.enemys[i].Stat.Lv})");
+            }
             Console.ResetColor();
 
 
@@ -49,6 +55,7 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
         private void ViewSelect()
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("");
             Console.WriteLine("===================================");
             Console.WriteLine("||     행동을 선택해 주세요       ||");
             Console.WriteLine("||  1. 싸운다   0. 몰래 지나간다  ||");
@@ -71,7 +78,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                     if (random > 50)
                     {
                         SendMessage("몰래 지나가다가 발각 되었습니다.");
-                        CreateEnemys();
                         stateMachine.ChangeState(stateMachine.CombatScene);
                     }
                     else
@@ -82,7 +88,6 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                 }
                 else if(num == 1)
                 {
-                    CreateEnemys();
                     stateMachine.ChangeState(stateMachine.CombatScene);
                 }
                 else SendMessage("잘못된 입력입니다.");
@@ -101,7 +106,13 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
             }
             else
             {
-                int enemyCount = Random.Next(1, 5);
+                int random = Random.Next(1, 101);
+                int enemyCount = 1;
+
+                if (random < 51) enemyCount = 1;
+                else if (random < 25) enemyCount = 2;
+                else if (random < 15) enemyCount = 3;
+                else if (random < 10) enemyCount = 4;
 
                 for (int i = 0; i < enemyCount; i++)
                 {

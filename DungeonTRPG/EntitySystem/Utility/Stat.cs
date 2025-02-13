@@ -13,6 +13,8 @@
         public int SpellAtk { get; private set; }
         public int Def { get; private set; }
 
+        public bool isDefenseStance { get; private set; } = false;
+
         public event Action? CharacterDie; // 죽음 이벤트
 
         public Stat(int level, int maxExp, int maxHp, int maxMp, int atk, int spellAtk, int def)
@@ -52,9 +54,13 @@
         {
             if (damage < Def) return 0;
 
-            int caculate = damage - (int)(Def / 5.0f);
+            int calculate = damage;
 
-            Hp -= caculate;
+            if (isDefenseStance) calculate = (int)(calculate * 0.2f);
+
+            calculate = calculate - (int)(Def / 5.0f);
+
+            Hp -= calculate;
 
             if (Hp <= 0)
             {
@@ -62,7 +68,7 @@
                 CharacterDie?.Invoke();
             }
 
-            return caculate;
+            return calculate;
         }
 
         public int TakeTrueDamage(int damage)
@@ -122,6 +128,11 @@
         {
             if (value < 0) SpellAtk = 0;
             else SpellAtk = value;
+        }
+
+        public void SetDefenseStance(bool defenseStance)
+        {
+            isDefenseStance = defenseStance;
         }
 
         public Stat Clone()
