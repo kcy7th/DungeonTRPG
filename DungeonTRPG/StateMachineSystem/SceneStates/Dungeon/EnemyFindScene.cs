@@ -110,9 +110,9 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Dungeon
                 int enemyCount = 1;
 
                 if (random < 51) enemyCount = 1;
-                else if (random < 25) enemyCount = 2;
-                else if (random < 15) enemyCount = 3;
-                else if (random < 10) enemyCount = 4;
+                else if (random < 76) enemyCount = 2;
+                else if (random < 91) enemyCount = 3;
+                else if (random < 101) enemyCount = 4;
 
                 for (int i = 0; i < enemyCount; i++)
                 {
