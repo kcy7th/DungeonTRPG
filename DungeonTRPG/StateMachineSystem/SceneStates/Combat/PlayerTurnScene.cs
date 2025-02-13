@@ -28,6 +28,10 @@ namespace DungeonTRPG.StateMachineSystem.SceneStates.Combat
                     player.Damaged(player.Stat.MaxHp / 10);
                     Addiction(player);
                     break;
+                case State.Poison:
+                    player.Damaged(player.Stat.MaxHp / 10);
+                    Addiction(player);
+                    break;
                 case State.Confusion:
                     Confusion(player);
                     break;
